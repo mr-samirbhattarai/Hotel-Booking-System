@@ -1,4 +1,4 @@
-package com.hotelbookingsystem.database;
+package com.hotelbookingsystem.DAO.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,23 +19,20 @@ public class DatabaseConnection {
 	
 	
 //	to check if the connection is successful
-//	public static void main(String[] args) {
-//		Connection conn = null;
-//		try {
-//			conn = DatabaseConnection.getConnection();
-//			if(conn != null) {
-//				System.err.println("Connection Successful");
-//			}
-//		}catch (ClassNotFoundException e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}catch (SQLException e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
-//	}
-	
-	
-	
-	
+	public static void main(String[] args) {
+		Connection conn = null;
+		try {
+			conn = DatabaseConnection.getConnection();
+			if(conn != null) {
+				System.err.println("Connection Successful");
+			}
+		}catch (ClassNotFoundException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+
 }

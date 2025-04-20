@@ -78,3 +78,4 @@ CREATE TABLE Reviews (
     FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE RESTRICT,
     FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id) ON DELETE CASCADE
 );
+
