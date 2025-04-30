@@ -1,117 +1,417 @@
+//package com.hotelbookingsystem.controller;
+//
+//import java.io.IOException;
+//import java.sql.SQLException;
+//
+//import javax.servlet.ServletException;
+//import javax.servlet.annotation.WebServlet;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//
+//import com.hotelbookingsystem.DAO.RegisterDAO;
+//import com.hotelbookingsystem.model.UserModel;
+//import com.hotelbookingsystem.utility.EncryptDecrypt;
+//
+//@WebServlet("/RegisterController")
+//public class RegisterController extends HttpServlet {
+//    private static final long serialVersionUID = 1L;
+//    private EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
+//
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        // Retrieve form parameters
+//        String firstName = request.getParameter("firstname");
+//        String lastName = request.getParameter("lastname");
+//        String username = request.getParameter("username");
+//        String email = request.getParameter("email");
+//        String password = request.getParameter("password");
+//        String retypePassword = request.getParameter("retypePassword");
+//        String terms = request.getParameter("terms");
+//
+//        boolean hasError = false;
+//
+//        try {
+//            RegisterDAO dao = new RegisterDAO();
+//
+//            // Validate inputs
+//            if (firstName == null || firstName.trim().isEmpty()) {
+//                request.setAttribute("firstnameError", "First name is required!");
+//                hasError = true;
+//            }
+//
+//            else if (lastName == null || lastName.trim().isEmpty()) {
+//                request.setAttribute("lastnameError", "Last name is required!");
+//                hasError = true;
+//            }
+//
+//            else if (username == null || username.trim().isEmpty()) {
+//                request.setAttribute("usernameError", "Username is required!");
+//                hasError = true;
+//            } 
+//            
+//            else if (dao.usernameExists(username)) {
+//                request.setAttribute("usernameError", "Username already exists!");
+//                hasError = true;
+//            }
+//
+//            else if (email == null || email.trim().isEmpty()) {
+//                request.setAttribute("emailError", "Email is required!");
+//                hasError = true;
+//            } 
+//            
+//            else if (dao.emailExists(email)) {
+//                request.setAttribute("emailError", "Email is already registered!");
+//                hasError = true;
+//            }
+//
+//            else if (password == null || password.isEmpty()) {
+//                request.setAttribute("passwordError", "Password is required!");
+//                hasError = true;
+//            }
+//
+//            else if (retypePassword == null || retypePassword.isEmpty()) {
+//                request.setAttribute("retypePasswordError", "Please confirm your password!");
+//                hasError = true;
+//            }
+//
+//            else if (password != null && retypePassword != null && !password.equals(retypePassword)) {
+//                request.setAttribute("passwordMatchError", "Passwords do not match!");
+//                hasError = true;
+//            }
+//
+//            else if (terms == null || !terms.equals("on")) {
+//                request.setAttribute("termsError", "You must accept the terms and conditions!");
+//                hasError = true;
+//            }
+//
+//            // If there are validation errors, forward back to the registration page
+//            if (hasError) {
+//                request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+//                return;
+//            }
+//
+//            // Encrypt password
+//            String encryptedPassword = encryptdecrypt.encrypt(password);
+//            if (encryptedPassword == null) {
+//                request.setAttribute("errorMessage", "An error occurred while processing your password.");
+//                request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+//                return;
+//            }
+//
+//            // Create user model and register user
+//            UserModel userModel = new UserModel();
+//            userModel.setFirstName(firstName);
+//            userModel.setLastName(lastName);
+//            userModel.setUsername(username);
+//            userModel.setEmail(email);
+//            userModel.setPassword(encryptedPassword);
+//
+//            boolean isRegistered = dao.registerUser(userModel);
+//            if (isRegistered) {
+//                request.setAttribute("status", "success");
+//            } else {
+//                request.setAttribute("status", "error");
+//            }
+//
+//            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+//
+//        } catch (ClassNotFoundException | SQLException e) {
+//            e.printStackTrace();
+//            request.setAttribute("status", "error");
+//            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+//        }
+//    }
+//}
+
+
+
+
+
+
+//package com.hotelbookingsystem.controller;
+//
+//import java.io.IOException;
+//import java.sql.SQLException;
+//
+//import javax.servlet.ServletException;
+//import javax.servlet.annotation.WebServlet;
+//import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//
+//import com.hotelbookingsystem.DAO.RegisterDAO;
+//import com.hotelbookingsystem.model.UserModel;
+//import com.hotelbookingsystem.utility.EncryptDecrypt;
+//
+//@WebServlet("/RegisterController")
+//public class RegisterController extends HttpServlet {
+//    private static final long serialVersionUID = 1L;
+//    private EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
+//
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        // Retrieve form parameters
+//        String firstName = request.getParameter("firstname");
+//        String lastName = request.getParameter("lastname");
+//        String username = request.getParameter("username");
+//        String email = request.getParameter("email");
+//        String password = request.getParameter("password");
+//        String retypePassword = request.getParameter("retypePassword");
+//        String terms = request.getParameter("terms");
+//
+//        boolean hasError = false;
+//
+//        try {
+//            RegisterDAO dao = new RegisterDAO();
+//
+//            // Validate inputs
+//            if (firstName == null || firstName.trim().isEmpty()) {
+//                request.setAttribute("firstnameError", "First name is required!");
+//                hasError = true;
+//            }
+//
+//            else if (lastName == null || lastName.trim().isEmpty()) {
+//                request.setAttribute("lastnameError", "Last name is required!");
+//                hasError = true;
+//            }
+//
+//            else if (username == null || username.trim().isEmpty()) {
+//                request.setAttribute("usernameError", "Username is required!");
+//                hasError = true;
+//            } 
+//            
+//            else if (dao.usernameExists(username)) {
+//                request.setAttribute("usernameError", "Username already exists!");
+//                hasError = true;
+//            }
+//
+//            else if (email == null || email.trim().isEmpty()) {
+//                request.setAttribute("emailError", "Email is required!");
+//                hasError = true;
+//            } 
+//            
+//            else if (dao.emailExists(email)) {
+//                request.setAttribute("emailError", "Email is already registered!");
+//                hasError = true;
+//            }
+//
+//            else if (password == null || password.isEmpty()) {
+//                request.setAttribute("passwordError", "Password is required!");
+//                hasError = true;
+//            }
+//
+//            else if (retypePassword == null || retypePassword.isEmpty()) {
+//                request.setAttribute("retypePasswordError", "Please confirm your password!");
+//                hasError = true;
+//            }
+//
+//            else if (password != null && retypePassword != null && !password.equals(retypePassword)) {
+//                request.setAttribute("passwordMatchError", "Passwords do not match!");
+//                hasError = true;
+//            }
+//
+//            else if (terms == null || !terms.equals("on")) {
+//                request.setAttribute("termsError", "You must accept the terms and conditions!");
+//                hasError = true;
+//            }
+//
+//            // If there are validation errors, forward back to the registration page
+//            if (hasError) {
+//                request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+//                return;
+//            }
+//
+//            // Encrypt password
+//            String encryptedPassword = encryptdecrypt.encrypt(password);
+//            if (encryptedPassword == null) {
+//                request.setAttribute("errorMessage", "An error occurred while processing your password.");
+//                request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+//                return;
+//            }
+//
+//            // Create user model and register user
+//            UserModel userModel = new UserModel();
+//            userModel.setFirstName(firstName);
+//            userModel.setLastName(lastName);
+//            userModel.setUsername(username);
+//            userModel.setEmail(email);
+//            userModel.setPassword(encryptedPassword);
+//
+//            boolean isRegistered = dao.registerUser(userModel);
+//            if (isRegistered) {
+//                request.setAttribute("status", "success");
+//            } else {
+//                request.setAttribute("status", "error");
+//            }
+//
+//            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+//
+//        } catch (ClassNotFoundException | SQLException e) {
+//            e.printStackTrace();
+//            request.setAttribute("status", "error");
+//            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+//        }
+//    }
+//}
+
+
+
+
+
+
 package com.hotelbookingsystem.controller;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.spec.KeySpec;
-import java.util.Base64;
+import java.sql.SQLException;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.hotelbookingsystem.DAO.RegisterDAO;
 import com.hotelbookingsystem.model.UserModel;
+import com.hotelbookingsystem.utility.EncryptDecrypt;
 
 @WebServlet("/RegisterController")
 public class RegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    private RegisterDAO dao = new RegisterDAO();
     private EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String firstName = request.getParameter("firstname");
         String lastName = request.getParameter("lastname");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
-
-        // 1. Check for empty fields
-        if (firstName == null || firstName.isEmpty() ||
-            lastName == null || lastName.isEmpty() ||
-            username == null || username.isEmpty() ||
-            email == null || email.isEmpty() ||
-            password == null || password.isEmpty() ||
-            confirmPassword == null || confirmPassword.isEmpty()) {
-
-            request.setAttribute("errorMessage", "Please fill in all the fields.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+        String retypePassword = request.getParameter("retypePassword");
+        String terms = request.getParameter("terms");
+        
+        
+     // Input validations
+        if (firstName == null || firstName.trim().isEmpty()) {
+            request.setAttribute("firstnameError", "First name is required!");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
             return;
         }
-
-        // 2. Check if passwords match
-        if (!password.equals(confirmPassword)) {
-            request.setAttribute("errorMessage", "Passwords do not match.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+        
+        if (lastName == null || lastName.trim().isEmpty()) {
+            request.setAttribute("lastnameError", "Last name is required!");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
             return;
         }
-
-        // 3. Check if username or email already exists
-        if (dao.usernameExists(username)) {
-            request.setAttribute("errorMessage", "Username already exists. Try another one.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+        
+        if (username == null || username.trim().isEmpty()) {
+            request.setAttribute("usernameError", "Username is required!");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
             return;
         }
-
-        if (dao.emailExists(email)) {
-            request.setAttribute("errorMessage", "Email already registered. Try logging in.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+        
+        if (email == null || email.trim().isEmpty()) {
+            request.setAttribute("emailError", "Email is required!");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
             return;
         }
-
-        // 4. Register user
-        UserModel userModel = new UserModel();
-        userModel.setFirstName(firstName);
-        userModel.setLastName(lastName);
-        userModel.setUsername(username);
-        userModel.setEmail(email);
-        userModel.setPassword(encryptdecrypt.encrypt(password));
-
-        boolean isRegistered = dao.registerUser(userModel);
-
-        if (isRegistered) {
-            HttpSession session = request.getSession();
-            session.setAttribute("successMessage", "Registered successfully! Please log in.");
-            response.sendRedirect("pages/register.jsp");
-        } else {
-            request.setAttribute("errorMessage", "Registration failed. Please try again.");
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+        
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            request.setAttribute("emailError", "Invalid email format.");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+            return;
         }
-    }
-}
-
-
-class EncryptDecrypt {
-    private static final String SECRET_KEY = "HotelRockstar";
-    private static final String SALT = "GrandTheftAutoVI";
-
-    public String encrypt(String password) {
+        
+        if (password == null || password.isEmpty()) {
+            request.setAttribute("passwordError", "Password cannot be empty.");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+            return;
+        }
+        
+//        if (password.length() < 8 || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")) {
+//            request.setAttribute("passwordError", "Password must be at least 8 characters, including uppercase, lowercase, a number, and a special character.");
+//            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+//            return;
+//        }
+        
+        if (retypePassword == null || retypePassword.isEmpty()) {
+            request.setAttribute("retypePasswordError", "Please confirm your password.");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+            return;
+        }
+        
+        if (!password.equals(retypePassword)) {
+            request.setAttribute("passwordMatchError", "Passwords do not match.");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+            return;
+        }
+        
+        if (terms == null || !terms.equals("on")) {
+            request.setAttribute("termsError", "You must agree to the terms and conditions.");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+            return;
+        }
+        
+        
+        
         try {
-            byte[] iv = new byte[16]; // all 0s
-            IvParameterSpec ivspec = new IvParameterSpec(iv);
+        	
+            RegisterDAO dao = new RegisterDAO();
+            if (dao.usernameExists(username)) {
+                request.setAttribute("usernameExistsError", "This username is already taken.");
+                request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+                return;
+            }
 
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            KeySpec spec = new PBEKeySpec(SECRET_KEY.toCharArray(), SALT.getBytes(), 65536, 256);
-            SecretKey tmp = factory.generateSecret(spec);
-            SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
+            if (dao.emailExists(email)) {
+                request.setAttribute("emailExistsError", "Email is already registered!");
+                request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+                return;
+            }
+            
+            // Encrypt password
+            String encryptedPassword = encryptdecrypt.encrypt(password);
+            if (encryptedPassword == null) {
+                System.err.println("Password encryption failed for username: " + username);
+                request.setAttribute("errorMessage", "Something went wrong while securing your password. Please try again.");
+                request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+                return;
+            }
 
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivspec);
-            return Base64.getEncoder().encodeToString(cipher.doFinal(password.getBytes(StandardCharsets.UTF_8)));
-        } catch (Exception e) {
-            System.out.println("Error while encrypting: " + e.toString());
-        }
-        return null;
+            // Set user details
+            UserModel userModel = new UserModel();
+            userModel.setFirstName(firstName);
+            userModel.setLastName(lastName);
+            userModel.setUsername(username);
+            userModel.setEmail(email);
+            userModel.setPassword(encryptedPassword);
+
+            // Register user
+            boolean isRegistered = dao.registerUser(userModel);
+            if (isRegistered) {
+ //               request.setAttribute("status", "success");
+                request.setAttribute("successMessage", "Registration successful! You can now log in.");
+            } else {
+  //              request.setAttribute("status", "error");
+                request.setAttribute("errorMessage", "Registration failed. Please try again later.");
+            }
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Something went wrong, please contact support");
+		    request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Server is busy or temporarily unavailable. Please try again later.");
+            request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
+		}
     }
 }

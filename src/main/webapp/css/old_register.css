@@ -10,7 +10,6 @@
       }
 
       body {
-        background: linear-gradient(#f1f3ff, #cbd4ff);
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -25,6 +24,7 @@
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         max-width: 900px;
         width: 100%;
+        position: absolute;
       }
 
       h2 {

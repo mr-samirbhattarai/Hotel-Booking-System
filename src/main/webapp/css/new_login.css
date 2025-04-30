@@ -2,127 +2,23 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-      body {
+      
+    body {
         background: linear-gradient(#f1f3ff, #cbd4ff);
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 20px;
-      }
-
-      .login-container {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 15px;
-        max-width: 900px;
-        width: 100%;
-      }
-
-      h2 {
-        font-size: 28px;
-        font-weight: 600;
-        text-align: center;
-        color: #151a2d;
-        margin-bottom: 10px;
-      }
-
-      p {
-        text-align: center;
-        color: #666;
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-
-      .form-label {
-        font-size: 15px;
-        font-weight: 500;
-        color: #151a2d;
-        margin-bottom: 8px;
-      }
-
-      .form-control {
-        border-radius: 8px;
-        border: 1px solid #ced4da;
-        padding: 12px;
-        font-size: 16px;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .form-control:focus {
-        border-color: #19211c;
-        box-shadow: 0 0 8px rgba(27, 38, 32, 0.3);
-        outline: none;
-      }
-
-      .position-relative {
-        position: relative;
-      }
-
-      .material-symbols-rounded {
-        position: absolute;
-        right: 34px;
-        top: 68%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #888;
-        font-size: 22px;
-        transition: color 0.3s ease;
-      }
-
-      .material-symbols-rounded:hover {
-        color: #000;
-      }
-
-      .btn-login {
-        background-color: #000;
-        color: #fff;
-        width: 160px;
-        padding: 10px 20px;
-        border-radius: 8px;
-        border: 2px solid transparent;
-        transition: all 0.3s ease;
-        display: block;
-        margin: 20px auto 0;
-        font-size: 16px;
-        margin-top: 30px;
-      }
-
-      .btn-login:hover {
-        background-color: #fff;
-        color: #000;
-        border: 2px solid #000;
-      }
-
-      .footer-text {
-        text-align: center;
-        margin-top: 20px;
-        font-size: 16px;
-        color: #666;
-      }
-
-      .footer-text span {
-        display: inline;
-      }
-
-      .footer-text a {
-        color: #000;
-        text-decoration: none;
-        font-weight: 500;
-        margin-left: 5px;
-      }
-
-      .footer-text a:hover {
-        text-decoration: underline;
-        color: #000;
-      }
+      }  
+      
       
       .main-container {
       width: 100%;
@@ -217,14 +113,18 @@
     }
 
     .form-container {
+      background-color: #ffffff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       gap: 15px;
-      margin-bottom: 20px;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 15px auto;
     }
 
-    .form-fields {
-      width: 100%;
+    .form-row {
+      margin-bottom: 15px;
     }
 
     .label-for-form {
@@ -235,7 +135,7 @@
       margin-bottom: 8px;
     }
 
-    .input-for-form {
+    .form-control {
       border-radius: 8px;
       border: 1px solid #777;
       padding: 12px;
@@ -244,10 +144,26 @@
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .input-for-form:focus {
+    .form-control:focus {
       border-color: #000;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
       outline: none;
+    }
+      
+    .form-control.is-invalid {
+	  border: 1px solid red;
+	}
+	
+	.label-for-form.text-danger {
+	  color: red;
+	}
+	
+	.text-danger{
+		position: absolute;
+	}
+    
+   .form-control.is-invalid::placeholder {
+      color: red;
     }
 
     .password-wrapper {
@@ -326,11 +242,3 @@
         padding: 20px;
       }
     }
-      
-      
-      
-      
-      
-      
-      
-      

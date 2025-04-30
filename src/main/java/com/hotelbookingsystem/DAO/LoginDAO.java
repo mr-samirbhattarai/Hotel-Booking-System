@@ -29,14 +29,14 @@ public class LoginDAO {
                 
                 // Iterate through result set and populate User objects
                 while (userSet.next()) {
-                    UserModel user = new UserModel();
-                    user.setFirstName(userSet.getString("firstname"));
-                    user.setLastName(userSet.getString("lastname"));
-                    user.setUsername(userSet.getString("username"));
-                    user.setEmail(userSet.getString("email"));
-                    user.setPassword(userSet.getString("password"));
-                    user.setRole(userSet.getString("role")); // Optional if you need role
-                    users.add(user);
+                	UserModel userModel = new UserModel();
+                	userModel.setFirstName(userSet.getString("firstname"));
+                	userModel.setLastName(userSet.getString("lastname"));
+                	userModel.setUsername(userSet.getString("username"));
+                	userModel.setEmail(userSet.getString("email"));
+                	userModel.setPassword(userSet.getString("password"));
+                	userModel.setRole(userSet.getString("role")); // Optional if you need role
+                    users.add(userModel);
                 }
             } catch (SQLException e) {
                 e.printStackTrace(); // TODO Shows error if query fails
@@ -47,7 +47,7 @@ public class LoginDAO {
 
     // Method to handle login based on email and password
     public UserModel loginUser(String email, String password) {
-        UserModel user = null;
+    	UserModel user = null;
         String query = "SELECT * FROM users WHERE email = ? AND password = ?"; // Adjust query if needed
 
         if (conn != null) {
