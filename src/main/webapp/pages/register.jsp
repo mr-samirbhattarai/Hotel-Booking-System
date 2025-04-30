@@ -94,7 +94,7 @@
             <label class ="form-check-label" for="terms">I agree to the terms and conditions</label>
         </div>
         </div>
-                <button type="submit" class="btn-register">Register</button>
+             <button type="submit" class="btn-register">Register</button>
       </form>
     </div>
 
