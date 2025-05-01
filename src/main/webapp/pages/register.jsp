@@ -29,7 +29,9 @@
       <form method="post" action="${pageContext.request.contextPath}/RegisterController">
         <div class="form-container">
           <div class="form-row">
-            <div class="form-fields">
+
+            <div classA="form-fields">
+
               <label for="firstname" class="label-for-form">First Name:</label>
               <input type="text" class="form-control ${not empty firstnameError ? 'is-invalid' : ''}" 
                      id="firstname" name="firstname" value="${param.firstname}" 
@@ -126,3 +128,4 @@
   </script>  
 </body>
 </html>
+

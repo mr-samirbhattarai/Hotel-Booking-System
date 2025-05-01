@@ -1,7 +1,17 @@
 package com.hotelbookingsystem.controller;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,26 +19,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.hotelbookingsystem.DAO.RegisterDAO;
 import com.hotelbookingsystem.model.UserModel;
 import com.hotelbookingsystem.utility.EncryptDecrypt;
+=======
+import javax.sql.DataSource;
+
 
 @WebServlet("/RegisterController")
 public class RegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private EncryptDecrypt encryptdecrypt = new EncryptDecrypt();
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
+        // Retrieve form parameters
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
 
-        String firstName = request.getParameter("firstname");
-        String lastName = request.getParameter("lastname");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String retypePassword = request.getParameter("retypePassword");
         String terms = request.getParameter("terms");
+
         
         
      // Input validations
@@ -151,3 +166,4 @@ public class RegisterController extends HttpServlet {
 		}
     }
 }
+

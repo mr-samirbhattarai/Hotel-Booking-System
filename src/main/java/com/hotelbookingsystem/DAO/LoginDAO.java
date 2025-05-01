@@ -7,20 +7,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.hotelbookingsystem.database.DatabaseConnection;
-import com.hotelbookingsystem.model.UserModel;
+import com.hotelbookingsystem.model.User;
 
 public class LoginDAO {
     private Connection conn;
     private PreparedStatement ps;
 
     public LoginDAO() throws ClassNotFoundException, SQLException {
-        this.conn = DatabaseConnection.getConnection();
+
+    	this.conn = DatabaseConnection.getConnection();
     }
 
     // Method to retrieve all users (for admin purposes or if needed for registration check)
-    public ArrayList<UserModel> getAllUsers() {
-        ArrayList<UserModel> users = new ArrayList<>();
-        String query = "SELECT * FROM users"; // Adjust query if you need to limit fields
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> users = new ArrayList<>();
+        String query = "SELECT * FROM users";
 
         if (conn != null) {
             try {
@@ -29,14 +30,14 @@ public class LoginDAO {
                 
                 // Iterate through result set and populate User objects
                 while (userSet.next()) {
-                	UserModel userModel = new UserModel();
-                	userModel.setFirstName(userSet.getString("firstname"));
-                	userModel.setLastName(userSet.getString("lastname"));
-                	userModel.setUsername(userSet.getString("username"));
-                	userModel.setEmail(userSet.getString("email"));
-                	userModel.setPassword(userSet.getString("password"));
-                	userModel.setRole(userSet.getString("role")); // Optional if you need role
-                    users.add(userModel);
+                    User user = new User();
+                    user.setFirstName(userSet.getString("firstname"));
+                    user.setLastName(userSet.getString("lastname"));
+                    user.setUsername(userSet.getString("username"));
+                    user.setEmail(userSet.getString("email"));
+                    user.setPassword(userSet.getString("password"));
+                    user.setRole(userSet.getString("role")); // Optional if you need role
+                    users.add(user);
                 }
             } catch (SQLException e) {
                 e.printStackTrace(); // TODO Shows error if query fails
@@ -46,8 +47,10 @@ public class LoginDAO {
     }
 
     // Method to handle login based on email and password
-    public UserModel loginUser(String email, String password) {
-    	UserModel user = null;
+
+    public User loginUser(String email, String password) {
+        User user = null;
+
         String query = "SELECT * FROM users WHERE email = ? AND password = ?"; // Adjust query if needed
 
         if (conn != null) {
@@ -58,8 +61,9 @@ public class LoginDAO {
                 ResultSet userSet = ps.executeQuery();
                 
                 // If a user is found, populate the User object
-                if (userSet.next()) {
-                    user = new UserModel();
+
+                if (userSet.next()) {git
+                    user = new User();
                     user.setFirstName(userSet.getString("firstname"));
                     user.setLastName(userSet.getString("lastname"));
                     user.setUsername(userSet.getString("username"));
