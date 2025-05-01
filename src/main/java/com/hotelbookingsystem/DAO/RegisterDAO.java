@@ -2,34 +2,78 @@ package com.hotelbookingsystem.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.hotelbookingsystem.database.DatabaseConnection;
-import com.hotelbookingsystem.model.User;
+import com.hotelbookingsystem.model.UserModel;
 
 public class RegisterDAO {
 
-    // No need to specify URL, username, and password here as we're using DatabaseConnection
-    public boolean registerUser(User user) {
+    private Connection conn;
+
+    public RegisterDAO() throws ClassNotFoundException, SQLException {
+        conn = DatabaseConnection.getConnection(); // Establish a database connection
+    }
+
+    public boolean registerUser(UserModel userModel) {
+        boolean isRowInserted = false;
         String sql = "INSERT INTO users (firstname, lastname, username, email, password) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = DatabaseConnection.getConnection(); // Use the DatabaseConnection class
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            stmt.setString(1, user.getFirstName());
-            stmt.setString(2, user.getLastName());
-            stmt.setString(3, user.getUsername());
-            stmt.setString(4, user.getEmail());
-            stmt.setString(5, user.getPassword());     
-            
-            int rowsAffected = stmt.executeUpdate();
-            
-            return rowsAffected > 0;  // Return true if user was successfully registered
-            
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            System.err.println("Registration failed: " + e.getMessage());
-            return false;  // Return false if there was an error during registration
+        if (conn != null) {
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, userModel.getFirstName());
+                ps.setString(2, userModel.getLastName());
+                ps.setString(3, userModel.getUsername());
+                ps.setString(4, userModel.getEmail());
+                ps.setString(5, userModel.getPassword());
+
+                int rows = ps.executeUpdate();
+                isRowInserted = (rows > 0);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return isRowInserted;
     }
+
+    public boolean usernameExists(String username) {
+        boolean isRowFound = false;
+        String sql = "SELECT COUNT(*) FROM users WHERE username = ?";
+
+        if (conn != null) {
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, username);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        isRowFound = true;
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return isRowFound;
+    }
+
+    public boolean emailExists(String email) {
+        boolean isRowFound = false;
+        String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+
+        if (conn != null) {
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, email);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        isRowFound = true;
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return isRowFound;
+    }
+    
+
 }

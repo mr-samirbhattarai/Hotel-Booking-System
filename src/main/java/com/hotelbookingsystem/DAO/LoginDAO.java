@@ -14,6 +14,7 @@ public class LoginDAO {
     private PreparedStatement ps;
 
     public LoginDAO() throws ClassNotFoundException, SQLException {
+
     	this.conn = DatabaseConnection.getConnection();
     }
 
@@ -46,8 +47,10 @@ public class LoginDAO {
     }
 
     // Method to handle login based on email and password
+
     public User loginUser(String email, String password) {
         User user = null;
+
         String query = "SELECT * FROM users WHERE email = ? AND password = ?"; // Adjust query if needed
 
         if (conn != null) {
@@ -58,6 +61,7 @@ public class LoginDAO {
                 ResultSet userSet = ps.executeQuery();
                 
                 // If a user is found, populate the User object
+
                 if (userSet.next()) {git
                     user = new User();
                     user.setFirstName(userSet.getString("firstname"));

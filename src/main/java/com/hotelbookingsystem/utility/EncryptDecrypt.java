@@ -13,6 +13,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class EncryptDecrypt {
+
 	private static final String SECRET_KEY = "my_super_secret_key";
 	private static final String SALT = "ssshhhhhhhhhhh!!!!";
 
@@ -34,6 +35,7 @@ public class EncryptDecrypt {
 		}
 		return null;
 	}
+
 
 	public static String decrypt(String input) {
 		try {
