@@ -62,7 +62,7 @@ public class LoginDAO {
                 
                 // If a user is found, populate the User object
 
-                if (userSet.next()) {git
+                if (userSet.next()) {
                     user = new User();
                     user.setFirstName(userSet.getString("firstname"));
                     user.setLastName(userSet.getString("lastname"));

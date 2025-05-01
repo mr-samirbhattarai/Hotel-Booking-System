@@ -1,17 +1,7 @@
 package com.hotelbookingsystem.controller;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
-
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,12 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.hotelbookingsystem.DAO.RegisterDAO;
 import com.hotelbookingsystem.model.UserModel;
 import com.hotelbookingsystem.utility.EncryptDecrypt;
-=======
-import javax.sql.DataSource;
 
 
 @WebServlet("/RegisterController")
@@ -47,13 +34,13 @@ public class RegisterController extends HttpServlet {
         
         
      // Input validations
-        if (firstName == null || firstName.trim().isEmpty()) {
+        if (firstname == null || firstname.trim().isEmpty()) {
             request.setAttribute("firstnameError", "First name is required!");
             request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
             return;
         }
         
-        if (lastName == null || lastName.trim().isEmpty()) {
+        if (lastname == null || lastname.trim().isEmpty()) {
             request.setAttribute("lastnameError", "Last name is required!");
             request.getRequestDispatcher("/pages/register.jsp").forward(request, response);
             return;
@@ -125,7 +112,7 @@ public class RegisterController extends HttpServlet {
             }
             
             // Encrypt password
-            String encryptedPassword = encryptdecrypt.encrypt(password);
+            String encryptedPassword = EncryptDecrypt.encrypt(password);
             if (encryptedPassword == null) {
                 System.err.println("Password encryption failed for username: " + username);
                 request.setAttribute("errorMessage", "Something went wrong while securing your password. Please try again.");
@@ -135,8 +122,8 @@ public class RegisterController extends HttpServlet {
 
             // Set user details
             UserModel userModel = new UserModel();
-            userModel.setFirstName(firstName);
-            userModel.setLastName(lastName);
+            userModel.setFirstName(firstname);
+            userModel.setLastName(lastname);
             userModel.setUsername(username);
             userModel.setEmail(email);
             userModel.setPassword(encryptedPassword);
