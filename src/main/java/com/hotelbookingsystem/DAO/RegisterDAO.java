@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.hotelbookingsystem.database.DatabaseConnection;
 import com.hotelbookingsystem.model.User;
-import com.hotelbookingsystem.DAO.database.DatabaseConnection;
 
 public class RegisterDAO {
 
@@ -28,6 +28,7 @@ public class RegisterDAO {
             
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+            System.err.println("Registration failed: " + e.getMessage());
             return false;  // Return false if there was an error during registration
         }
     }

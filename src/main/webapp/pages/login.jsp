@@ -1,55 +1,117 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page
+	language="java"
+	contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib
+	prefix="fn"
+	uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>User Login</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f2f2f2; }
-    .login-form {
-      width: 360px; margin: 80px auto; padding: 30px;
-      background: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .login-form h2 { text-align: center; margin-bottom: 20px; }
-    .login-form label { display: block; margin-bottom: 5px; font-weight: bold; }
-    .login-form input {
-      width: 100%; padding: 8px; margin-bottom: 15px;
-      border: 1px solid #ccc; border-radius: 4px;
-    }
-    .login-form button {
-      width: 100%; padding: 10px; background: #4CAF50;
-      color: #fff; border: none; border-radius: 4px; font-size: 16px;
-    }
-    .login-form button:hover { background: #45a049; }
-    .error { color: red; text-align: center; margin-bottom: 15px; }
-  </style>
+<meta charset="UTF-8" />
+<meta
+	name="viewport"
+	content="width=device-width, initial-scale=1.0" />
+<title>Login | Hotel RockStar</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
+<link
+	rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/login.css" />
 </head>
-<body>
-	<div class="login-form">
-			<h2>Login</h2>
-			<!-- Error Message Display -->
-			<c:if test="${not empty errorMessage}">
-				<div class="alert alert-danger alert-dismissible fade show"
-					role="alert">
-					${errorMessage}
-					<button type="button" class="btn-close" data-bs-dismiss="alert"
-						aria-label="Close"></button>
-				</div>
-			</c:if>
-			<form action="${pageContext.request.contextPath}/LoginController" method="post">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-  
-	
-      <button type="submit">Login</button>
-    </form>
+<body>
+	<div class="main-container">
+		<div class="image-section">
+			<img
+				src="${pageContext.request.contextPath}/images/Room-view.jpg"
+				alt="Hotel Image">
+			<div class="overlay">
+				<h2>Welcome to Hotel RockStar</h2>
+				<p>Book your stay with us and enjoy a luxurious experience.</p>
+				<div class="register">
+					<span>Don't have an account?</span><br /> <a
+						href="${pageContext.request.contextPath}/pages/register.jsp">Register</a>
+				</div>
+			</div>
 		</div>
+
+		<div class="login-container">
+			<h2>Login Your Account</h2>
+			<p>Please, Enter your username and password</p>
+
+
+			<c:if test="${not empty errorMessage}">
+				<div class="alert alert-danger">${fn:escapeXml(errorMessage)}</div>
+			</c:if>
+
+
+
+
+			<form
+				action="${pageContext.request.contextPath}/LoginController"
+				method="post">
+				<div class="form-container">
+					<div class="form-row">
+						<div class="form-fields">
+							<label
+								for="email"
+								class="label-for-form">Email:</label> <input
+								type="text"
+								class="form-control ${not empty emailError ? 'is-invalid' : ''}"
+								id="username"
+								name="username"
+								value="${param.username}"
+								placeholder="${not empty emailError ? emailError : 'Enter your Email'}">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-fields">
+							<div class="password-wrapper">
+								<label
+									for="password"
+									class="label-for-form">Password:</label> <input
+									type="password"
+									class="form-control ${not empty passwordError ? 'is-invalid' : ''}"
+									id="password"
+									name="password"
+									value="${param.password}"
+									placeholder="${not empty passwordError ? passwordError :  'Enter your password'}">
+
+								<span
+									class="material-symbols-rounded"
+									onclick="togglePassword('password')">visibility</span>
+							</div>
+						</div>
+					</div>
+					<div class="forget-password-section">
+						<a href="#">Forgot Password?</a>
+					</div>
+				</div>
+				<button
+					type="submit"
+					class="btn-login">Login</button>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		function togglePassword(inputId) {
+			const input = document.getElementById(inputId);
+			const icon = input.nextElementSibling;
+			if (input.type === "password") {
+				input.type = "text";
+				icon.textContent = "visibility_off";
+			} else {
+				input.type = "password";
+				icon.textContent = "visibility";
+			}
+		}
+	</script>
 </body>
 </html>
-
-
-

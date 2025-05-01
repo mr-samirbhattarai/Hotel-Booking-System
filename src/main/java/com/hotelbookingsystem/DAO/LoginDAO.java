@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.hotelbookingsystem.DAO.database.DatabaseConnection;
+import com.hotelbookingsystem.database.DatabaseConnection;
 import com.hotelbookingsystem.model.User;
 
 public class LoginDAO {
@@ -14,13 +14,13 @@ public class LoginDAO {
     private PreparedStatement ps;
 
     public LoginDAO() throws ClassNotFoundException, SQLException {
-        this.conn = DatabaseConnection.getConnection();
+    	this.conn = DatabaseConnection.getConnection();
     }
 
     // Method to retrieve all users (for admin purposes or if needed for registration check)
     public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
-        String query = "SELECT * FROM users"; // Adjust query if you need to limit fields
+        String query = "SELECT * FROM users";
 
         if (conn != null) {
             try {
@@ -58,7 +58,7 @@ public class LoginDAO {
                 ResultSet userSet = ps.executeQuery();
                 
                 // If a user is found, populate the User object
-                if (userSet.next()) {
+                if (userSet.next()) {git
                     user = new User();
                     user.setFirstName(userSet.getString("firstname"));
                     user.setLastName(userSet.getString("lastname"));
