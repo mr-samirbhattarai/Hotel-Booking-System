@@ -53,6 +53,16 @@ public class Users {
 			
 		}
 
+		public Users(int int1, String string, String string2, String string3, String string4, String string5, Date date,
+				String string6) {
+			// TODO Auto-generated constructor stub
+		}
+
+		public Users(int int1, String string, String string2, String string3, String string4, String string5,
+				String string6, Date date) {
+			// TODO Auto-generated constructor stub
+		}
+
 		// Getters and Setters
 		public long getUserId() {
 			return userId;

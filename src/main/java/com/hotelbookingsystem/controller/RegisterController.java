@@ -56,32 +56,32 @@ public class RegisterController extends HttpServlet {
             // Validation
             if (firstname == null || firstname.trim().isEmpty()) {
                 request.setAttribute("errorMessage", "First name is required");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("access/register.jsp").forward(request, response);
                 return;
             }
             if (lastname == null || lastname.trim().isEmpty()) {
                 request.setAttribute("errorMessage", "Last name is required");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("access/register.jsp").forward(request, response);
                 return;
             }
             if (username == null || username.trim().isEmpty() || !username.matches("[a-zA-Z0-9]{3,50}")) {
                 request.setAttribute("errorMessage", "Username must be 3-50 characters, letters and numbers only");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("access/register.jsp").forward(request, response);
                 return;
             }
             if (email == null || email.trim().isEmpty() || !email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
                 request.setAttribute("errorMessage", "Valid email is required");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("access/register.jsp").forward(request, response);
                 return;
             }
             if (password == null || password.length() < 6) {
                 request.setAttribute("errorMessage", "Password must be at least 6 characters");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("access/register.jsp").forward(request, response);
                 return;
             }
             if (!password.equals(retypePassword)) {
                 request.setAttribute("errorMessage", "Passwords do not match");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("access/register.jsp").forward(request, response);
                 return;
             }
 
@@ -97,7 +97,7 @@ public class RegisterController extends HttpServlet {
             rs.next();
             if (rs.getInt(1) > 0) {
                 request.setAttribute("errorMessage", "Username or email already exists");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("access/register.jsp").forward(request, response);
                 return;
             }
 
@@ -133,20 +133,20 @@ public class RegisterController extends HttpServlet {
                 session.removeAttribute("gender");
                 session.removeAttribute("dob");
                 // Redirect to login
-                response.sendRedirect("pages/login.jsp");
+                response.sendRedirect("access/login.jsp");
             } else {
                 request.setAttribute("errorMessage", "Registration failed. Please try again.");
-                request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+                request.getRequestDispatcher("access/register.jsp").forward(request, response);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Database error: " + e.getMessage());
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+            request.getRequestDispatcher("access/register.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Unexpected error: " + e.getMessage());
-            request.getRequestDispatcher("pages/register.jsp").forward(request, response);
+            request.getRequestDispatcher("access/register.jsp").forward(request, response);
         } finally {
             try {
                 if (rs != null) rs.close();
@@ -172,6 +172,6 @@ public class RegisterController extends HttpServlet {
         session.removeAttribute("gender");
         session.removeAttribute("dob");
         // Redirect to registration page
-        response.sendRedirect("pages/register.jsp");
+        response.sendRedirect("access/register.jsp");
     }
 }
