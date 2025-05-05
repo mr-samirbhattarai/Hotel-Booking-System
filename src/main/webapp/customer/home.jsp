@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.hotelbookingsystem.model.UserModel" %>
+<%@ page import="com.hotelbookingsystem.model.Users" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -349,12 +349,12 @@
                 </ul>
             </nav>
             <%
-                UserModel user = (UserModel) session.getAttribute("user");
-                if (user != null) {
+                Users users = (Users) session.getAttribute("user");
+                if (users != null) {
             %>
                 <a href="${pageContext.request.contextPath}/pages/profile.jsp" class="user-icon">
                     <i class="fa fa-user-circle"></i>
-                    <span><%= user.getFirstName() %></span>
+                    <span><%= users.getFirstName() %></span>
                 </a>
             <%
                 } else {

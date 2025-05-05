@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* -------------------- SIDEBAR -------------------- */
+    .sidebar {
+      position: fixed;
+      top: 1%;
+      left: 0;
+      height: 98%;
+      width: 270px;
+      background: #151A2D;
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+    }
+
+    /* Logo and title */
+    .panel_logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .panel_logo .fa-a {
+      width: 40px;
+      height: 40px;
+      font-size: 22px;
+      background-color: #ff1D46;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .panel_logo .fa-a:hover {
+      transform: scale(1.1);
+    }
+
+    .panel_type {
+      color: #F1F4FF;
+      font-size: 22px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .sidebar_halfline {
+      width: 80%;
+      height: 1px;
+      background-color: #4D4C4C;
+      margin: 0 auto 20px auto;
+    }
+
+    /* -------------------- NAVIGATION -------------------- */
+    .sidebar-nav {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .nav-list {
+      list-style: none;
+      padding: 0 20px;
+    }
+
+    .nav-item {
+      margin-bottom: 10px;
+    }
+
+    .nav-link {
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .nav-link:hover {
+      background-color: #EEF2FF;
+      color: #151A2D;
+    }
+    
+    
+    /* Inside <style> ... */
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 80px;
+    padding: 20px 5px;
+  }
+
+  .panel_type,
+  .nav-label {
+    display: none;
+  }
+
+  .nav-link {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .panel_logo {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .panel_logo .fa-a {
+    margin-bottom: 5px;
+  }
+
+  .sidebar_halfline {
+    width: 50%;
+  }
+}

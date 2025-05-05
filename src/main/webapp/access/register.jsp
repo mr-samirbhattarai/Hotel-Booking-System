@@ -29,9 +29,7 @@
       <form method="post" action="${pageContext.request.contextPath}/RegisterController">
         <div class="form-container">
           <div class="form-row">
-
-            <div classA="form-fields">
-
+            <div class="form-fields">
               <label for="firstname" class="label-for-form">First Name:</label>
               <input type="text" class="form-control ${not empty firstnameError ? 'is-invalid' : ''}" 
                      id="firstname" name="firstname" value="${param.firstname}" 
@@ -107,7 +105,7 @@
         <p>Book your stay with us and enjoy a luxurious experience.</p>
         <div class="login">
           <span>Already have an account?</span><br/>
-          <a href="${pageContext.request.contextPath}/pages/login.jsp">Login</a>
+          <a href="${pageContext.request.contextPath}/access/login.jsp">Login</a>
         </div>
       </div>
     </div>
@@ -128,4 +126,3 @@
   </script>  
 </body>
 </html>
-
