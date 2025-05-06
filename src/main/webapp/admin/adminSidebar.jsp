@@ -29,7 +29,7 @@
         </li>
         
         <li class="nav-item">
-          <a href="${pageContext.request.contextPath}/addRoom.jsp" class="nav-link">
+          <a href="${pageContext.request.contextPath}/addRoom" class="nav-link">
             <span class="material-symbols-rounded">bookmark_added</span>
             <span class="nav-label">Add Room</span>
           </a>

@@ -9,7 +9,7 @@
   <title>Add Room | Hotel RockStar</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/addRooms.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/addRoom.css" />
 </head>
 <body>
 
@@ -17,7 +17,7 @@
 <div class="add-rooms">
 	<div class="header">
     <h2>Manage Rooms</h2>
-  		<a href="${pageContext.request.contextPath}/pages/manageRooms.jsp" class="back-btn">Back</a>
+  		<a href="${pageContext.request.contextPath}/admin/manageRooms.jsp" class="back-btn">Back</a>
 	</div>
 	  <!-- For success message -->
 	  <c:if test="${not empty successMessage}">
@@ -110,6 +110,11 @@
 			<small class="text-danger">${descriptionError}</small>
 	      </c:if>
         </div>
+        
+        
+       
+        
+        
       </div>
 
       <button type="submit" class="btn-addRoom">Add Room</button>

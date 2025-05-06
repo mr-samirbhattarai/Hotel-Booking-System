@@ -29,7 +29,7 @@ CREATE TABLE Rooms (
     room_area DECIMAL(6, 2) NOT NULL,
     is_available BOOLEAN DEFAULT TRUE,
     floor_number INT,
-    max_occupancy INT NOT NULL,
+    max_occupancy INT,
     room_image VARCHAR(255),
     room_number VARCHAR(255)
 );
