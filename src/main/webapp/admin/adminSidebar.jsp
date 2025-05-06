@@ -22,57 +22,51 @@
     <nav class="sidebar-nav">
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="./dashboard.jsp" class="nav-link">
+          <a href="${pageContext.request.contextPath}/dashboard.jsp" class="nav-link">
             <span class="material-symbols-rounded">dashboard</span>
             <span class="nav-label">Dashboard</span>
           </a>
         </li>
+        
+        <li class="nav-item">
+          <a href="${pageContext.request.contextPath}/addRoom.jsp" class="nav-link">
+            <span class="material-symbols-rounded">bookmark_added</span>
+            <span class="nav-label">Add Room</span>
+          </a>
+        </li>
 
         <li class="nav-item">
-          <a href="./manage_rooms.jsp" class="nav-link">
+          <a href="${pageContext.request.contextPath}/ManageRoomsController" class="nav-link">
             <span class="material-symbols-rounded">settings</span>
             <span class="nav-label">Manage Rooms</span>
           </a>
         </li>
 
-        <li class="nav-item">
-          <a href="./room_status.jsp" class="nav-link">
+         <li class="nav-item">
+          <a href="${pageContext.request.contextPath}/AddStaffController" class="nav-link">
             <span class="material-symbols-rounded">hotel</span>
-            <span class="nav-label">Room Status</span>
+            <span class="nav-label">Add Staff</span>
           </a>
-        </li>
+        </li> 
+        
+          <li class="nav-item">
+          <a href="${pageContext.request.contextPath}/ViewStaffController" class="nav-link">
+            <span class="material-symbols-rounded">help</span>
+            <span class="nav-label">Manage Staff</span>
+          </a> 
+          </li>       
 
         <li class="nav-item">
-          <a href="./booking_request.jsp" class="nav-link">
-            <span class="material-symbols-rounded">notifications</span>
-            <span class="nav-label">Booking Request</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <span class="material-symbols-rounded">bookmark_added</span>
-            <span class="nav-label">Past Bookings</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="${pageContext.request.contextPath}/ViewCustomerController" class="nav-link">
             <span class="material-symbols-rounded">groups</span>
-            <span class="nav-label">See Users</span>
+            <span class="nav-label">Users Details</span>
           </a>
         </li>
       </ul>
 
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <span class="material-symbols-rounded">help</span>
-            <span class="nav-label">Manage Staff</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="${pageContext.request.contextPath}/LogoutController" class="nav-link">
             <span class="material-symbols-rounded">logout</span>
             <span class="nav-label">Sign Out</span>
           </a>

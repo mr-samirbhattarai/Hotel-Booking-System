@@ -38,20 +38,18 @@ public class ViewCustomerController extends HttpServlet {
         try {
             ViewCustomerDAO dao = new ViewCustomerDAO();
             ArrayList<Users> users = dao.getAllUsers();
-//            System.out.println("Users: " + users);  // Check the list contents
-
             if (users != null && !users.isEmpty()) {
                 request.setAttribute("users", users);
             } else {
                 request.setAttribute("errorMessage", "No users found.");
             }
 
-            request.getRequestDispatcher("/pages/viewCustomer.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/viewCustomer.jsp").forward(request, response);
                  
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Unable to load user list.");
-            request.getRequestDispatcher("/pages/viewCustomer.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/viewCustomer.jsp").forward(request, response);
         }
     }
 }

@@ -14,12 +14,12 @@ public class ViewStaffDAO {
 	private Connection conn;
 	private PreparedStatement ps;
 	public ViewStaffDAO() throws ClassNotFoundException, SQLException {
-		conn = DatabaseConnection.getConnection();// Establish a database connection when ViewEmployeeDAO is created
+		conn = DatabaseConnection.getConnection();
 	}
 		
 		//retrieving the users
 		
-		public ArrayList<Users> getAllEmployees() throws SQLException{
+		public ArrayList<Users> getAllStaffs() throws SQLException{
 			ArrayList<Users> users = new ArrayList<>(); 
 			String sql = "Select * from users where role ='staff'";
 			if(conn!=null) {
@@ -37,9 +37,6 @@ public class ViewStaffDAO {
 				        userSet.getString("gender"));
 				    users.add(user);
 				}
-
-				 System.out.println("Number of users retrieved: " + users.size());  // Debugging line
-		    
 			}
 			return users;
 		}

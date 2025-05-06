@@ -30,7 +30,7 @@ public class RegisterController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String retypePassword = request.getParameter("retypePassword");
-        String phoneNo = request.getParameter("phone_no");
+        String phoneNo = request.getParameter("phoneNo");
         String address = request.getParameter("address");
         String gender = request.getParameter("gender");
         String dob = request.getParameter("dob");
@@ -43,13 +43,13 @@ public class RegisterController extends HttpServlet {
         session.setAttribute("lastname", lastname);
         session.setAttribute("username", username);
         session.setAttribute("email", email);
-        session.setAttribute("phone_no", phoneNo);
+        session.setAttribute("phoneNo", phoneNo);
         session.setAttribute("address", address);
         session.setAttribute("gender", gender);
         session.setAttribute("dob", dob);
 
         Connection conn = null;
-        PreparedStatement stmt = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
@@ -90,10 +90,10 @@ public class RegisterController extends HttpServlet {
 
             // Check for duplicate username or email
             String checkSql = "SELECT COUNT(*) FROM Users WHERE username = ? OR email = ?";
-            stmt = conn.prepareStatement(checkSql);
-            stmt.setString(1, username);
-            stmt.setString(2, email);
-            rs = stmt.executeQuery();
+            ps = conn.prepareStatement(checkSql);
+            ps.setString(1, username);
+            ps.setString(2, email);
+            rs = ps.executeQuery();
             rs.next();
             if (rs.getInt(1) > 0) {
                 request.setAttribute("errorMessage", "Username or email already exists");
@@ -105,30 +105,30 @@ public class RegisterController extends HttpServlet {
             String encryptedPassword = EncryptDecrypt.encrypt(password); // Adjust method name as per your Encrypt class
 
             // Insert user (role defaults to 'customer')
-            String insertSql = "INSERT INTO Users (firstname, lastname, username, password, role, email, phone_no, address, gender, DOB, is_active) VALUES (?, ?, ?, ?, 'customer', ?, ?, ?, ?, ?, TRUE)";
-            stmt = conn.prepareStatement(insertSql);
-            stmt.setString(1, firstname);
-            stmt.setString(2, lastname);
-            stmt.setString(3, username);
-            stmt.setString(4, encryptedPassword);
-            stmt.setString(5, email);
-            stmt.setString(6, phoneNo != null && !phoneNo.isEmpty() ? phoneNo : null);
-            stmt.setString(7, address != null && !address.isEmpty() ? address : null);
-            stmt.setString(8, gender != null && !gender.isEmpty() ? gender : null);
+            String insertSql = "INSERT INTO Users (firstname, lastname, username, password, role, email, phoneNo, address, gender, DOB, is_active) VALUES (?, ?, ?, ?, 'customer', ?, ?, ?, ?, ?, TRUE)";
+            ps = conn.prepareStatement(insertSql);
+            ps.setString(1, firstname);
+            ps.setString(2, lastname);
+            ps.setString(3, username);
+            ps.setString(4, encryptedPassword);
+            ps.setString(5, email);
+            ps.setString(6, phoneNo != null && !phoneNo.isEmpty() ? phoneNo : null);
+            ps.setString(7, address != null && !address.isEmpty() ? address : null);
+            ps.setString(8, gender != null && !gender.isEmpty() ? gender : null);
             if (dob != null && !dob.isEmpty()) {
-                stmt.setDate(9, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(dob).getTime()));
+                ps.setDate(9, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(dob).getTime()));
             } else {
-                stmt.setNull(9, java.sql.Types.DATE);
+                ps.setNull(9, java.sql.Types.DATE);
             }
 
-            int rowsAffected = stmt.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 // Clear session attributes on success
                 session.removeAttribute("firstname");
                 session.removeAttribute("lastname");
                 session.removeAttribute("username");
                 session.removeAttribute("email");
-                session.removeAttribute("phone_no");
+                session.removeAttribute("phoneNo");
                 session.removeAttribute("address");
                 session.removeAttribute("gender");
                 session.removeAttribute("dob");
@@ -150,7 +150,7 @@ public class RegisterController extends HttpServlet {
         } finally {
             try {
                 if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
+                if (ps != null) ps.close();
                 // Assume DatabaseConnection handles connection pooling
                 // If manual closing is needed, uncomment: if (conn != null) conn.close();
             } catch (SQLException e) {
@@ -167,7 +167,7 @@ public class RegisterController extends HttpServlet {
         session.removeAttribute("lastname");
         session.removeAttribute("username");
         session.removeAttribute("email");
-        session.removeAttribute("phone_no");
+        session.removeAttribute("phoneNo");
         session.removeAttribute("address");
         session.removeAttribute("gender");
         session.removeAttribute("dob");

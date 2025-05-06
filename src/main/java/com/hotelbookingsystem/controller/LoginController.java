@@ -40,12 +40,12 @@ public class LoginController extends HttpServlet {
             // Validation for empty email or password
             if (email == null || email.trim().isEmpty()) {
                 request.setAttribute("emailError", "Email is required");
-                request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+                request.getRequestDispatcher("access/login.jsp").forward(request, response);
                 return;
             }
             if (password == null || password.trim().isEmpty()) {
                 request.setAttribute("passwordError", "Password is required");
-                request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+                request.getRequestDispatcher("access/login.jsp").forward(request, response);
                 return;
             }
 
@@ -57,8 +57,8 @@ public class LoginController extends HttpServlet {
             // for customer 
             Users users = userDAO.login(email, EncryptDecrypt.encrypt(password));
             
-            //for admin
-  //          Users users = userDAO.login(email, password);
+//            for admin
+//            Users users = userDAO.login(email, password);
 
 
             if (users != null) {
@@ -67,33 +67,37 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("username", users.getUsername()); // Use username, not email
                 session.setAttribute("role", users.getRole());
                 session.setAttribute("email", users.getEmail());
+                session.setAttribute("loggedInCustomer", users); // Full user object stored in session
 
-                // Clear email from session after login
+                session.setAttribute("currentUser", users);
+                
                 session.removeAttribute("email");
 
                 // Redirect based on role
                 String role = users.getRole();
+                String contextPath = request.getContextPath();
+
                 if ("admin".equalsIgnoreCase(role)) {
-                    response.sendRedirect("pages/dashboard.jsp");
+                    response.sendRedirect(contextPath + "/admin/dashboard.jsp");
                 } else if ("staff".equalsIgnoreCase(role)) {
-                    response.sendRedirect("staffPortal.jsp");
-                } else { // customer
-                    response.sendRedirect("home.jsp");
+                    response.sendRedirect(contextPath + "/staff/staffPortal.jsp");
+                } else { // customer or other roles
+                    response.sendRedirect(contextPath + "/customer/rooms.jsp");
                 }
             } else {
                 // Invalid email or password
                 request.setAttribute("passwordNotMatchError", "Invalid email or password");
-                request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+                request.getRequestDispatcher("access/login.jsp").forward(request, response);
             }
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Database error: " + e.getMessage());
-            request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+            request.getRequestDispatcher("access/login.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Unexpected error: " + e.getMessage());
-            request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+            request.getRequestDispatcher("access/login.jsp").forward(request, response);
         } finally {
             try {
                 // Connection pooling management assumed by DatabaseConnection
@@ -126,6 +130,6 @@ public class LoginController extends HttpServlet {
         }
 
         // If not logged in, show the login page
-        request.getRequestDispatcher("pages/login.jsp").forward(request, response);
+        request.getRequestDispatcher("access/login.jsp").forward(request, response);
     }
 }

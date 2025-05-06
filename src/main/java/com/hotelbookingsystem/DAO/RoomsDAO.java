@@ -22,15 +22,18 @@ public class RoomsDAO {
 
 	public boolean addNewRoom(Rooms roomModel) {
 		boolean isRowInserted = false;
-		String sql = "INSERT INTO rooms (room_number, room_type, description, price_per_night, room_image) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO rooms (room_number, room_type, price_per_night, no_of_beds, description, bed_type, room_area, room_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		if (conn != null) {
 			try (PreparedStatement ps = conn.prepareStatement(sql)) {
 				ps.setString(1, roomModel.getRoomNumber());
-				ps.setString(2, roomModel.getRoomType().name());
-				ps.setString(3, roomModel.getDescription());
-				ps.setDouble(4, roomModel.getPricePerNight());
-				ps.setString(5, roomModel.getRoomImage());
+				ps.setString(2, roomModel.getRoomType().name()); // Assuming enum
+				ps.setDouble(3, roomModel.getPricePerNight());
+				ps.setInt(4, roomModel.getNoOfBeds()); // Can handle 0 if not set
+				ps.setString(5, roomModel.getDescription());
+				ps.setString(6, roomModel.getBedType().name()); // Assuming enum
+				ps.setDouble(7, roomModel.getRoomArea());
+				ps.setString(8, roomModel.getRoomImage()); // path or filename
 
 				int rows = ps.executeUpdate();
 				isRowInserted = (rows > 0);

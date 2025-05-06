@@ -56,9 +56,9 @@ public class UserDAO {
                 ResultSet userSet = ps.executeQuery();
                 while (userSet.next()) {
                     Users user = new Users();
-                    user.setUserId(userSet.getLong("user_id"));
+                    user.setUserId(userSet.getInt("user_id"));
                     user.setRole(userSet.getString("role"));
-                    user.setPhoneNo(userSet.getString("phone_no"));
+                    user.setPhoneNo(userSet.getString("phoneNo"));
                     user.setAddress(userSet.getString("address"));
                     user.setGender(userSet.getString("gender"));
                     user.setDob(userSet.getDate("dob"));
@@ -75,6 +75,28 @@ public class UserDAO {
         }
         return users;
     }
+    
+    public ArrayList<Users> getAllCustomers() throws SQLException{
+		ArrayList<Users> users = new ArrayList<>(); 
+		String sql = "Select * from users where username =?";
+		if(conn!=null) {
+			ps = conn.prepareStatement(sql);
+			ResultSet userSet = ps.executeQuery();
+			while (userSet.next()) {
+			    Users user = new Users(
+			        userSet.getInt("user_id"),    
+			        userSet.getString("firstname"), 
+			        userSet.getString("lastname"),  
+			        userSet.getString("phoneNo"), 
+			        userSet.getString("email"),     
+			        userSet.getString("address"), 
+			        userSet.getDate("dob"),       
+			        userSet.getString("gender"));
+			    users.add(user);
+			} 
+		}
+		return users;
+	}
 
     // Authenticates user by checking email and password
     public Users login(String emailToCheck, String encryptedPassword) {
@@ -93,9 +115,9 @@ public class UserDAO {
                     users.setUsername(userSet.getString("username"));
                     users.setEmail(userSet.getString("email"));
                     users.setPassword(userSet.getString("password"));
-                    users.setUserId(userSet.getLong("user_id"));
+                    users.setUserId(userSet.getInt("user_id"));
                     users.setRole(userSet.getString("role"));
-                    users.setPhoneNo(userSet.getString("phone_no"));
+                    users.setPhoneNo(userSet.getString("phoneNo"));
                     users.setAddress(userSet.getString("address"));
                     users.setGender(userSet.getString("gender"));
                     users.setDob(userSet.getDate("dob"));
@@ -110,5 +132,49 @@ public class UserDAO {
             }
         }
         return users;
+    }
+
+    // Retrieve user by username
+    public Users getUserByUsername(String username) throws SQLException {
+        Users user = null;
+        String sql = "SELECT * FROM users WHERE username = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    user = new Users(
+                        rs.getInt("user_id"),
+                        rs.getString("firstname"),
+                        rs.getString("lastname"),
+                        rs.getString("phoneNo"),
+                        rs.getString("email"),
+                        rs.getString("address"),
+                        rs.getDate("dob"),
+                        rs.getString("gender"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role")
+                    );
+                }
+            }
+        }
+        return user;
+    }
+
+ // Update user profile
+    public boolean updateUserProfile(Users user) throws SQLException {
+        String sql = "UPDATE users SET firstName = ?, lastName = ?, phoneNo = ?, email = ?, address = ?, dob = ?, gender = ? WHERE username = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getPhoneNo());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getAddress());
+            ps.setDate(6, user.getDob() != null ? new java.sql.Date(user.getDob().getTime()) : null);
+            ps.setString(7, user.getGender());
+            ps.setString(8, user.getUsername());
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        }
     }
 }

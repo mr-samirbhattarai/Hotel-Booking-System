@@ -1,5 +1,5 @@
 -- Seed data for Users table
-INSERT INTO Users (firstname, lastname, username, password, role, email, phone_no, address, gender, DOB, verification_id, profile_picture, is_active) VALUES
+INSERT INTO Users (firstname, lastname, username, password, role, email, phoneNo, address, gender, DOB, verification_id, profile_picture, is_active) VALUES
 ('John', 'Doe', 'johndoe', 'hashed_password1', 'customer', 'john.doe@email.com', '1234567890', '123 Main St', 'male', '1990-05-15', 'ID123456', 'john.jpg', TRUE),
 ('Jane', 'Smith', 'janesmith', 'hashed_password2', 'admin', 'jane.smith@email.com', '2345678901', '456 Oak Ave', 'female', '1985-08-22', 'ID234567', 'jane.jpg', TRUE),
 ('Mike', 'Johnson', 'mikej', 'hashed_password3', 'staff', 'mike.j@email.com', '3456789012', '789 Pine Rd', 'male', '1992-03-10', 'ID345678', 'mike.jpg', TRUE),

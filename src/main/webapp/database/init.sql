@@ -8,7 +8,7 @@ CREATE TABLE Users (
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'customer', 'staff') NOT NULL DEFAULT 'customer',
     email VARCHAR(100) NOT NULL UNIQUE,
-    phone_no VARCHAR(15),
+    phoneNo VARCHAR(15),
     address TEXT,
     gender ENUM('male', 'female', 'other'),
     DOB DATE,
