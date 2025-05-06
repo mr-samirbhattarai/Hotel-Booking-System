@@ -23,7 +23,7 @@ public class ViewStaffDAO {
 			ArrayList<Users> users = new ArrayList<>(); 
 			String sql = "Select * from users where role ='staff'";
 			if(conn!=null) {
-				ps = conn.prepareStatement(sql);
+				PreparedStatement ps = conn.prepareStatement(sql);
 				ResultSet userSet = ps.executeQuery();
 				while (userSet.next()) {
 				    Users user = new Users(

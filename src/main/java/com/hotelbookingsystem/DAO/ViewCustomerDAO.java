@@ -23,11 +23,11 @@ public class ViewCustomerDAO {
 		String sql = "SELECT * FROM users where role = 'customer' ";
 
 		if (conn != null) {
-			ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet customerSet = ps.executeQuery();
 			while (customerSet.next()) {
 				Users user = new Users(
-					customerSet.getInt("user_id"),    
+					customerSet.getInt("user_Id"),    
 					customerSet.getString("firstname"), 
 					customerSet.getString("lastname"), 
 					customerSet.getString("username"),   

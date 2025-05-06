@@ -77,10 +77,6 @@ public class Users {
 
 	}
 	
-//	public Users(String firstname2, String lastname2, String usersname, String password2, String phoneNo2,
-//			String email2, String address2, Date dob2, String gender2) {
-//		// TODO Auto-generated constructor stub
-//	}
 	
 	public Users(String firstName, String lastName, String username, String password, 
             String phoneNo, String email, String address, Date dob, String gender) {
@@ -112,7 +108,6 @@ public class Users {
     this.password = password;
     this.role = role;
 }
-
 
 	// Getters and Setters
 	public int getUserId() {

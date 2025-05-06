@@ -35,10 +35,10 @@
 			<nav>
 				<ul id="navLinks">
 					<li><a
-						href="${pageContext.request.contextPath}/RoomsController"
-						class="active">Home</a></li>
+						class="${activePage == 'home' ? 'active' : ''}"
+						href="${pageContext.request.contextPath}/customer/home.jsp">Home</a></li>
 					<li><a
-						class="${activePage == 'categories' ? 'active' : ''}"
+						class="${activePage == 'rooms' ? 'active' : ''}"
 						href="${pageContext.request.contextPath}/RoomsController?page=viewRooms">Rooms</a>
 
 					</li>

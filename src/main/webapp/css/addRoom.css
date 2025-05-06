@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #F8F9FA;
+    }
+
+    .add-rooms {
+      margin-left: 300px;
+      padding: 30px;
+      min-height: 100vh;
+      background-color: #F8F9FA;
+      box-sizing: border-box;
+    }
+
+    .add-rooms h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #151a2d;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .back-btn {
+		background-color: #151A2D;
+		color: #fff;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		padding: 10px 38px;
+		border: 2px solid transparent;
+		cursor: pointer;
+		font-size: 16px;
+		border-radius: 5px;
+		transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: transparent;
+      color: #000;
+      border: 2px solid #151A2D;
+    }
+    
+    .form-container {
+      background-color: #ffffff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 15px auto;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .form-fields {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .label-for-form {
+      font-size: 15px;
+      font-weight: 500;
+      color: #151a2d;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      border: 1px solid #777;
+      padding: 12px;
+      font-size: 16px;
+      width: 100%;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #000;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      outline: none;
+    }
+
+    .form-control.is-invalid {
+      border: 1px solid red;
+    }
+
+    .label-for-form.text-danger {
+      color: red;
+    }
+
+    .text-danger {
+      position: absolute;
+    }
+
+    .form-control.is-invalid::placeholder {
+      color: red;
+    }
+   
+
+    .btn-addRoom {
+      background-color: #151A2D;
+      color: #fff;
+      width: 160px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      display: block;
+      margin: 20px auto 0;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-addRoom:hover {
+      background-color: #fff;
+      color: #151A2D;
+      border: 2px solid #151A2D;
+    }
+    
+    .desc {
+    	height: 45%;
+    }
+
+    @media (max-width: 768px) {
+      .add-rooms {
+        margin-left: 77px;
+        padding: 15px;
+      }
+
+      .form-container {
+        padding: 15px;
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+
+      .form-fields {
+        margin-bottom: 10px;
+      }
+
+      .btn-register {
+        width: 100%;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .add-rooms {
+        margin-left: 200px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .add-rooms {
+        margin-left: 300px;
+      }
+    }

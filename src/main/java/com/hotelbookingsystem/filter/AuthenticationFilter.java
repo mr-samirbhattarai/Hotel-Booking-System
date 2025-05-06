@@ -45,12 +45,12 @@
 //		String role = (String) session.getAttribute("role");
 //
 //		if (uri.contains("/admin/") && !"admin".equalsIgnoreCase(role)) {
-//		    res.sendRedirect(req.getContextPath() + "/access/unauthorized.jsp"); // Optional: create this page
+//		    res.sendRedirect(req.getContextPath() + "error.jsp");
 //		    return;
 //		}
 //
 //		if (uri.contains("/customer/") && !"customer".equalsIgnoreCase(role)) {
-//		    res.sendRedirect(req.getContextPath() + "/access/unauthorized.jsp");
+//		    res.sendRedirect(req.getContextPath() + "error.jsp");
 //		    return;
 //		}
 //

@@ -52,7 +52,7 @@ public class UserDAO {
         String query = "SELECT * FROM users";
         if (conn != null) {
             try {
-                ps = conn.prepareStatement(query);
+                PreparedStatement ps = conn.prepareStatement(query);
                 ResultSet userSet = ps.executeQuery();
                 while (userSet.next()) {
                     Users user = new Users();

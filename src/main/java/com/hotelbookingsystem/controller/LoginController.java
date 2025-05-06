@@ -82,7 +82,7 @@ public class LoginController extends HttpServlet {
                 } else if ("staff".equalsIgnoreCase(role)) {
                     response.sendRedirect(contextPath + "/staff/staffPortal.jsp");
                 } else { // customer or other roles
-                    response.sendRedirect(contextPath + "/customer/rooms.jsp");
+                    response.sendRedirect(contextPath + "/customer/home.jsp");
                 }
             } else {
                 // Invalid email or password
