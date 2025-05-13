@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hotelbookingsystem.DAO.RoomsDAO;
+import com.hotelbookingsystem.DAO.RoomDAO;
 import com.hotelbookingsystem.model.Rooms;
 
 
@@ -25,12 +25,9 @@ public class RoomsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Initialize RoomDAO to fetch room data
-            RoomsDAO roomDao = new RoomsDAO();
+            // Initialize RoomDAO to get room data
+            RoomDAO roomDao = new RoomDAO();
             ArrayList<Rooms> rooms = roomDao.getAllRooms();
-
-            // Log the number of rooms retrieved for debugging
-//            System.out.println("Number of rooms retrieved: " + (rooms != null ? rooms.size() : 0));
 
             // Store rooms in request attribute to display in view
             request.setAttribute("rooms", rooms);

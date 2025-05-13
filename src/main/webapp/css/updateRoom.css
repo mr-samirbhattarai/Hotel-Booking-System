@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+@charset "UTF-8";
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
     * {
@@ -13,7 +15,7 @@
       background-color: #F8F9FA;
     }
 
-    .add-rooms {
+    .update-rooms {
       margin-left: 300px;
       padding: 30px;
       min-height: 100vh;
@@ -21,7 +23,7 @@
       box-sizing: border-box;
     }
 
-    .add-rooms h2 {
+    .update-rooms h2 {
       font-size: 28px;
       font-weight: 600;
       color: #151a2d;
@@ -93,6 +95,22 @@
       width: 100%;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
+    
+    
+	.current-image {
+	    margin-bottom: 10px;
+	}
+	
+	.current-image p {
+	    margin-bottom: 5px;
+	    font-weight: 500;
+	}
+	
+	.img-thumbnail {
+	    border: 1px solid #ddd;
+	    padding: 3px;
+	    margin-bottom: 10px;
+	}
 
     .form-control:focus {
       border-color: #000;
@@ -117,7 +135,7 @@
     }
    
 
-    .btn-addRoom {
+    .btn-updateRoom {
       background-color: #151A2D;
       color: #fff;
       width: 160px;
@@ -131,7 +149,7 @@
       cursor: pointer;
     }
 
-    .btn-addRoom:hover {
+    .btn-updateRoom:hover {
       background-color: #fff;
       color: #151A2D;
       border: 2px solid #151A2D;
@@ -142,7 +160,7 @@
     }
 
     @media (max-width: 768px) {
-      .add-rooms {
+      .update-rooms {
         margin-left: 77px;
         padding: 15px;
       }
@@ -165,13 +183,13 @@
     }
 
     @media (min-width: 768px) {
-      .add-rooms {
+      .update-rooms {
         margin-left: 200px;
       }
     }
 
     @media (min-width: 1024px) {
-      .add-rooms {
+      .update-rooms {
         margin-left: 300px;
       }
     }

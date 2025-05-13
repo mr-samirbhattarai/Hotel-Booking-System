@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.hotelbookingsystem.DAO.RoomsDAO;
+import com.hotelbookingsystem.DAO.RoomDAO;
 import com.hotelbookingsystem.model.Rooms;
 import com.hotelbookingsystem.model.Rooms.BedType;
 import com.hotelbookingsystem.model.Rooms.RoomType;
@@ -166,7 +166,7 @@ public class AddRoomController extends HttpServlet {
         
 
         try {
-            RoomsDAO dao = new RoomsDAO();
+            RoomDAO dao = new RoomDAO();
             if (dao.roomNumberExists(roomNumber)) {
                 request.setAttribute("roomNumberExistsError", "This room number is already taken.");
                 request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);

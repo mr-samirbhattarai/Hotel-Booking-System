@@ -11,12 +11,12 @@ import com.hotelbookingsystem.model.Rooms;
 import com.hotelbookingsystem.model.Rooms.BedType;
 import com.hotelbookingsystem.model.Rooms.RoomType;
 
-public class RoomsDAO {
+public class RoomDAO {
 	private Connection conn;
 	private PreparedStatement ps;
 
 	// Constructor: Initializes the database connection when an object is created
-	public RoomsDAO() throws ClassNotFoundException, SQLException {
+	public RoomDAO() throws ClassNotFoundException, SQLException {
 		this.conn = DatabaseConnection.getConnection();
 	}
 
@@ -111,21 +111,22 @@ public class RoomsDAO {
 
 	// Update an existing room in the database
 	public boolean updateRoom(Rooms room) {
-		String query = "UPDATE rooms SET room_type = ?, price_per_night = ?, no_of_beds = ?, description = ?, bed_type = ?, room_area = ?, is_available = ?, floor_number = ?, max_occupancy = ?, room_image = ?, room_number = ? WHERE room_id = ?";
+		String query = "UPDATE rooms SET room_number =?, room_type = ?, price_per_night = ?, no_of_beds = ?, description = ?, bed_type = ?, room_area = ?, is_available = ?, floor_number = ?, max_occupancy = ?, room_image = ?, room_number = ? WHERE room_id = ?";
 		if (conn != null) {
 			try (PreparedStatement ps = conn.prepareStatement(query)) {
-				ps.setString(1, room.getRoomType().name().toLowerCase());
-				ps.setDouble(2, room.getPricePerNight());
-				ps.setInt(3, room.getNoOfBeds());
-				ps.setString(4, room.getDescription());
-				ps.setString(5, room.getBedType().name().toLowerCase());
-				ps.setDouble(6, room.getRoomArea());
-				ps.setBoolean(7, room.isAvailable());
-				ps.setInt(8, room.getFloorNumber());
-				ps.setInt(9, room.getMaxOccupancy());
-				ps.setString(10, room.getRoomImage());
-				ps.setString(11, room.getRoomNumber());
-				ps.setLong(12, room.getRoomId());
+				ps.setString(1, room.getRoomNumber());
+				ps.setString(2, room.getRoomType().name().toLowerCase());
+				ps.setDouble(3, room.getPricePerNight());
+				ps.setInt(4, room.getNoOfBeds());
+				ps.setString(5, room.getDescription());
+				ps.setString(6, room.getBedType().name().toLowerCase());
+				ps.setDouble(7, room.getRoomArea());
+				ps.setBoolean(8, room.isAvailable());
+				ps.setInt(9, room.getFloorNumber());
+				ps.setInt(10, room.getMaxOccupancy());
+				ps.setString(11, room.getRoomImage());
+				ps.setString(12, room.getRoomNumber());
+				ps.setLong(13, room.getRoomId());
 
 				int rows = ps.executeUpdate();
 				return rows > 0;

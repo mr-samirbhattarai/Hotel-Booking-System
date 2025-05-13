@@ -1,0 +1,233 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.contactUs-container {
+    margin: 0 100px;
+    padding: 120px 0 50px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contactUs-container h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #151a2d;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.contactUs-container p {
+    text-align: center;
+    color: #4b5563;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.contact-grid {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.contact-form,
+.contact-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.contact-form h3,
+.contact-info h3 {
+    font-size: 1.75rem;
+    color: #151a2d;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.contact-info h4 {
+    font-size: 1.25rem;
+    color: #151a2d;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.label-for-form {
+    font-size: 15px;
+    font-weight: 500;
+    color: #151a2d;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #999;
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+}
+
+.form-control:hover {
+    border-color: #555;
+    background-color: #fff;
+}
+
+.form-control:focus {
+    border-color: #000;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+    outline: none;
+    background-color: #fff;
+}
+
+.form-control textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.btn-login {
+    background-color: #000;
+    color: #fff;
+    width: 160px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 20px auto 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+}
+
+.map-placeholder {
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-placeholder iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contactUs-container {
+        margin: 0 20px;
+        padding: 80px 0 40px;
+    }
+
+    .contactUs-container h2 {
+        font-size: 2rem;
+    }
+
+    .contact-grid {
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+
+    .contact-form h3,
+    .contact-info h3 {
+        font-size: 1.5rem;
+    }
+
+    .contact-info h4 {
+        font-size: 1.1rem;
+    }
+
+    .btn-login {
+        width: 140px;
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .form-control {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .label-for-form {
+        font-size: 14px;
+    }
+
+    .map-placeholder {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contactUs-container {
+        margin: 0 15px;
+        padding: 60px 0 30px;
+    }
+
+    .contactUs-container h2 {
+        font-size: 1.75rem;
+    }
+
+    .contactUs-container p {
+        font-size: 0.9rem;
+    }
+
+    .contact-grid {
+        padding: 1rem;
+    }
+
+    .contact-form h3,
+    .contact-info h3 {
+        font-size: 1.25rem;
+    }
+
+    .contact-info h4 {
+        font-size: 1rem;
+    }
+
+    .btn-login {
+        width: 120px;
+        font-size: 13px;
+        padding: 7px 14px;
+    }
+
+    .form-control {
+        font-size: 12px;
+        padding: 7px;
+    }
+
+    .label-for-form {
+        font-size: 13px;
+    }
+
+    .map-placeholder {
+        height: 200px;
+    }
+}

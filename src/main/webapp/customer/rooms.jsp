@@ -32,8 +32,9 @@
                             Rs. ${room.pricePerNight}
                         </p>
                         <div class="button-wrapper">
-                            <button class="view-details-btn">View Details</button>
-                        </div>
+                                <a href="${pageContext.request.contextPath}/ViewRoomDetailsController?roomId=${room.roomId}" 
+                                   class="view-details-btn">View Details</a>
+                            </div>
                     </div>
                 </div>
             </div>
