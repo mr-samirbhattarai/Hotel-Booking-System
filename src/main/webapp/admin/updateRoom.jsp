@@ -7,148 +7,29 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Update Room | Hotel RockStar</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
-<style>
-body {
-	font-family: 'Poppins', sans-serif;
-	background-color: #f8f9fa;
-}
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/updateRoom.css" />
 
-.update-rooms {
-	max-width: 900px;
-	margin: 2rem auto;
-	padding: 2rem;
-	background: #fff;
-	border-radius: 1rem;
-	box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
-}
-
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 2rem;
-}
-
-.header h2 {
-	color: #151a2d;
-	font-weight: 600;
-}
-
-.back-btn {
-	color: #fff;
-	background: #151a2d;
-	padding: 0.5rem 1rem;
-	border-radius: 0.5rem;
-	text-decoration: none;
-}
-
-.back-btn:hover {
-	background: #2c3654;
-}
-
-.form-container {
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-}
-
-.form-row {
-	display: flex;
-	gap: 1.5rem;
-	flex-wrap: wrap;
-}
-
-.form-fields {
-	flex: 1;
-	min-width: 200px;
-}
-
-.label-for-form {
-	font-weight: 500;
-	color: #151a2d;
-	margin-bottom: 0.5rem;
-	display: block;
-}
-
-.form-control, .desc {
-	border-radius: 0.5rem;
-	padding: 0.75rem;
-}
-
-.desc {
-	width: 100%;
-	min-height: 100px;
-	resize: vertical;
-}
-
-.btn-updateRoom {
-	background: #151a2d;
-	color: #fff;
-	padding: 0.75rem 1.5rem;
-	border: none;
-	border-radius: 0.5rem;
-	font-weight: 600;
-	cursor: pointer;
-	align-self: flex-start;
-}
-
-.btn-updateRoom:hover {
-	background: #2c3654;
-}
-
-.current-image {
-	margin-bottom: 0.5rem;
-}
-
-.current-image img {
-	max-width: 200px;
-	border-radius: 0.5rem;
-}
-
-@media ( max-width : 576px) {
-	.form-row {
-		flex-direction: column;
-	}
-	.form-fields {
-		min-width: 100%;
-	}
-}
-</style>
 </head>
 <body>
 	<c:set var="activePage" value="manageRooms" scope="request" />
 	<jsp:include page="/admin/adminSidebar.jsp" />
 
 	<div class="update-rooms">
-		<div class="header">
-			<h2>Update Room</h2>
-			<a
-				href="${pageContext.request.contextPath}/UpdateRoomController?page=viewRoomsForAdmin"
-				class="back-btn">Back</a>
-		</div>
+	
+	<div class="content">
 
-		<!-- Error and Success Messages -->
-		<c:if test="${not empty successMessage}">
-			<div class="alert alert-success alert-dismissible fade show"
-				role="alert">
-				${successMessage}
-				<button type="button" class="btn-close" data-bs-dismiss="alert"
-					aria-label="Close"></button>
-			</div>
-		</c:if>
-		<c:if test="${not empty errorMessage}">
-			<div class="alert alert-danger alert-dismissible fade show"
-				role="alert">
-				${errorMessage}
-				<button type="button" class="btn-close" data-bs-dismiss="alert"
-					aria-label="Close"></button>
-			</div>
-		</c:if>
+	<div class="header">
+        <div>
+          <h2>Update Rooms</h2>
+          <span class="subtitle">You can update existing rooms</span>
+        </div>
+        <div class="back-button">
+			<a href="${pageContext.request.contextPath}/ManageRoomsController?page=viewRoomsForAdmin"
+				class="back-btn">Back</a>
+        </div>
+      </div>
 
 		<c:if test="${not empty room}">
 			<form action="${pageContext.request.contextPath}/UpdateRoomController"
@@ -187,7 +68,7 @@ body {
 					<div class="form-row">
 						<div class="form-fields">
 							<label for="noOfBeds" class="label-for-form">Number of
-								Beds:</label> <input type="number" min="1" max="4"
+								Beds:</label> <input type="text"
 								class="form-control ${not empty noOfBedsEmptyError or not empty noOfBedsFormatError ? 'is-invalid' : ''}"
 								id="noOfBeds" name="noOfBeds" value="${room.noOfBeds}" />
 							<c:if test="${not empty noOfBedsEmptyError}">
@@ -215,7 +96,7 @@ body {
 					<div class="form-row">
 						<div class="form-fields">
 							<label for="price" class="label-for-form">Price Per Night
-								(Rs.):</label> <input type="number" step="0.01" min="1" max="100000"
+								(Rs.):</label> <input type="text"
 								class="form-control ${not empty priceError or not empty priceFormatError ? 'is-invalid' : ''}"
 								id="price" name="price" value="${room.pricePerNight}" />
 							<c:if test="${not empty priceError}">
@@ -227,7 +108,7 @@ body {
 						</div>
 						<div class="form-fields">
 							<label for="roomArea" class="label-for-form">Room Area
-								(sq ft):</label> <input type="number" step="0.01" min="1" max="10000"
+								(sq ft):</label> <input type="text" 
 								class="form-control ${not empty roomAreaError or not empty roomAreaFormatError ? 'is-invalid' : ''}"
 								id="roomArea" name="roomArea" value="${room.roomArea}" />
 							<c:if test="${not empty roomAreaError}">
@@ -242,7 +123,7 @@ body {
 					<div class="form-row">
 						<div class="form-fields">
 							<label for="floorNumber" class="label-for-form">Floor
-								Number:</label> <input type="number" min="1" max="11"
+								Number:</label> <input type="text"
 								class="form-control ${not empty floorNumberError or not empty floorNumberFormatError ? 'is-invalid' : ''}"
 								id="floorNumber" name="floorNumber" value="${room.floorNumber}" />
 							<c:if test="${not empty floorNumberError}">
@@ -254,7 +135,7 @@ body {
 						</div>
 						<div class="form-fields">
 							<label for="maxOccupancy" class="label-for-form">Max
-								Occupancy:</label> <input type="number" min="1" max="6"
+								Occupancy:</label> <input type="text"
 								class="form-control ${not empty maxOccupancyError or not empty maxOccupancyFormatError ? 'is-invalid' : ''}"
 								id="maxOccupancy" name="maxOccupancy"
 								value="${room.maxOccupancy}" />
@@ -270,6 +151,7 @@ body {
 					<div class="form-row">
 						<div class="form-fields">
 							<label for="roomImage" class="label-for-form">Room Image:</label>
+
 							<div>
 								<div class="current-image">
 									<c:choose>
@@ -321,6 +203,7 @@ body {
 			<div class="alert alert-warning">Room information not found.
 				Please go back and select a room to update.</div>
 		</c:if>
+		</div>
 	</div>
 
 	<script

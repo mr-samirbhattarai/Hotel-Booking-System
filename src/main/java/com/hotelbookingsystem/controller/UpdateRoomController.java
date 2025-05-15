@@ -19,16 +19,16 @@ import com.hotelbookingsystem.model.Rooms.RoomType;
 
 @WebServlet("/UpdateRoomController")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-                 maxFileSize = 1024 * 1024 * 10,      // 10MB
-                 maxRequestSize = 1024 * 1024 * 50)   // 50MB
+        maxFileSize = 1024 * 1024 * 10,      // 10MB
+        maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class UpdateRoomController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // Get parameters from the form
+
+        // Extract form data
         String roomIdStr = request.getParameter("roomId");
         String roomNumber = request.getParameter("roomNumber");
         String roomTypeParam = request.getParameter("roomType");
@@ -40,250 +40,249 @@ public class UpdateRoomController extends HttpServlet {
         String maxOccupancyStr = request.getParameter("maxOccupancy");
         String description = request.getParameter("description");
         Part imagePart = request.getPart("roomImage");
-        
-        boolean hasErrors = false;
-        
+
         // Validate roomId
-        long roomId = 0;
         if (roomIdStr == null || roomIdStr.trim().isEmpty()) {
-            request.setAttribute("roomIdError", "Room ID is required.");
-            hasErrors = true;
-        } else {
-            try {
-                roomId = Long.parseLong(roomIdStr.trim());
-                if (roomId <= 0) {
-                    request.setAttribute("roomIdError", "Invalid room ID.");
-                    hasErrors = true;
-                }
-            } catch (NumberFormatException e) {
-                request.setAttribute("roomIdError", "Please enter a valid room ID.");
-                hasErrors = true;
-            }
+            request.setAttribute("errorMessage", "Room ID is missing.");
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
         }
 
-        // Validate roomNumber
-        if (roomNumber == null || roomNumber.trim().isEmpty()) {
-            request.setAttribute("roomNumberError", "Room number is required.");
-            hasErrors = true;
+        long roomId;
+        try {
+            roomId = Long.parseLong(roomIdStr.trim());
+        } catch (NumberFormatException e) {
+            request.setAttribute("errorMessage", "Invalid room ID format.");
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
         }
 
-        // Validate roomType
-        RoomType roomType = null;
-        if (roomTypeParam == null || roomTypeParam.trim().isEmpty()) {
-            request.setAttribute("roomTypeError", "Room type is required.");
-            hasErrors = true;
-        } else {
-            try {
-                roomType = RoomType.valueOf(roomTypeParam.trim().toUpperCase());
-            } catch (IllegalArgumentException e) {
-                request.setAttribute("roomTypeError", "Invalid room type selected.");
-                hasErrors = true;
-            }
-        }
-        
-        // Validate number of beds
-        int roomOfBeds = 0;
-        if (roomOfBedsStr == null || roomOfBedsStr.trim().isEmpty()) {
-            request.setAttribute("noOfBedsEmptyError", "Number of beds is required.");
-            hasErrors = true;
-        } else {
-            try {
-                roomOfBeds = Integer.parseInt(roomOfBedsStr.trim());
-                if (roomOfBeds < 1 || roomOfBeds > 4) {
-                    request.setAttribute("noOfBedsFormatError", "Number of beds must be between 1 and 4.");
-                    hasErrors = true;
-                }
-            } catch (NumberFormatException e) {
-                request.setAttribute("noOfBedsFormatError", "Please enter a valid number of beds.");
-                hasErrors = true;
-            }
-        }
-
-        // Validate bedType
-        BedType bedType = null;
-        if (bedTypeParam == null || bedTypeParam.trim().isEmpty()) {
-            request.setAttribute("bedTypeError", "Bed type is required.");
-            hasErrors = true;
-        } else {
-            try {
-                bedType = BedType.valueOf(bedTypeParam.trim().toUpperCase());
-            } catch (IllegalArgumentException e) {
-                request.setAttribute("bedTypeError", "Invalid bed type selected.");
-                hasErrors = true;
-            }
-        }
-        
-        // Validate price
-        double price = 0;
-        if (priceParam == null || priceParam.trim().isEmpty()) {
-            request.setAttribute("priceError", "Price is required.");
-            hasErrors = true;
-        } else {
-            try {
-                price = Double.parseDouble(priceParam.trim());
-                if (price < 1 || price > 100000) {
-                    request.setAttribute("priceFormatError", "Price must be between 1 and 100,000.");
-                    hasErrors = true;
-                }
-            } catch (NumberFormatException e) {
-                request.setAttribute("priceFormatError", "Please enter a valid price.");
-                hasErrors = true;
-            }
-        }
-        
-        // Validate roomArea
-        double roomArea = 0;
-        if (roomAreaStr == null || roomAreaStr.trim().isEmpty()) {
-            request.setAttribute("roomAreaError", "Room area is required.");
-            hasErrors = true;
-        } else {
-            try {
-                roomArea = Double.parseDouble(roomAreaStr.trim());
-                if (roomArea < 1 || roomArea > 10000) {
-                    request.setAttribute("roomAreaFormatError", "Area must be between 1 and 10,000.");
-                    hasErrors = true;
-                }
-            } catch (NumberFormatException e) {
-                request.setAttribute("roomAreaFormatError", "Please enter a valid area.");
-                hasErrors = true;
-            }
-        }
-        
-        // Validate floorNumber
-        int floorNumber = 0;
-        if (floorNumberStr == null || floorNumberStr.trim().isEmpty()) {
-            request.setAttribute("floorNumberError", "Floor number is required.");
-            hasErrors = true;
-        } else {
-            try {
-                floorNumber = Integer.parseInt(floorNumberStr.trim());
-                if (floorNumber < 1 || floorNumber > 11) {
-                    request.setAttribute("floorNumberFormatError", "Floor number must be between 1 and 11.");
-                    hasErrors = true;
-                }
-            } catch (NumberFormatException e) {
-                request.setAttribute("floorNumberFormatError", "Please enter a valid floor number (e.g., 1, 2, 3).");
-                hasErrors = true;
-            }
-        }
-        
-        // Validate maxOccupancy
-        int maxOccupancy = 0;
-        if (maxOccupancyStr == null || maxOccupancyStr.trim().isEmpty()) {
-            request.setAttribute("maxOccupancyError", "Maximum occupancy is required.");
-            hasErrors = true;
-        } else {
-            try {
-                maxOccupancy = Integer.parseInt(maxOccupancyStr.trim());
-                if (maxOccupancy < 1 || maxOccupancy > 6) {
-                    request.setAttribute("maxOccupancyFormatError", "Maximum occupancy must be between 1 and 6.");
-                    hasErrors = true;
-                }
-            } catch (NumberFormatException e) {
-                request.setAttribute("maxOccupancyFormatError", "Please enter a valid number of guests (e.g., 1, 2, 3).");
-                hasErrors = true;
-            }
-        }
-        
-        // Validate description
-        if (description == null || description.trim().isEmpty()) {
-            request.setAttribute("descriptionError", "Description is required.");
-            hasErrors = true;
-        }
-        
-        // Fetch existing room for error case
-        Rooms existingRoom = null;
+        // Retrieve existing room
+        Rooms existingRoom;
         try {
             RoomDAO dao = new RoomDAO();
             existingRoom = dao.getRoomById(roomId);
             if (existingRoom == null) {
                 request.setAttribute("errorMessage", "Room not found with ID: " + roomId);
-                hasErrors = true;
+                request.setAttribute("roomTypes", RoomType.values());
+                request.setAttribute("bedTypes", BedType.values());
+                request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+                return;
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Failed to retrieve room data: " + e.getMessage());
-            hasErrors = true;
+        } catch (Exception e) {
+            request.setAttribute("errorMessage", "Failed to retrieve room: " + e.getMessage());
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
         }
 
-        // If there are validation errors, return to form
-        if (hasErrors) {
+        // Validate other fields
+        if (roomNumber == null || roomNumber.trim().isEmpty()) {
+            request.setAttribute("roomNumberError", "Room number is required.");
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
             return;
         }
-        
-        // Process the update
+
+        RoomType roomType = null;
         try {
-            RoomDAO dao = new RoomDAO();
-            
-            // Check if the room number is changed and already exists
-            if (!existingRoom.getRoomNumber().equals(roomNumber) && dao.roomNumberExists(roomNumber)) {
-                request.setAttribute("roomNumberExistsError", "This room number is already taken.");
+            roomType = RoomType.valueOf(roomTypeParam.trim().toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            request.setAttribute("roomTypeError", "Invalid or missing room type.");
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
+        }
+
+        int noOfBeds;
+        try {
+            noOfBeds = Integer.parseInt(roomOfBedsStr.trim());
+            if (noOfBeds < 1 || noOfBeds > 4) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("noOfBedsError", "Number of beds must be between 1 and 4.");
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
+        }
+
+        BedType bedType;
+        try {
+            bedType = BedType.valueOf(bedTypeParam.trim().toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            request.setAttribute("bedTypeError", "Invalid or missing bed type.");
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
+        }
+
+        double roomArea;
+        try {
+            roomArea = Double.parseDouble(roomAreaStr.trim());
+            if (roomArea < 1 || roomArea > 10000) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("roomAreaError", "Room area must be between 1 and 10,000.");
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
+        }
+
+        double price;
+        try {
+            price = Double.parseDouble(priceParam.trim());
+            if (price < 1 || price > 100000) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("priceError", "Price must be between 1 and 100,000.");
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
+        }
+
+        int floorNumber;
+        try {
+            floorNumber = Integer.parseInt(floorNumberStr.trim());
+            if (floorNumber < 1 || floorNumber > 11) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("floorNumberError", "Floor number must be between 1 and 11.");
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
+        }
+
+        int maxOccupancy;
+        try {
+            maxOccupancy = Integer.parseInt(maxOccupancyStr.trim());
+            if (maxOccupancy < 1 || maxOccupancy > 6) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("maxOccupancyError", "Occupancy must be between 1 and 6.");
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
+        }
+
+        if (description == null || description.trim().isEmpty()) {
+            request.setAttribute("descriptionError", "Description is required.");
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+            return;
+        }
+
+        // Check room number uniqueness ONLY if the room number has changed
+        if (!existingRoom.getRoomNumber().equals(roomNumber)) {
+            try {
+                RoomDAO dao = new RoomDAO();
+                if (dao.roomNumberExists(roomNumber)) {
+                    request.setAttribute("roomNumberExistsError", "This room number is already taken.");
+                    request.setAttribute("room", existingRoom);
+                    request.setAttribute("roomTypes", RoomType.values());
+                    request.setAttribute("bedTypes", BedType.values());
+                    request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+                    return;
+                }
+            } catch (Exception e) {
+                request.setAttribute("errorMessage", "Failed to check room number: " + e.getMessage());
                 request.setAttribute("room", existingRoom);
                 request.setAttribute("roomTypes", RoomType.values());
                 request.setAttribute("bedTypes", BedType.values());
-                request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
+                request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
                 return;
             }
-            
-            // Handle image upload if a new image is provided
-            String fileName = existingRoom.getRoomImage(); // Default to existing image
-            
-            if (imagePart != null && imagePart.getSize() > 0) {
-                fileName = imagePart.getSubmittedFileName();
-                
-                if (fileName != null && !fileName.trim().isEmpty()) {
-                    String storePath = request.getServletContext().getRealPath("");
-                    String filePath = "photos" + File.separator + fileName;
-                    
-                    File photoDir = new File(storePath + File.separator + "photos");
-                    if (!photoDir.exists()) {
-                        photoDir.mkdirs();
-                    }
-                    
-                    imagePart.write(storePath + File.separator + filePath);
+        }
+
+        // Image handling
+        String fileName = existingRoom.getRoomImage(); // Use existing if none uploaded
+        if (imagePart != null && imagePart.getSize() > 0) {
+            fileName = imagePart.getSubmittedFileName();
+            if (fileName != null && !fileName.trim().isEmpty()) {
+                String appPath = request.getServletContext().getRealPath("");
+                String savePath = appPath + File.separator + "photos";
+                File fileSaveDir = new File(savePath);
+                if (!fileSaveDir.exists()) {
+                    fileSaveDir.mkdirs();
                 }
+                imagePart.write(savePath + File.separator + fileName);
             }
-            
-            // Update room model
-            Rooms room = new Rooms();
-            room.setRoomId(roomId);
-            room.setRoomNumber(roomNumber);
-            room.setRoomType(roomType);
-            room.setNoOfBeds(roomOfBeds);
-            room.setBedType(bedType);
-            room.setPricePerNight(price);
-            room.setRoomArea(roomArea);
-            room.setFloorNumber(floorNumber);
-            room.setMaxOccupancy(maxOccupancy);
-            room.setRoomImage(fileName);
-            room.setDescription(description);
-            room.setAvailable(existingRoom.isAvailable());
-            
-            // Update room in database
-            boolean isUpdated = dao.updateRoom(room);
-            
+        }
+
+        // Update RoomModel
+        Rooms updatedRoom = new Rooms();
+        updatedRoom.setRoomId(roomId);
+        updatedRoom.setRoomNumber(roomNumber);
+        updatedRoom.setRoomType(roomType);
+        updatedRoom.setNoOfBeds(noOfBeds);
+        updatedRoom.setBedType(bedType);
+        updatedRoom.setRoomArea(roomArea);
+        updatedRoom.setPricePerNight(price);
+        updatedRoom.setFloorNumber(floorNumber);
+        updatedRoom.setMaxOccupancy(maxOccupancy);
+        updatedRoom.setDescription(description);
+        updatedRoom.setRoomImage(fileName);
+        updatedRoom.setAvailable(existingRoom.isAvailable()); // Preserve availability status
+
+        // Update room in DB
+        try {
+            RoomDAO dao = new RoomDAO();
+            boolean isUpdated = dao.updateRoom(updatedRoom);
             if (isUpdated) {
-                request.getSession().setAttribute("successMessage", "Room updated successfully!");
-                response.sendRedirect(request.getContextPath() + "/ManageRoomsController");
+                request.getSession().setAttribute("successMessage", "Room updated successfully");
+                response.sendRedirect(request.getContextPath() + "/GetRoomsServlet?page=viewRoomsForAdmin");
             } else {
                 request.setAttribute("errorMessage", "Failed to update room. No changes were applied.");
                 request.setAttribute("room", existingRoom);
                 request.setAttribute("roomTypes", RoomType.values());
                 request.setAttribute("bedTypes", BedType.values());
-                request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
+                request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
             }
-            
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Server error occurred: " + e.getMessage());
+        } catch (SQLException e) {
+            request.setAttribute("errorMessage", "Database error updating room: " + e.getMessage());
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+        } catch (ClassNotFoundException e) {
+            request.setAttribute("errorMessage", "Database driver not found: " + e.getMessage());
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
+        } catch (IOException e) {
+            request.setAttribute("errorMessage", "Error redirecting after update: " + e.getMessage());
+            request.setAttribute("room", existingRoom);
+            request.setAttribute("roomTypes", RoomType.values());
+            request.setAttribute("bedTypes", BedType.values());
+            request.getRequestDispatcher("/pages/updateRooms.jsp").forward(request, response);
         }
     }
 }
