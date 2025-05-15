@@ -67,7 +67,7 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Update Profile</button>
-            <a href="${pageContext.request.contextPath}/customer/rooms.jsp" class="btn btn-secondary">Cancel</a>
+            <a href="${pageContext.request.contextPath}/RoomsController" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </body>

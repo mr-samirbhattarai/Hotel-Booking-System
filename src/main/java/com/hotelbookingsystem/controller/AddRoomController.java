@@ -43,13 +43,13 @@ public class AddRoomController extends HttpServlet {
         // Validate inputs    
         if (roomNumber == null || roomNumber.trim().isEmpty()) {
             request.setAttribute("roomNumberError", "Room number is required.");
-            request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
             return;
         }
 
         if (roomTypeParam == null || roomTypeParam.trim().isEmpty()) {
             request.setAttribute("roomTypeError", "Room type is required.");
-            request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
             return;
         }
         
@@ -58,14 +58,14 @@ public class AddRoomController extends HttpServlet {
             roomType = RoomType.valueOf(roomTypeParam.trim().toUpperCase());
         } catch (IllegalArgumentException e) {
             request.setAttribute("errorMessage", "Invalid room type selected.");
-            request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
             return;
         }
         
 	     // Validate if the user entered a number of beds
 	     if (roomOfBedsStr == null || roomOfBedsStr.trim().isEmpty()) {
 	         request.setAttribute("noOfBedsEmptyError", "Number of beds in room is required.");
-	         request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	         request.getRequestDispatcher("/adimn/addRooms.jsp").forward(request, response);
 	         return;
 	     }
 	
@@ -76,20 +76,20 @@ public class AddRoomController extends HttpServlet {
 	         // Check if the roomOfBeds value is within the valid range (1 to 4)
 	         if (roomOfBeds < 1 || roomOfBeds > 4) {
 	             request.setAttribute("noOfBedsFormatError", "Number of beds must be between 1 and 4.");
-	             request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	             request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	             return;
 	         }
 	     } catch (NumberFormatException e) {
 	         // Handle case where the input is not a number
 	         request.setAttribute("noOfBedsFormatError", "Please enter a valid number.");
-	         request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	         request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	         return;
 	     }
 	     
 
 	     if (bedTypeParam == null || bedTypeParam.trim().isEmpty()) {
 	         request.setAttribute("bedTypeError", "Bed type is required.");
-	         request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	         request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	         return;
 	     }
 
@@ -98,13 +98,13 @@ public class AddRoomController extends HttpServlet {
 	         bedType = BedType.valueOf(bedTypeParam.trim().toUpperCase());
 	     } catch (IllegalArgumentException e) {
 	         request.setAttribute("errorMessage", "Invalid bed type selected.");
-	         request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	         request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	         return;
 	     }
 	     
 	     if (priceParam == null || priceParam.trim().isEmpty()) {
 			request.setAttribute("priceError", "Price is required.");
-			request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+			request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 			return;
 	     }
 	     
@@ -116,13 +116,13 @@ public class AddRoomController extends HttpServlet {
 
 	         if (price < 1 || price > 100000) {
 	             request.setAttribute("priceFormatError", "Price must be between 1 and 100,000.");
-	             request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	             request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	             return;
 	         }
 
 	     } catch (NumberFormatException e) {
 	         request.setAttribute("priceFormatError", "Please enter a valid price.");
-	         request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	         request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	         return;
 	     }
 	       
@@ -130,7 +130,7 @@ public class AddRoomController extends HttpServlet {
 		 // Validate if the user entered a area of room
 		 if (roomAreaStr == null || roomAreaStr.trim().isEmpty()) {
 		     request.setAttribute("roomAreaError", "Area of room is required.");
-		     request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+		     request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 		     return;
 		 }
 		
@@ -141,20 +141,20 @@ public class AddRoomController extends HttpServlet {
 		     // Check if the roomOfBeds value is within the valid range (1 to 4)
 		     if (roomArea < 1 || roomArea > 10000) {
 		         request.setAttribute("roomAreaFormatError", "Area of room only must be between 1 and 10000.");
-		         request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+		         request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 		         return;
 		     }
 		 } catch (NumberFormatException e) {
 		     // Handle case where the input is not a number
 		     request.setAttribute("roomAreaFormatError", "Please enter a valid area.");
-		     request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+		     request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 		     return;
 		 }
 		 
 		// Validate the room floor number
 		 if (roomFloorStr == null || roomFloorStr.trim().isEmpty()) {
 		     request.setAttribute("roomFloorError", "Room Floor number is required.");
-		     request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+		     request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 		     return;
 		 }
 		
@@ -165,17 +165,17 @@ public class AddRoomController extends HttpServlet {
 	         // Check if the room floor value is within the valid range 1st to 11th
 	         if (roomFloor < 1) {
 	             request.setAttribute("roomFloorFormatError", "The lowest available floor is 1.");
-	             request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	             request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	             return;
 	         } else if (roomFloor > 11) {
 	        	 request.setAttribute("roomFloorFormatError", "The highest available floor is 11.");
-	             request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	             request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	         }
 	         
 	     } catch (NumberFormatException e) {
 	         // Handle case where the input is not a number
 	    	 request.setAttribute("roomFloorFormatError", "Please enter a valid floor number (e.g., 0, 1, 2).");
-		     request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+		     request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 		     return;
 	     }
 	     
@@ -183,7 +183,7 @@ public class AddRoomController extends HttpServlet {
 	  // Validate the maximum occupancy
 	     if (maxOccupancyStr == null || maxOccupancyStr.trim().isEmpty()) {
 	         request.setAttribute("maxOccupancyError", "Room maximum occupancy is required.");
-	         request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	         request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	         return;
 	     }
 
@@ -194,23 +194,23 @@ public class AddRoomController extends HttpServlet {
 	         // Check if the maximum occupancy is within the valid range (1 to 6)
 	         if (maxOccupancy < 1) {
 	             request.setAttribute("maxOccupancyFormatError", "The minimum occupancy is 1 guest.");
-	             request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	             request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	             return;
 	         } else if (maxOccupancy > 6) {
 	             request.setAttribute("maxOccupancyFormatError", "The maximum occupancy is 6 guests.");
-	             request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	             request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	             return;
 	         }
 	     } catch (NumberFormatException e) {
 	         request.setAttribute("maxOccupancyFormatError", "Please enter a valid number of guests (e.g., 1, 2, 3).");
-	         request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+	         request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	         return;
 	     }
 		 
         
         if (description == null || description.trim().isEmpty()) {
             request.setAttribute("descriptionError", "Description is required.");
-            request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
             return;
         }
         
@@ -219,7 +219,7 @@ public class AddRoomController extends HttpServlet {
             RoomDAO dao = new RoomDAO();
             if (dao.roomNumberExists(roomNumber)) {
                 request.setAttribute("roomNumberExistsError", "This room number is already taken.");
-                request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
                 return;
             }
 
@@ -253,7 +253,7 @@ public class AddRoomController extends HttpServlet {
             } else {
                 System.out.println("No image uploaded");
                 request.setAttribute("ImageError", "Please upload a room image.");
-                request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
                 return;
             }
             
@@ -279,16 +279,16 @@ public class AddRoomController extends HttpServlet {
             	System.out.println("xxxxxxxxxxx Added Room Sucessfully! xxxxxxxxxxx");
                 request.setAttribute("successMessage", "Added Room Successfully.");
 
-                response.sendRedirect("pages/addRooms.jsp?success=true");
+                response.sendRedirect("admin/addRooms.jsp?success=true");
             } else {
                 request.setAttribute("errorMessage", "Failed to add room.");
-                request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
             }
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Server error occurred. Please contact support.");
-            request.getRequestDispatcher("/pages/addRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
         }
     }
 }

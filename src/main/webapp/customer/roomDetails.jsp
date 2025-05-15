@@ -65,8 +65,13 @@
                     <p>${room.description}</p>
                 </div>
                 
+                
+                <a href="${pageContext.request.contextPath}/BookingController?roomId=${room.roomId}" class="action-btn update-btn">Book Now</a>
+                
+                
+                <!-- 
                 <div class="booking-section">
-                    <form action="${pageContext.request.contextPath}/BookRoomServlet" method="post" class="booking-form">
+                    <form action="${pageContext.request.contextPath}/BookingController" method="post" class="booking-form">
                         <input type="hidden" name="roomId" value="${room.roomId}">
                         
                         <div class="form-row">
@@ -106,6 +111,9 @@
                         
                         <button type="submit" class="book-now-btn">Book Now</button>
                     </form>
+                     -->
+                    
+                    
                 </div>
             </div>
         </div>

@@ -43,7 +43,7 @@
 
 					</li>
 					<li><a href="#">About Us</a></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="contactUs.jsp">Contact</a></li>
 					<li><button class="mobile-login">Login</button></li>
 				</ul>
 				<span
@@ -51,29 +51,50 @@
 					class="material-symbols-rounded menu-icon"
 					onclick="toggleMenu()">menu</span>
 			</nav>
-			<div>
-				<a
-					class="login-btn"
-					href="${pageContext.request.contextPath}/LogoutController">Logout</a>
-				<a
-					class="login-btn"
-					href="${pageContext.request.contextPath}/ProfileController">Profile</a>
-			</div>
+			<div id="authLinks" class="auth-links">
+										<div class="profile-wrapper">
+						<a
+							class="login-btn"
+							href="javascript:void(0)"
+							onclick="toggleProfileMenu()">Profile</a>
+						<div id="profileMenu" class="profile-menu">
+							<a href="${pageContext.request.contextPath}/LogoutController">Logout</a>
+							<a href="${pageContext.request.contextPath}/ProfileController">Update Profile</a>
+							<a href="${pageContext.request.contextPath}/ChangePasswordController">Change Password</a>
+							<a href="${pageContext.request.contextPath}/BookingHistory">View Booking History</a>
+						</div>
+					</div>
 		</div>
 	</header>
 	<script>
-		function toggleMenu() {
-			var navLinks = document.getElementById("navLinks");
-			var menuIcon = document.getElementById("menuIcon");
+	function toggleMenu() {
+		var navLinks = document.getElementById("navLinks");
+		var authLinks = document.getElementById("authLinks");
+		var menuIcon = document.getElementById("menuIcon");
 
-			navLinks.classList.toggle("show");
+		navLinks.classList.toggle("show");
+		authLinks.classList.toggle("show");
 
-			if (navLinks.classList.contains("show")) {
-				menuIcon.innerText = "close";
-			} else {
-				menuIcon.innerText = "menu";
-			}
+		if (navLinks.classList.contains("show")) {
+			menuIcon.innerText = "close";
+		} else {
+			menuIcon.innerText = "menu";
 		}
+	}
+
+	function toggleProfileMenu() {
+		var profileMenu = document.getElementById("profileMenu");
+		profileMenu.classList.toggle("show");
+	}
+
+	// Close profile menu when clicking outside
+	document.addEventListener("click", function(event) {
+		var profileMenu = document.getElementById("profileMenu");
+		var profileLink = document.querySelector(".profile-wrapper .login-btn");
+		if (!profileMenu.contains(event.target) && !profileLink.contains(event.target)) {
+			profileMenu.classList.remove("show");
+		}
+	});
 	</script>
 </body>
 </html>

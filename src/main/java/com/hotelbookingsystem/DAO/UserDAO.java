@@ -160,6 +160,34 @@ public class UserDAO {
         }
         return user;
     }
+    
+    public Users getUserById(int userId) {
+        Users user = null;
+        String query = "SELECT * FROM users WHERE user_id = ?";
+        if (conn != null) {
+            try (PreparedStatement ps = conn.prepareStatement(query)) {
+                ps.setInt(1, userId);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        user = new Users();
+                        user.setUserId(rs.getInt("user_id"));
+                        user.setFirstName(rs.getString("firstname"));
+                        user.setLastName(rs.getString("lastname"));
+                        user.setUsername(rs.getString("username"));
+                        user.setEmail(rs.getString("email"));
+                        user.setPhoneNo(rs.getString("phoneNo"));
+                        user.setAddress(rs.getString("address"));
+                        user.setGender(rs.getString("gender"));
+                        user.setDob(rs.getDate("dob"));
+                        user.setRole(rs.getString("role"));
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return user;
+    }
 
  // Update user profile
     public boolean updateUserProfile(Users user) throws SQLException {
