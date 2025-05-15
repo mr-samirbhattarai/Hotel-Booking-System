@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
-* {
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -13,7 +15,7 @@
       top: 1%;
       left: 0;
       height: 98%;
-      width: 270px;
+      width: 300px;
       background: #151A2D;
       border-top-right-radius: 12px;
       border-bottom-right-radius: 12px;
@@ -21,6 +23,7 @@
       flex-direction: column;
       padding: 20px 0;
     }
+
 
     /* Logo and title */
     .panel_logo {
@@ -94,7 +97,21 @@
       background-color: #EEF2FF;
       color: #151A2D;
     }
-    
+  
+	.nav-link.active {
+	  background-color: #EEF2FF;
+	  color: #151A2D;
+	  font-weight: 500;
+	}
+	
+	.nav-link.active:hover {
+	  background-color: #EEF2FF;
+	  color: #151A2D;
+	}
+	    
+	.nav-bottom {
+	  margin-top: auto;
+	}
     
     /* Inside <style> ... */
 

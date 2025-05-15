@@ -12,47 +12,59 @@
     body {
       background-color: #F8F9FA;
     }
-
+    
     .add-rooms {
-      margin-left: 300px;
-      padding: 30px;
-      min-height: 100vh;
-      background-color: #F8F9FA;
-      box-sizing: border-box;
-    }
+		margin-left: 300px; /* Adjust with sidebar width */
+		padding: 10px;
+		background-color: #fff;
+	}
+	
+	.content {
+	  padding: 20px;
+	  background-color: #f8f9fa;
+	  border-radius: 8px;
+	  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+	}
+	
+	.header {
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  margin-bottom: 20px;
+	  flex-wrap: wrap;
+	  gap: 10px;
+	}
+	
+	.header h2 {
+	  font-size: 24px;
+	  font-weight: 600;
+	  color: #000;
+	  margin-bottom: 5px;
+	}
+	
+	.header .subtitle {
+	  font-size: 14px;
+	  color: #00c4b4;
+	}
+	
 
-    .add-rooms h2 {
-      font-size: 28px;
-      font-weight: 600;
-      color: #151a2d;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .back-btn {
-		background-color: #151A2D;
-		color: #fff;
-		text-decoration: none;
-		display: inline-flex;
-		align-items: center;
-		padding: 10px 38px;
-		border: 2px solid transparent;
-		cursor: pointer;
-		font-size: 16px;
-		border-radius: 5px;
-		transition: all 0.3s ease;
-    }
-
-    .back-btn:hover {
-      background-color: transparent;
-      color: #000;
-      border: 2px solid #151A2D;
-    }
+	.back-btn {
+	  background-color: #151A2D;
+	  color: #fff;
+	  text-decoration: none;
+	  padding: 8px 34px;
+	  border: 2px solid transparent;
+	  cursor: pointer;
+	  font-size: 15px;
+	  border-radius: 10px;
+	  transition: all 0.3s ease;
+	}
+	
+	.back-btn:hover {
+	  background-color: transparent;
+	  color: #151A2D;
+	  border: 2px solid #151A2D;
+	}
     
     .form-container {
       background-color: #ffffff;
