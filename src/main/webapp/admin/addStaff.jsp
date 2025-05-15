@@ -1,3 +1,5 @@
+
+
 <%@ page
 	language="java"
 	contentType="text/html; charset=UTF-8"
@@ -26,7 +28,7 @@
 </head>
 <body>
 
-
+<c:set var="activePage" value="addStaff" scope="request" />
 	<jsp:include page="/admin/adminSidebar.jsp" />
 
 	<div class="add-staff">
@@ -49,120 +51,190 @@
 				class="alert alert-danger alert-dismissible fade show"
 				role="alert">${errorMessage}</div>
 		</c:if>
-		
-		
-		<form action="${pageContext.request.contextPath}/addRoom" method="post" enctype="multipart/form-data">
-    <div class="form-container">
-      <div class="form-row">
-        <div class="form-fields">
-          <label for="roomNumber" class="label-for-form">First Name</label>
-          <input type="text" class="form-control ${not empty roomNumberError ? 'is-invalid' : ''}" id="roomNumber" name="roomNumber" value="${param.roomNumber}" placeholder="${not empty roomNumberError ? roomNumberError : 'Enter room number'}">
-          <c:if test="${not empty roomNumberExistsError}">
-			        <small class="text-danger">${roomNumberExistsError}</small>
-	      </c:if>
-        </div>
-        <div class="form-fields">
-		  <label for="roomType" class="label-for-form">Last Name</label>
-		  <input type="text" class="form-control ${not empty roomNumberError ? 'is-invalid' : ''}" id="roomNumber" name="roomNumber" value="${param.roomNumber}" placeholder="${not empty roomNumberError ? roomNumberError : 'Enter room number'}">
-          <c:if test="${not empty roomNumberExistsError}">
-			        <small class="text-danger">${roomNumberExistsError}</small>
-	      </c:if>
-		</div>
 
-      </div>
 
-      <div class="form-row">
-        <div class="form-fields">
-          <label for="noOfBeds" class="label-for-form">Username</label>
-          <input type="text" class="form-control ${not empty noOfBedsEmptyError ? 'is-invalid' : ''}" id="noOfBeds" name="noOfBeds" value="${param.noOfBeds}" placeholder="${not empty noOfBedsEmptyError ? noOfBedsEmptyError : 'Enter number of beds'}">
-          <c:if test="${not empty noOfBedsFormatError}">
-			        <small class="text-danger">${noOfBedsFormatError}</small>
-	      </c:if>
-        </div>
-        <div class="form-fields">
-          <label for="bedType" class="label-for-form">Phone Number</label>
-          <select class="form-control ${not empty bedTypeError ? 'is-invalid' : ''}" id="bedType" name="bedType">
-   		    <option value="">Select Bed Type</option>
-            <option value="single" ${param.bedType == 'single' ? 'selected' : ''}>Single</option>
-		    <option value="double" ${param.bedType == 'double' ? 'selected' : ''}>Double</option>
-		    <option value="queen" ${param.bedType == 'queen' ? 'selected' : ''}>Queen</option>
-		    <option value="king" ${param.bedType == 'king' ? 'selected' : ''}>King</option>
-          </select>
-          <c:if test="${not empty bedTypeError}">
-		    <div class="invalid-feedback">${bedTypeError}</div>
-		  </c:if>
-        </div>
-      </div>
+		<form
+			action="${pageContext.request.contextPath}/addRoom"
+			method="post"
+			enctype="multipart/form-data">
+			<div class="form-container">
+				<div class="form-row">
+					<div class="form-fields">
+						<label
+							for="roomNumber"
+							class="label-for-form">First Name</label> <input
+							type="text"
+							class="form-control ${not empty roomNumberError ? 'is-invalid' : ''}"
+							id="roomNumber"
+							name="roomNumber"
+							value="${param.roomNumber}"
+							placeholder="${not empty roomNumberError ? roomNumberError : 'Enter room number'}">
+						<c:if test="${not empty roomNumberExistsError}">
+							<small class="text-danger">${roomNumberExistsError}</small>
+						</c:if>
+					</div>
+					<div class="form-fields">
+						<label
+							for="roomType"
+							class="label-for-form">Last Name</label> <input
+							type="text"
+							class="form-control ${not empty roomNumberError ? 'is-invalid' : ''}"
+							id="roomNumber"
+							name="roomNumber"
+							value="${param.roomNumber}"
+							placeholder="${not empty roomNumberError ? roomNumberError : 'Enter room number'}">
+						<c:if test="${not empty roomNumberExistsError}">
+							<small class="text-danger">${roomNumberExistsError}</small>
+						</c:if>
+					</div>
 
-      <div class="form-row">
-        <div class="form-fields">
-          <label for="price" class="label-for-form">E-mail</label>
-          <input type="text" class="form-control ${not empty priceError ? 'is-invalid' : ''}" id="price" name="price" value="${param.price}" placeholder="${not empty priceError ? priceError : 'Enter room price per night'}">
-          <c:if test="${not empty priceFormatError}">
-			<small class="text-danger">${priceFormatError}</small>
-	      </c:if>
-        </div>
-        <div class="form-fields">
-          <label for="roomArea" class="label-for-form">Password</label>
-          <input type="text" class="form-control ${not empty roomAreaError ? 'is-invalid' : ''}" id="roomArea" name="roomArea" value="${param.roomArea}" placeholder="${not empty roomAreaError ? roomAreaError : 'Enter room area'}">
-          <c:if test="${not empty roomAreaFormatError}">
-			<small class="text-danger">${roomAreaFormatError}</small>
-	      </c:if>
-        </div>
-      </div>
+				</div>
 
-      <div class="form-row">
-        <div class="form-fields">
-          <label for="roomImage" class="label-for-form">Address</label>
-          <input type="file" id="roomImage" class="form-control" name="roomImage" accept="image/*">
-          <c:if test="${not empty ImageError}">
-			<small class="text-danger">${ImageError}</small>
-	      </c:if>
-        </div>
+				<div class="form-row">
+					<div class="form-fields">
+						<label
+							for="noOfBeds"
+							class="label-for-form">Username</label> <input
+							type="text"
+							class="form-control ${not empty noOfBedsEmptyError ? 'is-invalid' : ''}"
+							id="noOfBeds"
+							name="noOfBeds"
+							value="${param.noOfBeds}"
+							placeholder="${not empty noOfBedsEmptyError ? noOfBedsEmptyError : 'Enter number of beds'}">
+						<c:if test="${not empty noOfBedsFormatError}">
+							<small class="text-danger">${noOfBedsFormatError}</small>
+						</c:if>
+					</div>
+					<div class="form-fields">
+						<label
+							for="bedType"
+							class="label-for-form">Phone Number</label> <select
+							class="form-control ${not empty bedTypeError ? 'is-invalid' : ''}"
+							id="bedType"
+							name="bedType">
+							<option value="">Select Bed Type</option>
+							<option
+								value="single"
+								${param.bedType == 'single' ? 'selected' : ''}>Single</option>
+							<option
+								value="double"
+								${param.bedType == 'double' ? 'selected' : ''}>Double</option>
+							<option
+								value="queen"
+								${param.bedType == 'queen' ? 'selected' : ''}>Queen</option>
+							<option
+								value="king"
+								${param.bedType == 'king' ? 'selected' : ''}>King</option>
+						</select>
+						<c:if test="${not empty bedTypeError}">
+							<div class="invalid-feedback">${bedTypeError}</div>
+						</c:if>
+					</div>
+				</div>
 
-        <div class="form-fields">
-          <label for="gender" class="label-for-form">Date of Birth</label>
-          <textarea id="description" name="description" class="form-control desc ${not empty roomImageError ? 'is-invalid' : ''}" placeholder="Enter description">${param.description}</textarea>
-          <c:if test="${not empty descriptionError}">
-			<small class="text-danger">${descriptionError}</small>
-	      </c:if>
-        </div>
-        
-        <div class="form-fields">
-          <label for="gender" class="label-for-form">Gender</label>
-          <textarea id="description" name="description" class="form-control desc ${not empty roomImageError ? 'is-invalid' : ''}" placeholder="Enter description">${param.description}</textarea>
-          <c:if test="${not empty descriptionError}">
-			<small class="text-danger">${descriptionError}</small>
-	      </c:if>
-        </div>        
-      </div>
+				<div class="form-row">
+					<div class="form-fields">
+						<label
+							for="price"
+							class="label-for-form">E-mail</label> <input
+							type="text"
+							class="form-control ${not empty priceError ? 'is-invalid' : ''}"
+							id="price"
+							name="price"
+							value="${param.price}"
+							placeholder="${not empty priceError ? priceError : 'Enter room price per night'}">
+						<c:if test="${not empty priceFormatError}">
+							<small class="text-danger">${priceFormatError}</small>
+						</c:if>
+					</div>
+					<div class="form-fields">
+						<label
+							for="roomArea"
+							class="label-for-form">Password</label> <input
+							type="text"
+							class="form-control ${not empty roomAreaError ? 'is-invalid' : ''}"
+							id="roomArea"
+							name="roomArea"
+							value="${param.roomArea}"
+							placeholder="${not empty roomAreaError ? roomAreaError : 'Enter room area'}">
+						<c:if test="${not empty roomAreaFormatError}">
+							<small class="text-danger">${roomAreaFormatError}</small>
+						</c:if>
+					</div>
+				</div>
 
-      <button type="submit" class="btn-addRoom">Add Room</button>
-    </div>
-  </form>
-</div>
+				<div class="form-row">
+					<div class="form-fields">
+						<label
+							for="roomImage"
+							class="label-for-form">Address</label> <input
+							type="file"
+							id="roomImage"
+							class="form-control"
+							name="roomImage"
+							accept="image/*">
+						<c:if test="${not empty ImageError}">
+							<small class="text-danger">${ImageError}</small>
+						</c:if>
+					</div>
+
+					<div class="form-fields">
+						<label
+							for="gender"
+							class="label-for-form">Date of Birth</label>
+						<textarea
+							id="description"
+							name="description"
+							class="form-control desc ${not empty roomImageError ? 'is-invalid' : ''}"
+							placeholder="Enter description">${param.description}</textarea>
+						<c:if test="${not empty descriptionError}">
+							<small class="text-danger">${descriptionError}</small>
+						</c:if>
+					</div>
+
+					<div class="form-fields">
+						<label
+							for="gender"
+							class="label-for-form">Gender</label>
+						<textarea
+							id="description"
+							name="description"
+							class="form-control desc ${not empty roomImageError ? 'is-invalid' : ''}"
+							placeholder="Enter description">${param.description}</textarea>
+						<c:if test="${not empty descriptionError}">
+							<small class="text-danger">${descriptionError}</small>
+						</c:if>
+					</div>
+				</div>
+
+				<button
+					type="submit"
+					class="btn-addRoom">Add Room</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<!--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 		
 		<div class="form-container">
 			<h2>Add New Staff</h2>

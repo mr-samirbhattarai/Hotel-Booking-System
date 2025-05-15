@@ -20,44 +20,40 @@
     <div class="sidebar_halfline"></div>
     
     <nav class="sidebar-nav">
-      <ul class="nav-list">
+      <ul class="nav-list">        
+        
         <li class="nav-item">
-          <a href="${pageContext.request.contextPath}/dashboard.jsp" class="nav-link">
+          <a class="nav-link ${activePage == 'dashboard' ? 'active' : ''}"
+   				href="${pageContext.request.contextPath}/admin/dashboard.jsp">
             <span class="material-symbols-rounded">dashboard</span>
             <span class="nav-label">Dashboard</span>
           </a>
         </li>
-        
+          
+          
         <li class="nav-item">
-          <a href="${pageContext.request.contextPath}/addRoom" class="nav-link">
-            <span class="material-symbols-rounded">bookmark_added</span>
-            <span class="nav-label">Add Room</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="${pageContext.request.contextPath}/ManageRoomsController" class="nav-link">
+          <a href="${pageContext.request.contextPath}/ManageRoomsController" class="nav-link ${activePage == 'manageRooms' ? 'active' : ''}">
             <span class="material-symbols-rounded">settings</span>
             <span class="nav-label">Manage Rooms</span>
           </a>
         </li>
 
          <li class="nav-item">
-          <a href="${pageContext.request.contextPath}/AddStaffController" class="nav-link">
+          <a href="${pageContext.request.contextPath}/AddStaffController" class="nav-link ${activePage == 'addStaff' ? 'active' : ''}">
             <span class="material-symbols-rounded">hotel</span>
             <span class="nav-label">Add Staff</span>
           </a>
         </li> 
         
           <li class="nav-item">
-          <a href="${pageContext.request.contextPath}/ViewStaffController" class="nav-link">
+          <a href="${pageContext.request.contextPath}/ViewStaffController" class="nav-link ${activePage == 'viewStaff' ? 'active' : ''}">
             <span class="material-symbols-rounded">help</span>
             <span class="nav-label">Manage Staff</span>
           </a> 
           </li>       
 
         <li class="nav-item">
-          <a href="${pageContext.request.contextPath}/ViewCustomerController" class="nav-link">
+          <a href="${pageContext.request.contextPath}/ViewCustomerController" class="nav-link ${activePage == 'viewCustomer' ? 'active' : ''}">
             <span class="material-symbols-rounded">groups</span>
             <span class="nav-label">Users Details</span>
           </a>

@@ -45,7 +45,7 @@
 	<body>
 		<c:set
 			var="activePage"
-			value="rooms"
+			value="viewStaff"
 			scope="request" />
 		<jsp:include page="/admin/adminSidebar.jsp" />
 		<%
