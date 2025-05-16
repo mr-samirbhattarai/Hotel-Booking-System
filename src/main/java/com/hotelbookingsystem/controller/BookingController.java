@@ -48,10 +48,10 @@ public class BookingController extends HttpServlet {
 
         Integer userId = (Integer) session.getAttribute("user_id");
         Users user = userDAO.getUserById(userId);
-		List<Rooms> rooms = roomDAO.getAllRooms();
-		request.setAttribute("user", user);
-		request.setAttribute("rooms", rooms);
-		request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+        List<Rooms> rooms = roomDAO.getAllRooms();
+        request.setAttribute("user", user);
+        request.setAttribute("rooms", rooms);
+        request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -69,10 +69,24 @@ public class BookingController extends HttpServlet {
         String dob = request.getParameter("dob");
         String checkInDate = request.getParameter("checkInDate");
         String checkOutDate = request.getParameter("checkOutDate");
-        int numberOfGuests = Integer.parseInt(request.getParameter("numberOfGuests"));
-//        long roomId = Long.parseLong(request.getParameter("roomId"));
+        int numberOfGuests;
+        try {
+            numberOfGuests = Integer.parseInt(request.getParameter("numberOfGuests"));
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid number of guests");
+            request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
+            return;
+        }
 
         try {
+            // Fetch an available room
+            Rooms room = roomDAO.getAvailableRoom();
+            if (room == null) {
+                request.setAttribute("error", "No rooms available at the moment");
+                request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
+                return;
+            }
+
             // Update user profile
             Users user = userDAO.getUserById(userId);
             if (phoneNo != null && !phoneNo.isEmpty()) user.setPhoneNo(phoneNo);
@@ -85,7 +99,7 @@ public class BookingController extends HttpServlet {
             Bookings booking = new Bookings();
             booking.setStatus("pending");
             booking.setUserId(userId.longValue());
-//            booking.setRoomId(roomId);
+            booking.setRoomId(room.getRoomId()); // Set the roomId from the available room
             booking.setCheckInDate(Date.valueOf(checkInDate));
             booking.setCheckOutDate(Date.valueOf(checkOutDate));
             booking.setNumberOfGuests(numberOfGuests);

@@ -32,7 +32,7 @@ public class UserDAO {
                 ps.setString(2, users.getLastName());
                 ps.setString(3, users.getUsername());
                 ps.setString(4, users.getEmail());
-                ps.setString(5, users.getPassword()); // Should be encrypted in practice
+                ps.setString(5, users.getPassword());
                 ps.setString(6, "USER"); // Default role
                 ps.setBoolean(7, true); // Default active status
                 ps.setTimestamp(8, new Timestamp(System.currentTimeMillis()));

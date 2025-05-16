@@ -77,10 +77,6 @@
                 <label for="numberOfGuests">Number of Guests:</label>
                 <input type="number" id="numberOfGuests" name="numberOfGuests" min="1" required>
             </div>
-            <div class="form-group">
-                <label for="checkInDate">Room ID</label>
-                <input type="number" id="room" name="roomId" value="${room.roomId}">
-            </div>
 
             <div class="form-group">
                 <button type="submit">Submit Booking</button>
