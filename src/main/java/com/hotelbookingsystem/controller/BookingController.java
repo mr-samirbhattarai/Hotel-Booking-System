@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -79,13 +80,17 @@ public class BookingController extends HttpServlet {
         }
 
         try {
-            // Fetch an available room
-            Rooms room = roomDAO.getAvailableRoom();
-            if (room == null) {
-                request.setAttribute("error", "No rooms available at the moment");
+            // Fetch a room ID from the database
+            List<Rooms> rooms = roomDAO.getAllRooms();
+            if (rooms == null || rooms.isEmpty()) {
+                request.setAttribute("error", "No rooms available in the database");
                 request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
                 return;
             }
+            // Select a random room
+            Random random = new Random();
+            long roomId = rooms.get(random.nextInt(rooms.size())).getRoomId();
+            System.out.println("Selected roomId: " + roomId);
 
             // Update user profile
             Users user = userDAO.getUserById(userId);
@@ -99,7 +104,7 @@ public class BookingController extends HttpServlet {
             Bookings booking = new Bookings();
             booking.setStatus("pending");
             booking.setUserId(userId.longValue());
-            booking.setRoomId(room.getRoomId()); // Set the roomId from the available room
+            booking.setRoomId(roomId); // Set the roomId from the database
             booking.setCheckInDate(Date.valueOf(checkInDate));
             booking.setCheckOutDate(Date.valueOf(checkOutDate));
             booking.setNumberOfGuests(numberOfGuests);

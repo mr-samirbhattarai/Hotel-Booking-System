@@ -108,7 +108,7 @@ public class RoomDAO {
 		}
 		return room;
 	}
-	
+
 	// Update an existing room in the database
 	public boolean updateRoom(Rooms room) {
 		String query = "UPDATE rooms SET room_number =?, room_type = ?, price_per_night = ?, no_of_beds = ?, description = ?, bed_type = ?, room_area = ?, is_available = ?, floor_number = ?, max_occupancy = ?, room_image = ?, room_number = ? WHERE room_id = ?";
@@ -170,9 +170,4 @@ public class RoomDAO {
 		}
 		return isRowFound;
 	}
-	
-	
-	
-	
-	
 }
