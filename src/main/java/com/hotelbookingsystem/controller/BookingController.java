@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Random;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,7 +48,7 @@ public class BookingController extends HttpServlet {
 
         Integer userId = (Integer) session.getAttribute("user_id");
         Users user = userDAO.getUserById(userId);
-        List<Rooms> rooms = roomDAO.getAllRooms();
+        ArrayList<Rooms> rooms = roomDAO.getAllRooms();
         request.setAttribute("user", user);
         request.setAttribute("rooms", rooms);
         request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
@@ -80,16 +79,14 @@ public class BookingController extends HttpServlet {
         }
 
         try {
-            // Fetch a room ID from the database
-            List<Rooms> rooms = roomDAO.getAllRooms();
-            if (rooms == null || rooms.isEmpty()) {
-                request.setAttribute("error", "No rooms available in the database");
+            // Use predefined room_id from database
+            long roomId = 1L; // Replace with your specific room_id
+            Rooms room = roomDAO.getRoomById(roomId);
+            if (room == null) {
+                request.setAttribute("error", "Selected room does not exist in the database");
                 request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
                 return;
             }
-            // Select a random room
-            Random random = new Random();
-            long roomId = rooms.get(random.nextInt(rooms.size())).getRoomId();
             System.out.println("Selected roomId: " + roomId);
 
             // Update user profile
@@ -104,7 +101,7 @@ public class BookingController extends HttpServlet {
             Bookings booking = new Bookings();
             booking.setStatus("pending");
             booking.setUserId(userId.longValue());
-            booking.setRoomId(roomId); // Set the roomId from the database
+            booking.setRoomId(roomId); // Set the predefined roomId
             booking.setCheckInDate(Date.valueOf(checkInDate));
             booking.setCheckOutDate(Date.valueOf(checkOutDate));
             booking.setNumberOfGuests(numberOfGuests);

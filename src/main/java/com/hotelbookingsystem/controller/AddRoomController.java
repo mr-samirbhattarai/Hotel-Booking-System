@@ -65,7 +65,7 @@ public class AddRoomController extends HttpServlet {
 	     // Validate if the user entered a number of beds
 	     if (roomOfBedsStr == null || roomOfBedsStr.trim().isEmpty()) {
 	         request.setAttribute("noOfBedsEmptyError", "Number of beds in room is required.");
-	         request.getRequestDispatcher("/adimn/addRooms.jsp").forward(request, response);
+	         request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);
 	         return;
 	     }
 	
@@ -278,8 +278,7 @@ public class AddRoomController extends HttpServlet {
                 // Redirect to avoid form resubmission
             	System.out.println("xxxxxxxxxxx Added Room Sucessfully! xxxxxxxxxxx");
                 request.setAttribute("successMessage", "Added Room Successfully.");
-
-                response.sendRedirect("admin/addRooms.jsp?success=true");
+                request.getRequestDispatcher("/ManageRoomsController").forward(request, response);
             } else {
                 request.setAttribute("errorMessage", "Failed to add room.");
                 request.getRequestDispatcher("/admin/addRooms.jsp").forward(request, response);

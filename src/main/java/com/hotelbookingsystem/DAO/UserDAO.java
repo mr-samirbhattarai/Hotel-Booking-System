@@ -33,7 +33,7 @@ public class UserDAO {
                 ps.setString(3, users.getUsername());
                 ps.setString(4, users.getEmail());
                 ps.setString(5, users.getPassword());
-                ps.setString(6, "USER"); // Default role
+                ps.setString(6, "customer"); // Default role
                 ps.setBoolean(7, true); // Default active status
                 ps.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
                 if (ps.executeUpdate() > 0) {
@@ -46,6 +46,25 @@ public class UserDAO {
         return isUserRegistered;
     }
 
+    
+    
+    // Checks if a user exists by username or email
+    public boolean existsByUsernameOrEmail(String username, String email) throws SQLException {
+        String query = "SELECT COUNT(*) FROM users WHERE username = ? OR email = ?";
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, username);
+            ps.setString(2, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
+    
+    
+    
     // Gets all users from the database
     public ArrayList<Users> getAllUsers() {
         ArrayList<Users> users = new ArrayList<>();

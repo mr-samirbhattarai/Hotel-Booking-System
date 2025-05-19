@@ -90,7 +90,7 @@
 			  </div>
 		</div>
           <div class="form-check">
-            <input class="form-check-input ${not empty termsError ? 'is-invalid' : ''}" type="checkbox" id="terms" name="terms" ${param.terms == 'on' ? 'checked' : ''}>
+            <input class="form-check-input ${not empty termsError ? 'is-invalid' : ''}" type="checkbox" id="terms" name="terms" ${param.terms == 'on' ? 'checked' : ''} required>
             <label class ="form-check-label" for="terms">I agree to the terms and conditions</label>
         </div>
         </div>
