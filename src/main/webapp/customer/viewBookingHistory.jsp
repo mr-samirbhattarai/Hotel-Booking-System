@@ -10,6 +10,8 @@
 <body>
     <div class="container">
         <h1>Your Booking History</h1>
+        <a href="RoomsController" class="back-link">Back</a>
+        
         <c:if test="${not empty bookings}">
             <table class="booking-table">
                 <thead>
@@ -21,6 +23,7 @@
                         <th>Guests</th>
                         <th>Status</th>
                         <th>Booked On</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,15 +36,29 @@
                             <td>${booking.numberOfGuests}</td>
                             <td>${booking.status}</td>
                             <td>${booking.createdAt}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${booking.status == 'pending'}">
+                                        <form action="CancelBookingController" method="post" style="margin:0;">
+                                            <input type="hidden" name="bookingId" value="${booking.bookingId}" />
+                                            <input class="cancel-btn" type="submit" value="Cancel" 
+                                                onclick="return confirm('Are you sure you want to cancel this booking?');" />
+                                        </form>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span style="color:gray;">Not cancellable</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
         </c:if>
+        
         <c:if test="${empty bookings}">
             <p>No bookings found.</p>
         </c:if>
-        <a href="RoomsController" class="back-link">Back to Dashboard</a>
     </div>
 </body>
 </html>

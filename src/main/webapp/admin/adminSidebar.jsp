@@ -55,21 +55,6 @@
 						class="nav-label">Room Status</span>
 				</a></li>
 
-				<!-- 
-         <li class="nav-item">
-          <a href="${pageContext.request.contextPath}/AddStaffController" class="nav-link ${activePage == 'addStaff' ? 'active' : ''}">
-            <span class="material-symbols-rounded">hotel</span>
-            <span class="nav-label">Add Staff</span>
-          </a>
-				</li>
-
-				<li class="nav-item"><a
-					href="${pageContext.request.contextPath}/ViewStaffController"
-					class="nav-link ${activePage == 'viewStaff' ? 'active' : ''}">
-						<span class="material-symbols-rounded">help</span> <span
-						class="nav-label">Manage Staff</span>
-				</a></li>
--->
 				<li class="nav-item"><a
 					href="${pageContext.request.contextPath}/ViewCustomerController"
 					class="nav-link ${activePage == 'viewCustomer' ? 'active' : ''}">

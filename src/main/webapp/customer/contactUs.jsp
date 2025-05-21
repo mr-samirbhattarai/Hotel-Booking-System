@@ -32,7 +32,7 @@
                         <input type="email" id="email" class="form-control" placeholder="Your email" required>
                     </div>
                     <div class="form-group">
-                        <label for="message" class="label-for-form">Message</label>
+                        <label for="message" class="label-for-form">Feedback</label>
                         <textarea id="message" class="form-control" placeholder="Your message" required></textarea>
                     </div>
                     <button type="submit" class="btn-login">Send Message</button>
@@ -52,12 +52,12 @@
             </div>
         </div>
     </div>
-
+  <jsp:include page="/customer/footer.jsp" />
 
     <script>
         document.getElementById('contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Message sent! Our team at Hotel RockStar will get back to you soon.');
+            alert('Thank you for your feedback!.');
             e.target.reset();
         });
     </script>

@@ -29,7 +29,7 @@
                     <img src="${pageContext.request.contextPath}/images/Swimming_Pool_Seen.jpg" alt="Swimming Pool" />
                     <img src="${pageContext.request.contextPath}/images/Room-view.jpg" alt="Room View" />
     
-                    <button class="view-room-btn">View More</button>
+                    <a href="RoomController?roomType=SINGLE" class="view-room-btn">View More</a>
                 </div>
             </div>
 			

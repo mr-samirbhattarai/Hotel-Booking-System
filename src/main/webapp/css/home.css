@@ -2,133 +2,156 @@
 
 @charset "UTF-8";
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import
+	url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap")
+	;
 
-        * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-        }
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
 
-        body {
-            background-color: #f5f5f5;
-        }
+body {
+	background-color: #f5f5f5;
+}
 
-        .home-container {
-        /* max-width: 1200px;       */
-        /* margin: 0 auto; */
-        /* padding: 14px 21px; */
-      margin: 0 100px;
-      margin-top: 100px;
-      background-color: #333;
+.home-container {
+	margin: 0 100px;
+	margin-top: 100px;
+	background-color: #333;
+}
 
-      }
+a {
+	text-decoration: none;
+	font-family: 'Poppins', sans-serif;
+	color: inherit;
+}
 
+.main-section {
+	padding-top: 150px;
+	display: flex;
+	justify-content: space-between;
+	margin: 0px 100px;
+}
 
-        .main-section {
-            padding-top: 150px;
-            /* background-color: red; */
-            display: flex;
-            justify-content: space-between;
-            margin: 0px 100px;
-        }
+.content {
+	width: 66%;
+	box-shadow: 9px 9px 9px rgba(0, 0, 0, 0.1), 3px 3px 9px
+		rgba(0, 0, 0, 0.01);
+	border-radius: 0 0 12px 12px;
+}
 
+.slogan-and-images {
+	display: flex;
+	gap: 60px;
+}
 
-        .content {
-            width: 66%;
-            /* box-shadow: 1px 1px -1px rgba(0,0,0,.15); */
-            box-shadow: 9px 9px 9px rgba(0, 0, 0, 0.1), 3px 3px 9px rgba(0, 0, 0, 0.01);
+.hotel-slogan h1 {
+	font-size: 68px;
+	line-height: 1.3;
+	margin-bottom: 20px;
+}
 
+.hotel-slogan p {
+	font-size: 16px;
+	color: #666;
+	margin-bottom: 11px;
+}
 
-            border-radius: 0 0 12px 12px;
+.hotel-slogan {
+	margin-top: 80px;
+	width: 71%;
+}
 
-            /* box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.1); */
-        }
+.hotel_images {
+	/* background-color: #000; */
+	width: 23%;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
 
-        .slogan-and-images {
-            display: flex;
-            gap: 60px;
-        }
+.hotel_images img {
+	align-items: center;
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+	border-radius: 12px;
+}
 
-        .hotel-slogan h1 {
-            font-size: 68px;
-            line-height: 1.3;
-            margin-bottom: 20px;
-        }
+.view-room-btn {
+	padding: 10px 20px;
+	background-color: #000;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	font-size: 15px;
+	border-radius: 7px;
+}
 
-        .hotel-slogan p {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 11px;
-        }
+.booking-form {
+	max-width: 400px;
+}
 
-        .hotel-slogan {
-            margin-top: 80px;
-            width: 71%;
-        }
+.form-row {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	margin-top: 8px;
+}
 
-        .hotel_images {
-            /* background-color: #000; */
-            width: 23%;
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+.booking-form select {
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	font-size: 14px;
+	flex: 1;
+	padding: 5px;
+}
 
-        .hotel_images img {
-            align-items: center;
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 12px;
-        }
+label[for="roomType"] {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 600;
+	font-size: 1rem;
+	color: #333;
+	display: block;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
 
-        .view-room-btn {
-            padding: 10px 26px;
-            background-color: #000;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            border-radius: 7px;
-        }
+select#roomType {
+	font-family: 'Poppins', sans-serif;
+	font-size: 1rem;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	padding: 8px 12px;
+	border: 2px solid #333;
+	border-radius: 5px;
+	background-color: white;
+	color: #333;
+	outline: none;
+	transition: border-color 0.3s ease;
+	min-width: 160px;
+	cursor: pointer;
+}
 
-        .booking-form {
-			max-width: 400px;
-        }
+.find-room-btn {
+	padding: 10px 15px;
+	background-color: #000;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	border-radius: 5px;
+}
 
-		.form-row {
-		    display: flex;
-		    gap: 10px;
-		    align-items: center;
-		    margin-top: 8px;
-		}
-
-        .booking-form select {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            flex: 1;
-    		padding: 5px;
-        }
-
-        .find-room-btn {
-   		    padding: 10px 15px;
-            background-color: #000;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        .hotel_main-image img {
-            align-items: center;
-            width: 444px;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
+.hotel_main-image img {
+	align-items: center;
+	width: 444px;
+	height: 500px;
+	object-fit: cover;
+	border-radius: 10px;
+}

@@ -35,7 +35,7 @@ public class AuthenticationFilter implements Filter {
             if ("admin".equalsIgnoreCase(role)) {
                 res.sendRedirect(contextPath + "/admin/dashboard.jsp");
             } else if ("customer".equalsIgnoreCase(role)) {
-                res.sendRedirect(contextPath + "/RoomsController");
+                res.sendRedirect(contextPath + "/customer/home.jsp");
             } else {
                 res.sendRedirect(contextPath + "/error.jsp"); // Handle unknown roles
             }
