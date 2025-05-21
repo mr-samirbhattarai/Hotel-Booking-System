@@ -119,8 +119,6 @@ public class LoginController extends HttpServlet {
             String role = (String) session.getAttribute("role");
             if ("admin".equalsIgnoreCase(role)) {
                 response.sendRedirect("dashboard.jsp");
-            } else if ("staff".equalsIgnoreCase(role)) {
-                response.sendRedirect("staffPortal.jsp");
             } else {
                 response.sendRedirect("RoomsController");
             }

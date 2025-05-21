@@ -48,6 +48,12 @@
 						class="nav-label">Manage Rooms</span>
 				</a></li>
 
+				<li class="nav-item"><a
+					href="${pageContext.request.contextPath}/roomDetails?page=roomStatus"
+					class="nav-link ${activePage == 'roomStatus' ? 'active' : ''}">
+						<span class="material-symbols-rounded">settings</span> <span
+						class="nav-label">Room Status</span>
+				</a></li>
 
 				<!-- 
          <li class="nav-item">

@@ -63,12 +63,9 @@ public class BookingController extends HttpServlet {
         }
 
         Integer userId = (Integer) session.getAttribute("user_id");
-        String phoneNo = request.getParameter("phoneNo");
-        String address = request.getParameter("address");
-        String gender = request.getParameter("gender");
-        String dob = request.getParameter("dob");
         String checkInDate = request.getParameter("checkInDate");
         String checkOutDate = request.getParameter("checkOutDate");
+
         int numberOfGuests;
         try {
             numberOfGuests = Integer.parseInt(request.getParameter("numberOfGuests"));
@@ -78,44 +75,31 @@ public class BookingController extends HttpServlet {
             return;
         }
 
-        try {
-            // Use predefined room_id from database
-            long roomId = 1L; // Replace with your specific room_id
-            Rooms room = roomDAO.getRoomById(roomId);
-            if (room == null) {
-                request.setAttribute("error", "Selected room does not exist in the database");
-                request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
-                return;
-            }
-            System.out.println("Selected roomId: " + roomId);
+        // Use predefined room_id from database
+		long roomId = 1L; // Replace with your specific room_id
+		Rooms room = roomDAO.getRoomById(roomId);
+		if (room == null) {
+		    request.setAttribute("error", "Selected room does not exist in the database");
+		    request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
+		    return;
+		}
+		System.out.println("Selected roomId: " + roomId);
 
-            // Update user profile
-            Users user = userDAO.getUserById(userId);
-            if (phoneNo != null && !phoneNo.isEmpty()) user.setPhoneNo(phoneNo);
-            if (address != null && !address.isEmpty()) user.setAddress(address);
-            if (gender != null && !gender.isEmpty()) user.setGender(gender);
-            if (dob != null && !dob.isEmpty()) user.setDob(Date.valueOf(dob));
-            userDAO.updateUserProfile(user);
+		// Create booking
+		Bookings booking = new Bookings();
+		booking.setStatus("pending");
+		booking.setUserId(userId.longValue());
+		booking.setRoomId(roomId);
+		booking.setCheckInDate(Date.valueOf(checkInDate));
+		booking.setCheckOutDate(Date.valueOf(checkOutDate));
+		booking.setNumberOfGuests(numberOfGuests);
+		booking.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
-            // Create booking
-            Bookings booking = new Bookings();
-            booking.setStatus("pending");
-            booking.setUserId(userId.longValue());
-            booking.setRoomId(roomId); // Set the predefined roomId
-            booking.setCheckInDate(Date.valueOf(checkInDate));
-            booking.setCheckOutDate(Date.valueOf(checkOutDate));
-            booking.setNumberOfGuests(numberOfGuests);
-            booking.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-
-            if (bookingDAO.addNewBooking(booking)) {
-                response.sendRedirect("BookingHistory");
-            } else {
-                request.setAttribute("error", "Failed to create booking");
-                request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error");
-        }
+		if (bookingDAO.addNewBooking(booking)) {
+		    response.sendRedirect("BookingHistory");
+		} else {
+		    request.setAttribute("error", "Failed to create booking");
+		    request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
+		}
     }
 }

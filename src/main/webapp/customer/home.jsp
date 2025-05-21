@@ -32,20 +32,22 @@
                     <button class="view-room-btn">View More</button>
                 </div>
             </div>
-            
-            <div class="booking-form">
-			    <label for="guests">Number of Guests</label>
-			    <div class="form-row">
-			        <select id="guests" name="guests">
-			            <option disabled selected>Number of Guests</option>
-			            <option>1 Guest</option>
-			            <option>2 Guests</option>
-			            <option>3 Guests</option>
-			            <option>4+ Guests</option>
-			        </select>
-			        <button class="find-room-btn">Find Room</button>
-			    </div>
-			</div>
+			
+			<form method="get" action="${pageContext.request.contextPath}/RoomsController">
+			    <label for="roomType">Choose Your Perfect Room</label>			    
+				    <select name="roomType" id="roomType">
+				        <option value="">All</option>
+				        <option value="SINGLE" ${param.roomType == 'SINGLE' ? 'selected' : ''}>Single</option>
+				        <option value="DOUBLE" ${param.roomType == 'DOUBLE' ? 'selected' : ''}>Double</option>
+				        <option value="SUITE" ${param.roomType == 'SUITE' ? 'selected' : ''}>Suite</option>
+				        <option value="DELUXE" ${param.roomType == 'DELUXE' ? 'selected' : ''}>Deluxe</option>
+				    </select>
+			    <button class="find-room-btn" type="submit" >Find Rooms</button>
+			</form>
+			
+			
+			
+			
         </div>
         <div class="hotel_main-image">
             <img src="${pageContext.request.contextPath}/images/Deluxe-room.jpg" alt="Main Room Image">

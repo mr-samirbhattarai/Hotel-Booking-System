@@ -17,8 +17,22 @@
     <div class="room-container">
     	<h2>Choose Your Room</h2>
       	<p>Feel at home, wherever you are.</p>
+      	
+      	<form method="get" action="${pageContext.request.contextPath}/RoomsController">
+			    <label for="roomType">Choose Your Perfect Room</label>			    
+				    <select name="roomType" id="roomType">
+				        <option value="">All</option>
+				        <option value="SINGLE" ${param.roomType == 'SINGLE' ? 'selected' : ''}>Single</option>
+				        <option value="DOUBLE" ${param.roomType == 'DOUBLE' ? 'selected' : ''}>Double</option>
+				        <option value="SUITE" ${param.roomType == 'SUITE' ? 'selected' : ''}>Suite</option>
+				        <option value="DELUXE" ${param.roomType == 'DELUXE' ? 'selected' : ''}>Deluxe</option>
+				    </select>
+			    <button class="find-room-btn" type="submit" >Find Rooms</button>
+			</form>
         <div class="row">
            <c:forEach var="room" items="${rooms}">
+           
+			
         
             <div class="roombox">
                 <div class="room">

@@ -173,4 +173,37 @@ public class RoomDAO {
 		}
 		return isRowFound;
 	}
+	
+	//filter 
+			public ArrayList<Rooms> getRoomsByType(String roomType) {
+			    ArrayList<Rooms> rooms = new ArrayList<>();
+			    String query = "SELECT * FROM rooms WHERE room_type = ?";
+			    if (conn != null) {
+			        try (PreparedStatement ps = conn.prepareStatement(query)) {
+			            ps.setString(1, roomType.toLowerCase());
+			            ResultSet roomSet = ps.executeQuery();
+			            while (roomSet.next()) {
+			                Rooms room = new Rooms();
+			                room.setRoomId(roomSet.getLong("room_id"));
+			                room.setRoomType(RoomType.valueOf(roomSet.getString("room_type").toUpperCase()));
+			                room.setPricePerNight(roomSet.getDouble("price_per_night"));
+			                room.setNoOfBeds(roomSet.getInt("no_of_beds"));
+			                room.setDescription(roomSet.getString("description"));
+			                room.setBedType(BedType.valueOf(roomSet.getString("bed_type").toUpperCase()));
+			                room.setRoomArea(roomSet.getDouble("room_area"));
+			                room.setAvailable(roomSet.getBoolean("is_available"));
+			                room.setFloorNumber(roomSet.getInt("floor_number"));
+			                room.setMaxOccupancy(roomSet.getInt("max_occupancy"));
+			                room.setRoomImage(roomSet.getString("room_image"));
+			                room.setRoomNumber(roomSet.getString("room_number"));
+			                rooms.add(room);
+			            }
+			        } catch (SQLException e) {
+			            e.printStackTrace();
+			        }
+			    }
+			    return rooms;
+			}
+	
+	
 }
