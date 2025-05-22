@@ -99,7 +99,7 @@ nav ul li a.active {
   border-radius: 5px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   z-index: 1000;
-  min-width: 150px;
+  min-width: 200px;
 }
 
 .profile-menu.show {

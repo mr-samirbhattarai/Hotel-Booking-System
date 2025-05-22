@@ -55,18 +55,31 @@ public class ChangePasswordController extends HttpServlet {
             if (currentPassword == null || newPassword == null || confirmPassword == null ||
                 currentPassword.trim().isEmpty() || newPassword.trim().isEmpty() || confirmPassword.trim().isEmpty()) {
                 request.setAttribute("errorMessage", "All fields are required.");
-                request.getRequestDispatcher("customer/changePassword.jsp").forward(request, response);
+                request.setAttribute("currentPassword", currentPassword);
+                request.setAttribute("newPassword", newPassword);
+                request.setAttribute("confirmPassword", confirmPassword);
+                request.getRequestDispatcher("/customer/changePassword.jsp").forward(request, response);
                 return;
+                
+                
+              
+
             }
 
             if (!newPassword.equals(confirmPassword)) {
                 request.setAttribute("errorMessage", "New password and confirm password do not match.");
+                request.setAttribute("currentPassword", currentPassword);
+                request.setAttribute("newPassword", newPassword);
+                request.setAttribute("confirmPassword", confirmPassword);
                 request.getRequestDispatcher("/customer/changePassword.jsp").forward(request, response);
                 return;
             }
 
             if (newPassword.length() < 6) {
                 request.setAttribute("errorMessage", "New password must be at least 6 characters.");
+                request.setAttribute("currentPassword", currentPassword);
+                request.setAttribute("newPassword", newPassword);
+                request.setAttribute("confirmPassword", confirmPassword);
                 request.getRequestDispatcher("/customer/changePassword.jsp").forward(request, response);
                 return;
             }

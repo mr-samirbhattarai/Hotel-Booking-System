@@ -62,6 +62,7 @@
 							<a href="${pageContext.request.contextPath}/ProfileController">Update Profile</a>
 							<a href="${pageContext.request.contextPath}/ChangePasswordController">Change Password</a>
 							<a href="${pageContext.request.contextPath}/BookingHistory">View Booking History</a>
+							<a href="${pageContext.request.contextPath}/PaymentController">Payment</a>
 						</div>
 					</div>
 		</div>
