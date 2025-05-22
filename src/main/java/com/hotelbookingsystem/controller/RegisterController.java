@@ -1,9 +1,6 @@
 package com.hotelbookingsystem.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
@@ -14,12 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hotelbookingsystem.database.DatabaseConnection;
+import com.hotelbookingsystem.DAO.UserDAO;
+import com.hotelbookingsystem.model.Users;
 import com.hotelbookingsystem.utility.EncryptDecrypt;
 
 @WebServlet("/RegisterController")
 public class RegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private UserDAO userDAO;
+
+    @Override
+    public void init() throws ServletException {
+        try {
+            userDAO = new UserDAO();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new ServletException("Failed to initialize UserDAO", e);
+        }
+    }
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -48,10 +56,6 @@ public class RegisterController extends HttpServlet {
         session.setAttribute("address", address);
         session.setAttribute("gender", gender);
         session.setAttribute("dob", dob);
-
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
 
         try {
             // Validation
@@ -86,44 +90,40 @@ public class RegisterController extends HttpServlet {
                 return;
             }
 
-            // Get database connection
-            conn = DatabaseConnection.getConnection();
-
             // Check for duplicate username or email
-            String checkSql = "SELECT COUNT(*) FROM Users WHERE username = ? OR email = ?";
-            ps = conn.prepareStatement(checkSql);
-            ps.setString(1, username);
-            ps.setString(2, email);
-            rs = ps.executeQuery();
-            rs.next();
-            if (rs.getInt(1) > 0) {
+            if (userDAO.existsByUsernameOrEmail(username, email)) {
                 request.setAttribute("errorMessage", "Username or email already exists");
                 request.getRequestDispatcher("access/register.jsp").forward(request, response);
                 return;
             }
 
             // Encrypt password
-            String encryptedPassword = EncryptDecrypt.encrypt(password); // Adjust method name as per your Encrypt class
+            String encryptedPassword = EncryptDecrypt.encrypt(password);
 
-            // Insert user (role defaults to 'customer')
-            String insertSql = "INSERT INTO Users (firstname, lastname, username, password, role, email, phoneNo, address, gender, DOB, is_active) VALUES (?, ?, ?, ?, 'customer', ?, ?, ?, ?, ?, TRUE)";
-            ps = conn.prepareStatement(insertSql);
-            ps.setString(1, firstname);
-            ps.setString(2, lastname);
-            ps.setString(3, username);
-            ps.setString(4, encryptedPassword);
-            ps.setString(5, email);
-            ps.setString(6, phoneNo != null && !phoneNo.isEmpty() ? phoneNo : null);
-            ps.setString(7, address != null && !address.isEmpty() ? address : null);
-            ps.setString(8, gender != null && !gender.isEmpty() ? gender : null);
+            // Create Users object
+            Users user = new Users();
+            user.setFirstName(firstname);
+            user.setLastName(lastname);
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPassword(encryptedPassword);
+            user.setRole("customer");
+            user.setPhoneNo(phoneNo != null && !phoneNo.isEmpty() ? phoneNo : null);
+            user.setAddress(address != null && !address.isEmpty() ? address : null);
+            user.setGender(gender != null && !gender.isEmpty() ? gender : null);
             if (dob != null && !dob.isEmpty()) {
-                ps.setDate(9, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(dob).getTime()));
-            } else {
-                ps.setNull(9, java.sql.Types.DATE);
+                try {
+                    user.setDob(new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(dob).getTime()));
+                } catch (Exception e) {
+                    request.setAttribute("errorMessage", "Invalid date format");
+                    request.getRequestDispatcher("access/register.jsp").forward(request, response);
+                    return;
+                }
             }
 
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
+            // Register user via UserDAO
+            boolean registered = userDAO.register(user);
+            if (registered) {
                 // Clear session attributes on success
                 session.removeAttribute("firstname");
                 session.removeAttribute("lastname");
@@ -133,7 +133,6 @@ public class RegisterController extends HttpServlet {
                 session.removeAttribute("address");
                 session.removeAttribute("gender");
                 session.removeAttribute("dob");
-                // Redirect to login
                 response.sendRedirect("access/login.jsp");
             } else {
                 request.setAttribute("errorMessage", "Registration failed. Please try again.");
@@ -141,13 +140,16 @@ public class RegisterController extends HttpServlet {
             }
 
         } catch (SQLException e) {
+            // Log detailed error (use a logger like SLF4J in production)
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Database error: " + e.getMessage());
+            request.setAttribute("errorMessage", "Database error occurred. Please try again later.");
             request.getRequestDispatcher("access/register.jsp").forward(request, response);
         } catch (Exception e) {
+            // Log detailed error
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Unexpected error: " + e.getMessage());
+            request.setAttribute("errorMessage", "Unexpected error occurred. Please try again later.");
             request.getRequestDispatcher("access/register.jsp").forward(request, response);
+
         } finally {
             try {
                 if (rs != null) {
@@ -178,7 +180,6 @@ public class RegisterController extends HttpServlet {
         session.removeAttribute("address");
         session.removeAttribute("gender");
         session.removeAttribute("dob");
-        // Redirect to registration page
         response.sendRedirect("access/register.jsp");
     }
 }

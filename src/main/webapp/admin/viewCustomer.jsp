@@ -1,4 +1,4 @@
-<%@page import="com.hotelbookingsystem.DAO.ViewCustomerDAO"%>
+<%@page import="com.hotelbookingsystem.DAO.UserDAO"%>
 <%@ page
 	language="java"
 	contentType="text/html; charset=UTF-8"
@@ -47,7 +47,7 @@ h2 {
 	<%
 	if (request.getAttribute("users") == null) {
 		try {
-			ViewCustomerDAO dao = new ViewCustomerDAO();
+			UserDAO dao = new UserDAO();
 			ArrayList<Users> users = dao.getAllUsers();
 			request.setAttribute("users", users);
 		} catch (ClassNotFoundException | SQLException e) {

@@ -11,6 +11,7 @@ import com.hotelbookingsystem.database.DatabaseConnection;
 import com.hotelbookingsystem.model.Bookings;
 
 public class BookingDAO {
+
     private Connection conn;
 
     public BookingDAO() throws ClassNotFoundException, SQLException {
@@ -196,6 +197,7 @@ public class BookingDAO {
 		}
 		return false;
 	}
+
     
     
     public int getPendingBookings() {
@@ -241,4 +243,5 @@ public class BookingDAO {
 
         return bookings;
     }
+
 }

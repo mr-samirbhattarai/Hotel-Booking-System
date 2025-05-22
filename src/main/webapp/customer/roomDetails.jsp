@@ -86,6 +86,7 @@
 				<a
 					href="${pageContext.request.contextPath}/BookingController?roomId=${room.roomId}"
 					class="book-now-btn">Book Now</a>
+
 			</div>
 		</div>
 	</div>

@@ -1,66 +1,5 @@
 @charset "UTF-8";
 
-	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-	* {
-	    margin: 0;
-	    padding: 0;
-	    box-sizing: border-box;
-	}
-	body {
-	    font-family: "Poppins", sans-serif;
-	}
-	
-	.room-container {
-            margin: 0 101px;
-            padding-top: 100px;
-            padding-bottom: 50px;
-     }
-     
-     .header {
-     	display:flex;
-     }
-     
-	.room-container form {
-	    margin-top: 20px;
-	    margin-bottom: 40px;
-	    display: flex;
-	    flex-wrap: wrap;
-	    align-items: center;
-	    gap: 10px;
-	}
-	
-	.room-container label {
-	    font-weight: 500;
-	    color: #151a2d;
-	    margin-right: 10px;
-	}
-	
-	.room-container select {
-	    padding: 8px 12px;
-	    border-radius: 5px;
-	    border: 1px solid #ccc;
-	    font-size: 14px;
-	    outline: none;
-	    min-width: 150px;
-	}
-	
-	.room-container button[type="submit"] {
-	    background-color: #1a1a1a;
-	    color: white;
-	    border: none;
-	    padding: 8px 16px;
-	    border-radius: 5px;
-	    cursor: pointer;
-	    font-size: 14px;
-	    transition: background-color 0.3s;
-	}
-	
-	.room-container button[type="submit"]:hover {
-	    background-color: #333;
-	}
-
-
-
 /* Responsive layout for small screens */
 @media (max-width: 576px) {
     .room-container form {
@@ -95,42 +34,157 @@
 	    display: flex;
 	    flex-direction: column;
 	}
-	
-	.roombox {
-	    width: 100%;
-	    margin-top: 1.5rem;
-	    box-sizing: border-box;
-	}    
-	
-	.room-image {
-	    height: 100%;
-	}
-	
-	.room-img-top {
-	    width: 100%;
-	}
-	
-	.room-body {
-	    margin-top: 24px;
-	    padding: 4px 0px;
-	}
-	
-	.room-head {
-	    width: 100%;
-	    font-weight:600;
-	    font-size: 20px;
-	    margin: 10px 0;
-	}
-	
-	.room-desc {
-	    font-size: 14px;
-	    color: #6c757d;
-	}
-	
-	.room-price{
-	    font-size: 17px;
-	    color: #ccc;
-	}
+
+@charset "UTF-8";
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap')
+	;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	font-family: 'Poppins', sans-serif;
+	font-size: 16px;
+	color: inherit;
+}
+
+body {
+	font-family: "Poppins", sans-serif;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	margin: 0;
+	font-family: 'Poppins', sans-serif;
+}
+
+.room-container {
+	margin: 0 101px;
+	padding-top: 100px;
+	padding-bottom: 50px;
+	flex: 1;
+}
+
+.room-container h2 {
+	font-size: 28px;
+	font-weight: 600;
+	color: #151a2d;
+}
+
+.room-container p {
+	color: #666;
+	font-size: 16px;
+}
+
+.room {
+	background-color: #1a1a1a;
+	color: white;
+	padding: 24px;
+	border-radius: 12px;
+	height: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.roombox {
+	width: 100%;
+	margin-top: 1.5rem;
+	box-sizing: border-box;
+}
+
+.room-image {
+	  width: 100%;
+  height: 200px; /* fixed height for all images */
+  overflow: hidden; /* cover to maintain aspect ratio */
+  background-color: #1a1a1a; /* fallback background for missing images */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ⬅ ensures full image is visible */
+  display: block;
+}
+
+.room-img-top {
+	width: 100%;
+}
+
+.room-body {
+	margin-top: 24px;
+	padding: 4px 0px;
+}
+
+.room-head {
+	width: 100%;
+	font-weight: 600;
+	font-size: 20px;
+	margin: 10px 0;
+}
+
+.room-desc {
+	font-size: 14px;
+	color: #6c757d;
+}
+
+.room-price {
+	font-size: 17px;
+	color: #ccc;
+}
+
+.button-wrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.view-details-btn {
+	justify-content: center;
+	align-items: center;
+	background: none;
+	border: 1px solid #fff;
+	color: white;
+	padding: 8px 16px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.login-btn {
+	padding: 10px 20px;
+	background-color: #000;
+	color: #fff;
+	border: 2px solid transparent;
+	cursor: pointer;
+	font-size: 16px;
+	border-radius: 5px;
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+
+.login-btn:hover {
+	background-color: transparent;
+	color: #000;
+	border: 2px solid #000;
+}
+
+.view-details-btn:hover {
+	background-color: #fff;
+	color: #1a1a1a;
+}
+
+/*============================= Media Queries =======================================*/
+/* Small devices (≥576px): 50% width */
+@media ( min-width : 576px) {
+
 	
 	.button-wrapper {
 	    display: flex;
@@ -153,41 +207,30 @@
 	.view-details-btn:hover {
 	    background-color: #fff;
 	    color: #1a1a1a;
-	}
-	
-	/*============================= Media Queries =======================================*/
-	/* Small devices (≥576px): 50% width */
-	@media (min-width: 576px) {
-	    .roombox {
-	        width: 50%;
-	    }
-	}
-	
-	
-	/* Medium devices (≥768px): 50% width */
-	@media (min-width: 768px) {
-	    .roombox {
-	        width: 50%;
-	    }
-	}
-	
-	/* Large devices (≥992px): 25% width */
-	@media (min-width: 992px) {
-	    .roombox {
-	        width: 25%;
-	    }
-	    
-	}
-		
-	 @media (max-width: 978px) {
-        .room-container {
-            margin: 0 70px;
-        }   
-	 }
+}
 
-	 
-	 @media (max-width: 768px) {
-      .room-container {
-        margin: 0 30px;
-      }
-    }
+/* Medium devices (≥768px): 50% width */
+@media ( min-width : 768px) {
+	.roombox {
+		width: 50%;
+	}
+}
+
+/* Large devices (≥992px): 25% width */
+@media ( min-width : 992px) {
+	.roombox {
+		width: 25%;
+	}
+}
+
+@media ( max-width : 978px) {
+	.room-container {
+		margin: 0 70px;
+	}
+}
+
+@media ( max-width : 768px) {
+	.room-container {
+		margin: 0 30px;
+	}
+}

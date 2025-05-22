@@ -79,8 +79,6 @@ public class LoginController extends HttpServlet {
 
                 if ("admin".equalsIgnoreCase(role)) {
                     response.sendRedirect(contextPath + "/admin/dashboard.jsp");
-                } else if ("staff".equalsIgnoreCase(role)) {
-                    response.sendRedirect(contextPath + "/staff/staffPortal.jsp");
                 } else { // customer or other roles
                     response.sendRedirect(contextPath + "/customer/home.jsp");
                 }
@@ -120,11 +118,9 @@ public class LoginController extends HttpServlet {
             // Redirect based on user role
             String role = (String) session.getAttribute("role");
             if ("admin".equalsIgnoreCase(role)) {
-                response.sendRedirect("dashboard.jsp");
-            } else if ("staff".equalsIgnoreCase(role)) {
-                response.sendRedirect("staffPortal.jsp");
+                response.sendRedirect("/admin/dashboard.jsp");
             } else {
-                response.sendRedirect("RoomsController");
+                response.sendRedirect("/customer/home.jsp");
             }
             return;
         }

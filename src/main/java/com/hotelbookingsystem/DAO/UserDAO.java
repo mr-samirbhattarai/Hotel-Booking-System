@@ -33,7 +33,7 @@ public class UserDAO {
                 ps.setString(3, users.getUsername());
                 ps.setString(4, users.getEmail());
                 ps.setString(5, users.getPassword());
-                ps.setString(6, "USER"); // Default role
+                ps.setString(6, "customer"); // Default role
                 ps.setBoolean(7, true); // Default active status
                 ps.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
                 if (ps.executeUpdate() > 0) {
@@ -46,7 +46,7 @@ public class UserDAO {
         return isUserRegistered;
     }
 
-    // Gets all users from the database
+
  // Gets all users from the database
     public ArrayList<Users> getAllUsers() {
         ArrayList<Users> users = new ArrayList<>();
@@ -74,9 +74,23 @@ public class UserDAO {
                 ps.close();
             } catch (SQLException e) {
                 e.printStackTrace();
+
+    
+    
+    // Checks if a user exists by username or email
+    public boolean existsByUsernameOrEmail(String username, String email) throws SQLException {
+        String query = "SELECT COUNT(*) FROM users WHERE username = ? OR email = ?";
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, username);
+            ps.setString(2, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+
             }
         }
-        return users;
+        return false;
     }
 
     public int getTotalUsers() {
@@ -98,25 +112,73 @@ public class UserDAO {
         return totalUsers;
     }
     
+    
+    // Gets all users from the database
+    public ArrayList<Users> getAllUsers() {
+    	ArrayList<Users> users = new ArrayList<>();
+		String sql = "SELECT * FROM users where role = 'customer'";
+
+		if (conn != null) {
+			PreparedStatement ps = null;
+			try {
+				ps = conn.prepareStatement(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ResultSet customerSet = null;
+			try {
+				customerSet = ps.executeQuery();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				while (customerSet.next()) {
+					Users user = new Users(
+						customerSet.getInt("user_Id"),    
+						customerSet.getString("firstname"), 
+						customerSet.getString("lastname"), 
+						customerSet.getString("username"),   
+						customerSet.getString("password"),     
+						customerSet.getString("email"),  
+						customerSet.getString("gender"),    
+						customerSet.getDate("dob"));
+						users.add(user);
+					}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				System.out.println("Number of users retrieved: " + users.size()); // Debugging line
+			}
+
+			return users;
+		}
+    
     public ArrayList<Users> getAllCustomers() throws SQLException{
 		ArrayList<Users> users = new ArrayList<>(); 
 		String sql = "Select * from users where username =?";
-		if(conn!=null) {
-			ps = conn.prepareStatement(sql);
-			ResultSet userSet = ps.executeQuery();
-			while (userSet.next()) {
-			    Users user = new Users(
-			        userSet.getInt("user_id"),    
-			        userSet.getString("firstname"), 
-			        userSet.getString("lastname"),  
-			        userSet.getString("phoneNo"), 
-			        userSet.getString("email"),     
-			        userSet.getString("address"), 
-			        userSet.getDate("dob"),       
-			        userSet.getString("gender"));
-			    users.add(user);
-			} 
+		if (conn != null) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet customerSet = ps.executeQuery();
+			while (customerSet.next()) {
+				Users user = new Users(
+					customerSet.getInt("user_Id"),    
+					customerSet.getString("firstname"), 
+					customerSet.getString("lastname"), 
+					customerSet.getString("username"),   
+					customerSet.getString("password"),     
+					customerSet.getString("email"),  
+					customerSet.getString("gender"),    
+					customerSet.getDate("dob"));
+				users.add(user);
+			}
+
+			System.out.println("Number of users retrieved: " + users.size()); // Debugging line
 		}
+
 		return users;
 	}
 
@@ -143,8 +205,6 @@ public class UserDAO {
                     users.setAddress(userSet.getString("address"));
                     users.setGender(userSet.getString("gender"));
                     users.setDob(userSet.getDate("dob"));
-                    users.setVerificationId(userSet.getString("verification_id"));
-                    users.setProfilePicture(userSet.getString("profile_picture"));
                     users.setActive(userSet.getBoolean("is_active"));
                     users.setCreatedAt(userSet.getTimestamp("created_at"));
                     users.setUpdatedAt(userSet.getTimestamp("updated_at"));

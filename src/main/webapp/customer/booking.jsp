@@ -24,6 +24,7 @@
 
             <div class="form-group">
                 <label for="checkInDate">Check-In Date:</label>
+
                 <input type="date" id="checkInDate" name="checkInDate" />
             </div>
             <div class="form-group">
@@ -33,6 +34,7 @@
             <div class="form-group">
                 <label for="numberOfGuests">Number of Guests:</label>
                 <input type="number" id="numberOfGuests" name="numberOfGuests"  />
+
             </div>
 
             <div>

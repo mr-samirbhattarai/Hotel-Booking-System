@@ -43,6 +43,7 @@
 					</li>
 					<li><a class="${activePage == 'aboutUs' ? 'active' : ''}" href="${pageContext.request.contextPath}/customer/aboutUs.jsp">About Us</a></li>
 					<li><a class="${activePage == 'contactUs' ? 'active' : ''}" href="${pageContext.request.contextPath}/customer/contactUs.jsp">Contact</a></li>
+
 					<li><button class="mobile-login">Login</button></li>
 				</ul>
 				<span
@@ -61,6 +62,7 @@
 							<a href="${pageContext.request.contextPath}/ProfileController">Update Profile</a>
 							<a href="${pageContext.request.contextPath}/ChangePasswordController">Change Password</a>
 							<a href="${pageContext.request.contextPath}/BookingHistory">View Booking History</a>
+							<a href="${pageContext.request.contextPath}/PaymentController">Payment</a>
 						</div>
 					</div>
 			</div>

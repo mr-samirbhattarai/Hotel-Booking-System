@@ -6,14 +6,12 @@ CREATE TABLE Users (
     lastname VARCHAR(50) NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'customer', 'staff') NOT NULL DEFAULT 'customer',
+    role ENUM('admin', 'customer') NOT NULL DEFAULT 'customer',
     email VARCHAR(100) NOT NULL UNIQUE,
     phoneNo VARCHAR(15),
     address TEXT,
     gender ENUM('male', 'female', 'other'),
     DOB DATE,
-    verification_id VARCHAR(100),
-    profile_picture VARCHAR(255),
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -21,27 +19,27 @@ CREATE TABLE Users (
 
 CREATE TABLE Rooms (
     room_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    room_number VARCHAR(255) UNIQUE,
     room_type ENUM('single', 'double', 'suite', 'deluxe') NOT NULL,
     price_per_night DECIMAL(10, 2) NOT NULL,
-    no_of_beds INT NOT NULL,
+    no_of_beds INT,
     description TEXT,
     bed_type ENUM('single', 'double', 'queen', 'king') NOT NULL,
     room_area DECIMAL(6, 2) NOT NULL,
     is_available BOOLEAN DEFAULT TRUE,
     floor_number INT,
     max_occupancy INT,
-    room_image VARCHAR(255),
-    room_number VARCHAR(255)
+    room_image VARCHAR(255)
 );
 
 CREATE TABLE Bookings (
     booking_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    status ENUM('pending', 'confirmed', 'cancelled', 'completed') NOT NULL,
+    status ENUM('pending', 'confirmed', 'cancelled') NOT NULL,
     user_id BIGINT NOT NULL,
     room_id BIGINT NOT NULL,
     check_in_date DATE NOT NULL,
     check_out_date DATE NOT NULL,
-    number_of_guests INT NOT NULL,
+    number_of_guests INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (room_id) REFERENCES Rooms(room_id) ON DELETE RESTRICT

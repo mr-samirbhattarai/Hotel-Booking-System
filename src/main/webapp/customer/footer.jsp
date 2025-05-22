@@ -2,7 +2,8 @@
 <footer>
     <style>
         .footer {
-            background-color: #4CAF50;
+        	position: relative;
+            background-color: #333;
             padding: 15px;
             text-align: center;
             color: white;
@@ -11,6 +12,7 @@
             width: 100%;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
+        
         .footer-links a {
             color: white;
             text-decoration: none;
@@ -27,11 +29,11 @@
     </style>
     <div class="footer">
         <div class="footer-links">
-            <a href="${pageContext.request.contextPath}/index.jsp">Home</a>
-            <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
-            <a href="${pageContext.request.contextPath}/register.jsp">Register</a>
-            <a href="${pageContext.request.contextPath}/contact.jsp">Contact</a>
+            <a href="${pageContext.request.contextPath}/customer/home.jsp">Home</a>
+            <a href="${pageContext.request.contextPath}/RoomsController">Rooms</a>
+            <a href="${pageContext.request.contextPath}/customer/aboutUs.jsp">About Us</a>
+            <a href="${pageContext.request.contextPath}/contactUs.jsp">Contact Us</a>
         </div>
-        <p>&copy; 2025 My Web App. All rights reserved.</p>
+        <p>&copy; 2025 Hotel Booking System | RockStars. All rights reserved.</p>
     </div>
 </footer>

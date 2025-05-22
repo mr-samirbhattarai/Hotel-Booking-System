@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hotelbookingsystem.DAO.ViewCustomerDAO;
+import com.hotelbookingsystem.DAO.UserDAO;
 import com.hotelbookingsystem.model.Users;
 
 /**
@@ -36,7 +36,7 @@ public class ViewCustomerController extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            ViewCustomerDAO dao = new ViewCustomerDAO();
+            UserDAO dao= new UserDAO();
             ArrayList<Users> users = dao.getAllUsers();
             if (users != null && !users.isEmpty()) {
                 request.setAttribute("users", users);

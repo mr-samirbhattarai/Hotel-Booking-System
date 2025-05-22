@@ -55,6 +55,7 @@
                 </tbody>
             </table>
         </c:if>
+        
         <c:if test="${empty bookings}">
             <p>No bookings found.</p>
         </c:if>

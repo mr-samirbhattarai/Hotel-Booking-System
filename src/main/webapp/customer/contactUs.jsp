@@ -3,16 +3,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Contact Us | Hotel RockStar</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/contactUs.css" />
+
 </head>
 <body>
     <c:set var="activePage" value="contactUs" scope="request" />   
     <jsp:include page="/customer/header.jsp" />
     
+
     <div class="contact-Us">
+
         <h2>Contact Us</h2>
         <p>
             At Hotel RockStar, we’re committed to making your stay unforgettable. Reach out with any inquiries, feedback, or support requests, and our dedicated team will respond promptly.
@@ -32,7 +36,9 @@
                         <input type="email" id="email" class="form-control" placeholder="Your email" required>
                     </div>
                     <div class="form-group">
+
                         <label for="message" class="label-for-form">Message</label>
+
                         <textarea id="message" class="form-control" placeholder="Your message" required></textarea>
                     </div>
                     <button type="submit" class="btn-login">Send Message</button>
@@ -53,11 +59,15 @@
         </div>
     </div>
 
+  <jsp:include page="/customer/footer.jsp" />
+
 
     <script>
         document.getElementById('contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Message sent! Our team at Hotel RockStar will get back to you soon.');
+
+            alert('Thank you for your feedback!.');
+
             e.target.reset();
         });
     </script>

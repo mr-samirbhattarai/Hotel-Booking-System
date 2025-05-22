@@ -1,38 +1,41 @@
 -- Seed data for Users table
-INSERT INTO Users (firstname, lastname, username, password, role, email, phoneNo, address, gender, DOB, verification_id, profile_picture, is_active) VALUES
-('John', 'Doe', 'johndoe', 'hashed_password1', 'customer', 'john.doe@email.com', '1234567890', '123 Main St', 'male', '1990-05-15', 'ID123456', 'john.jpg', TRUE),
-('Jane', 'Smith', 'janesmith', 'hashed_password2', 'admin', 'jane.smith@email.com', '2345678901', '456 Oak Ave', 'female', '1985-08-22', 'ID234567', 'jane.jpg', TRUE),
-('Mike', 'Johnson', 'mikej', 'hashed_password3', 'staff', 'mike.j@email.com', '3456789012', '789 Pine Rd', 'male', '1992-03-10', 'ID345678', 'mike.jpg', TRUE),
-('Emily', 'Brown', 'emilyb', 'hashed_password4', 'customer', 'emily.brown@email.com', '4567890123', '101 Maple Ln', 'female', '1995-11-30', 'ID456789', 'emily.jpg', TRUE),
-('David', 'Wilson', 'davidw', 'hashed_password5', 'customer', 'david.w@email.com', '5678901234', '202 Birch St', 'male', '1988-07-14', 'ID567890', 'david.jpg', TRUE),
-('Sarah', 'Taylor', 'saraht', 'hashed_password6', 'customer', 'sarah.t@email.com', '6789012345', '303 Cedar Dr', 'female', '1993-09-25', 'ID678901', 'sarah.jpg', TRUE),
-('Chris', 'Moore', 'chrism', 'hashed_password7', 'staff', 'chris.m@email.com', '7890123456', '404 Elm St', 'male', '1990-12-05', 'ID789012', 'chris.jpg', TRUE),
-('Lisa', 'Anderson', 'lisaa', 'hashed_password8', 'customer', 'lisa.a@email.com', '8901234567', '505 Spruce Ave', 'female', '1987-04-18', 'ID890123', 'lisa.jpg', TRUE),
-('Tom', 'Clark', 'tomc', 'hashed_password9', 'customer', 'tom.c@email.com', '9012345678', '606 Willow Rd', 'male', '1994-06-20', 'ID901234', 'tom.jpg', TRUE),
-('Anna', 'Lewis', 'annal', 'hashed_password10', 'customer', 'anna.l@email.com', '0123456789', '707 Ash St', 'female', '1991-02-28', 'ID012345', 'anna.jpg', TRUE),
-('Mark', 'Walker', 'markw', 'hashed_password11', 'staff', 'mark.w@email.com', '1234509876', '808 Chestnut Ln', 'male', '1989-10-12', 'ID123450', 'mark.jpg', TRUE),
-('Laura', 'Hall', 'laurah', 'hashed_password12', 'customer', 'laura.h@email.com', '2345609876', '909 Poplar Dr', 'female', '1996-01-07', 'ID234560', 'laura.jpg', TRUE),
-('Steve', 'Allen', 'stevea', 'hashed_password13', 'customer', 'steve.a@email.com', '3456709876', '1010 Sycamore St', 'male', '1986-03-19', 'ID345670', 'steve.jpg', TRUE),
-('Megan', 'Young', 'megany', 'hashed_password14', 'customer', 'megan.y@email.com', '4567809876', '1111 Magnolia Ave', 'female', '1997-08-03', 'ID456780', 'megan.jpg', TRUE),
-('Paul', 'King', 'paulk', 'hashed_password15', 'customer', 'paul.k@email.com', '5678909876', '1212 Laurel Rd', 'male', '1990-11-11', 'ID567890', 'paul.jpg', TRUE);
+INSERT INTO Users (firstname, lastname, username, password, role, email, phoneNo, address, gender, DOB, is_active) VALUES
+('John', 'Doe', 'johndoe', 'hashed_password1', 'customer', 'john.doe@email.com', '1234567890', '123 Main St', 'male', '1990-05-15', TRUE),
+('Jane', 'Smith', 'janesmith', 'hashed_password2', 'admin', 'jane.smith@email.com', '2345678901', '456 Oak Ave', 'female', '1985-08-22', TRUE),
+('Mike', 'Johnson', 'mikej', 'hashed_password3', 'staff', 'mike.j@email.com', '3456789012', '789 Pine Rd', 'male', '1992-03-10', TRUE),
+('Emily', 'Brown', 'emilyb', 'hashed_password4', 'customer', 'emily.brown@email.com', '4567890123', '101 Maple Ln', 'female', '1995-11-30', TRUE),
+('David', 'Wilson', 'davidw', 'hashed_password5', 'customer', 'david.w@email.com', '5678901234', '202 Birch St', 'male', '1988-07-14', TRUE),
+('Sarah', 'Taylor', 'saraht', 'hashed_password6', 'customer', 'sarah.t@email.com', '6789012345', '303 Cedar Dr', 'female', '1993-09-25', TRUE),
+('Chris', 'Moore', 'chrism', 'hashed_password7', 'staff', 'chris.m@email.com', '7890123456', '404 Elm St', 'male', '1990-12-05', TRUE),
+('Lisa', 'Anderson', 'lisaa', 'hashed_password8', 'customer', 'lisa.a@email.com', '8901234567', '505 Spruce Ave', 'female', '1987-04-18', TRUE),
+('Tom', 'Clark', 'tomc', 'hashed_password9', 'customer', 'tom.c@email.com', '9012345678', '606 Willow Rd', 'male', '1994-06-20', TRUE),
+('Anna', 'Lewis', 'annal', 'hashed_password10', 'customer', 'anna.l@email.com', '0123456789', '707 Ash St', 'female', '1991-02-28', TRUE),
+('Mark', 'Walker', 'markw', 'hashed_password11', 'staff', 'mark.w@email.com', '1234509876', '808 Chestnut Ln', 'male', '1989-10-12', TRUE),
+('Laura', 'Hall', 'laurah', 'hashed_password12', 'customer', 'laura.h@email.com', '2345609876', '909 Poplar Dr', 'female', '1996-01-07', TRUE),
+('Steve', 'Allen', 'stevea', 'hashed_password13', 'customer', 'steve.a@email.com', '3456709876', '1010 Sycamore St', 'male', '1986-03-19', TRUE),
+('Megan', 'Young', 'megany', 'hashed_password14', 'customer', 'megan.y@email.com', '4567809876', '1111 Magnolia Ave', 'female', '1997-08-03', TRUE),
+('Paul', 'King', 'paulk', 'hashed_password15', 'customer', 'paul.k@email.com', '5678909876', '1212 Laurel Rd', 'male', '1990-11-11', TRUE);
 
--- Seed data for Rooms table
-INSERT INTO Rooms (room_type, price_per_night, no_of_beds, description, bed_type, room_area, is_available, floor_number, max_occupancy) VALUES
-('single', 100.00, 1, 'Cozy single room', 'single', 20.50, TRUE, 1, 1),
-('double', 150.00, 2, 'Spacious double room', 'double', 30.00, TRUE, 2, 2),
-('suite', 250.00, 2, 'Luxurious suite with view', 'king', 50.00, TRUE, 3, 4),
-('deluxe', 200.00, 2, 'Deluxe room with balcony', 'queen', 40.00, TRUE, 4, 3),
-('single', 110.00, 1, 'Single room with city view', 'single', 22.00, TRUE, 2, 1),
-('double', 160.00, 2, 'Double room with garden view', 'double', 32.00, TRUE, 1, 2),
-('suite', 270.00, 2, 'Executive suite', 'king', 55.00, FALSE, 5, 4),
-('deluxe', 210.00, 2, 'Deluxe with ocean view', 'queen', 42.00, TRUE, 3, 3),
-('single', 105.00, 1, 'Compact single room', 'single', 18.00, TRUE, 2, 1),
-('double', 155.00, 2, 'Double room with amenities', 'double', 31.00, TRUE, 4, 2),
-('suite', 260.00, 2, 'Premium suite', 'king', 52.00, TRUE, 6, 4),
-('deluxe', 205.00, 2, 'Deluxe with city view', 'queen', 41.00, TRUE, 2, 3),
-('single', 115.00, 1, 'Single room with balcony', 'single', 21.00, TRUE, 3, 1),
-('double', 165.00, 2, 'Double room with pool access', 'double', 33.00, TRUE, 1, 2),
-('suite', 280.00, 2, 'Grand suite with terrace', 'king', 60.00, TRUE, 7, 4);
+-- Seed data for Rooms table with room_number and room_image included
+INSERT INTO Rooms (
+    room_number, room_type, price_per_night, no_of_beds, description,
+    bed_type, room_area, is_available, floor_number, max_occupancy, room_image
+) VALUES
+('101A', 'single', 100.00, 1, 'Cozy single room', 'single', 20.50, TRUE, 1, 1, 'img/room101a.jpg'),
+('102B', 'double', 150.00, 2, 'Spacious double room', 'double', 30.00, TRUE, 2, 2, 'img/room102b.jpg'),
+('201C', 'suite', 250.00, 2, 'Luxurious suite with view', 'king', 50.00, TRUE, 3, 4, 'img/room201c.jpg'),
+('301D', 'deluxe', 200.00, 2, 'Deluxe room with balcony', 'queen', 40.00, TRUE, 4, 3, 'img/room301d.jpg'),
+('103A', 'single', 110.00, 1, 'Single room with city view', 'single', 22.00, TRUE, 2, 1, 'img/room103a.jpg'),
+('104B', 'double', 160.00, 2, 'Double room with garden view', 'double', 32.00, TRUE, 1, 2, 'img/room104b.jpg'),
+('202C', 'suite', 270.00, 2, 'Executive suite', 'king', 55.00, FALSE, 5, 4, 'img/room202c.jpg'),
+('302D', 'deluxe', 210.00, 2, 'Deluxe with ocean view', 'queen', 42.00, TRUE, 3, 3, 'img/room302d.jpg'),
+('105A', 'single', 105.00, 1, 'Compact single room', 'single', 18.00, TRUE, 2, 1, 'img/room105a.jpg'),
+('106B', 'double', 155.00, 2, 'Double room with amenities', 'double', 31.00, TRUE, 4, 2, 'img/room106b.jpg'),
+('203C', 'suite', 260.00, 2, 'Premium suite', 'king', 52.00, TRUE, 6, 4, 'img/room203c.jpg'),
+('303D', 'deluxe', 205.00, 2, 'Deluxe with city view', 'queen', 41.00, TRUE, 2, 3, 'img/room303d.jpg'),
+('107A', 'single', 115.00, 1, 'Single room with balcony', 'single', 21.00, TRUE, 3, 1, 'img/room107a.jpg'),
+('108B', 'double', 165.00, 2, 'Double room with pool access', 'double', 33.00, TRUE, 1, 2, 'img/room108b.jpg'),
+('204C', 'suite', 280.00, 2, 'Grand suite with terrace', 'king', 60.00, TRUE, 7, 4, 'img/room204c.jpg');
 
 -- Seed data for Bookings table
 INSERT INTO Bookings (status, user_id, room_id, check_in_date, check_out_date, number_of_guests, created_at) VALUES

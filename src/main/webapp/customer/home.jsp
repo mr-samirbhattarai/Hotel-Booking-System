@@ -29,12 +29,17 @@
                     <img src="${pageContext.request.contextPath}/images/Swimming_Pool_Seen.jpg" alt="Swimming Pool" />
                     <img src="${pageContext.request.contextPath}/images/Room-view.jpg" alt="Room View" />
     
+
     			<a class="view-room-btn ${activePage == 'rooms' ? 'active' : ''}"
 						href="${pageContext.request.contextPath}/roomDetails?page=viewRooms" style="text-decoration:none">View More</a>
                 </div>
             </div>
             
             <form method="get" action="${pageContext.request.contextPath}/RoomsController">
+                    <a href="RoomController?roomType=SINGLE" class="view-room-btn">View More</a>
+                </div>
+            </div>
+
 			    <label for="roomType">Choose Your Perfect Room</label>			    
 				    <select name="roomType" id="roomType">
 				        <option value="">All</option>

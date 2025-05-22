@@ -15,6 +15,10 @@ import com.hotelbookingsystem.model.Users;
 
 @WebServlet("/ProfileController")
 public class ProfileController extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
 
 	@Override

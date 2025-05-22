@@ -1,9 +1,7 @@
 //package com.hotelbookingsystem.controller;
 //
 //import java.io.IOException;
-//import java.sql.SQLException;
-//import java.time.LocalDate;
-//import java.time.LocalDateTime;
+
 //import java.util.List;
 //
 //import javax.servlet.ServletException;
@@ -19,7 +17,7 @@
 //public class GetBookingByStatus extends HttpServlet {
 //    private static final long serialVersionUID = 1L;
 //    private BookingDAO bookingDAO;
-//
+
 //    @Override
 //    public void init() throws ServletException {
 //        try {
@@ -78,8 +76,13 @@
 //
 //                case "checkIn":
 //                    int bookingIdCheckIn = Integer.parseInt(request.getParameter("bookingId"));
+
 //                    LocalDateTime actualCheckIn = LocalDateTime.now();
 //                    boolean isCheckedIn = bookingDAO.checkInBooking(bookingIdCheckIn, actualCheckIn);
+=======
+//                    Date checkInDate = null;
+//				boolean isCheckedIn = bookingDAO.checkInBooking(bookingIdCheckIn, checkInDate);
+
 //                    if (isCheckedIn) {
 //                        request.setAttribute("successMessage", "Customer checked in successfully!");
 //                    } else {
@@ -126,6 +129,7 @@
 //                    request.setAttribute("searchName", searchName);
 //                    break;
 //
+
 //                default:
 //                    bookingList = bookingDAO.getAllBookings();
 //                    break;
@@ -133,8 +137,10 @@
 //
 //            request.setAttribute("bookingList", bookingList);
 //            request.setAttribute("selectedStatus", selectedStatus);
+
 //            request.setAttribute("users", bookingDAO.getAllUsers());
 //            request.setAttribute("rooms", bookingDAO.getAllRooms());
+
 //            request.getRequestDispatcher("/admin/bookings.jsp").forward(request, response);
 //        } catch (Exception e) {
 //            request.setAttribute("errorMessage", "Error processing request: " + e.getMessage());
@@ -142,9 +148,15 @@
 //        }
 //    }
 //
+
 //    private boolean isValidStatus(String status) {
 //        try {
 //            Bookings.BookingStatus.valueOf(status.toUpperCase());
+//	private boolean isValidStatus(String status) {
+//        try {
+//            String string = new String();
+//			string.valueOf(status.toUpperCase());
+
 //            return true;
 //        } catch (IllegalArgumentException e) {
 //            return false;

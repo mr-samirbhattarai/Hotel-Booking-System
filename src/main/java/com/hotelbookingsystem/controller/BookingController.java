@@ -114,6 +114,7 @@ public class BookingController extends HttpServlet {
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Invalid number of guests.");
             request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+
             return;
         }
 
@@ -124,6 +125,19 @@ public class BookingController extends HttpServlet {
             request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
             return;
         }
+
+
+            return;
+        }
+
+        // Room validation
+        String roomIdStr = request.getParameter("roomId");
+        if (roomIdStr == null || roomIdStr.isEmpty()) {
+            request.setAttribute("error", "Room ID is missing in the request.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+            return;
+        }
+
 
         long roomId;
         try {
@@ -166,4 +180,6 @@ public class BookingController extends HttpServlet {
         }
     }
 
+
 }
+

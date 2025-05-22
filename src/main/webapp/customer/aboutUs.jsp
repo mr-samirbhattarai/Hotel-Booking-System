@@ -1,5 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +16,98 @@
 </head>
 <body>
 	<c:set var="activePage" value="aboutUs" scope="request" />
+
+<style>
+body {
+	background-color: #1a1a1a;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.about-container {
+	padding: 100px 100px 50px 100px;
+	flex: 1;
+}
+
+.about-title {
+	font-size: 36px;
+	font-weight: 600;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+.about-subtitle {
+	font-size: 20px;
+	color: #330;
+	margin-bottom: 30px;
+	max-width: 800px;
+}
+
+.about-section {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 40px;
+	margin-top: 40px;
+}
+
+.about-image {
+	flex: 1 1 400px;
+}
+
+.about-image img {
+	width: 100%;
+	height: 400px;
+	border-radius: 12px;
+}
+
+.about-text {
+	flex: 1 1 400px;
+}
+
+.about-text p {
+text-align: justify;
+	font-size: 16px;
+	color: #333;
+	line-height: 1.7;
+}
+
+.mission-box {
+	background-color: #888;
+	border-radius: 12px;
+	padding: 12px;
+	margin-top: 10px;
+}
+
+.mission-box h4 {
+	font-size: 22px;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+.mission-box p {
+	font-size: 15px;
+	color: #fff;
+}
+
+@media ( max-width : 768px) {
+	.about-container {
+		padding: 50px 30px;
+	}
+	.about-section {
+		flex-direction: column;
+	}
+}
+</style>
+</head>
+<body>
+	<c:set
+		var="activePage"
+		value="about"
+		scope="request" />
+
 	<jsp:include page="/customer/header.jsp" />
 
 	<div class="about-container">
@@ -24,7 +118,9 @@
 		<div class="about-section">
 			<div class="about-image">
 				<img
+
 					src="${pageContext.request.contextPath}/images/suit 5.jpg"
+
 					onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/imgNotFound.jpg';"
 					alt="Hotel View" />
 			</div>
