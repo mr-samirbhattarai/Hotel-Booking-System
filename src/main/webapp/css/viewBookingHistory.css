@@ -32,7 +32,7 @@ h1 {
 }
 
 .booking-table th {
-    background-color: #007bff;
+    background-color: #666;
     color: #fff;
 }
 
@@ -44,17 +44,45 @@ h1 {
     background-color: #f1f1f1;
 }
 
-.back-link {
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
+.back-link{
+	padding: 10px 50px;
+	float: right;
+	margin: 10px 0;
+	background-color: #000;
+	color: #fff;
+	border: 2px solid transparent;
+	cursor: pointer;
+	font-size: 16px;
+	border-radius: 5px;
+	transition: all 0.3s ease;
+	text-decoration: none;
 }
 
 .back-link:hover {
-    text-decoration: underline;
+   background-color: transparent;
+	color: #000;
+	border: 2px solid #000;
 }
+
+
+.cancel-btn{
+	padding: 7px 10px;
+	background-color: #fff;
+	color: #000;
+	border: 2px solid #000;
+	cursor: pointer;
+	font-size: 16px;
+	border-radius: 5px;
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+
+.cancel-btn:hover {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #000;
+}
+
 
 p {
     text-align: center;

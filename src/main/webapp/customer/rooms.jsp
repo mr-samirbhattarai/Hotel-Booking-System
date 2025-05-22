@@ -15,11 +15,27 @@
    	<jsp:include page="/customer/header.jsp" />
         
     <div class="room-container">
-    	<h2>Choose Your Room</h2>
-      	<p>Feel at home, wherever you are.</p>
+    	<div class="header" style="justify-content: space-between;">
+	    	<div class="title">
+	    		<h2>Choose Your Room</h2>
+	      		<p>Feel at home, wherever you are.</p>
+	    	</div>
+	      	
+	      	<form method="get" action="${pageContext.request.contextPath}/RoomsController">
+			    <label for="roomType">Filter by Room Type:</label>
+			    <select name="roomType" id="roomType">
+			        <option value="">All</option>
+			        <option value="SINGLE" ${param.roomType == 'SINGLE' ? 'selected' : ''}>Single</option>
+			        <option value="DOUBLE" ${param.roomType == 'DOUBLE' ? 'selected' : ''}>Double</option>
+			        <option value="SUITE" ${param.roomType == 'SUITE' ? 'selected' : ''}>Suite</option>
+			        <option value="DELUXE" ${param.roomType == 'DELUXE' ? 'selected' : ''}>Deluxe</option>
+			    </select>
+			    <button type="submit">Find Rooms</button>
+			</form>
+		</div>
+
         <div class="row">
            <c:forEach var="room" items="${rooms}">
-        
             <div class="roombox">
                 <div class="room">
                     <div class="room-image">
@@ -32,7 +48,7 @@
                             Rs. ${room.pricePerNight}
                         </p>
                         <div class="button-wrapper">
-                                <a href="${pageContext.request.contextPath}/ViewRoomDetailsController?roomId=${room.roomId}" 
+                                <a href="${pageContext.request.contextPath}/GetRoomById?page=bookingRoom&roomId=${room.roomId}" 
                                    class="view-details-btn">View Details</a>
                             </div>
                     </div>

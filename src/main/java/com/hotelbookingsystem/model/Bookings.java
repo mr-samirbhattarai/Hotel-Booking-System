@@ -12,7 +12,8 @@ public class Bookings {
     private Date checkOutDate;
     private int numberOfGuests;
     private Timestamp createdAt;
-
+    private Timestamp updatedAt;
+    
     public long getBookingId() { return bookingId; }
     public void setBookingId(long bookingId) { this.bookingId = bookingId; }
     public String getStatus() { return status; }
@@ -29,4 +30,7 @@ public class Bookings {
     public void setNumberOfGuests(int numberOfGuests) { this.numberOfGuests = numberOfGuests; }
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public Timestamp getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(Timestamp updatedAt) { this.updatedAt = updatedAt; }
+
 }

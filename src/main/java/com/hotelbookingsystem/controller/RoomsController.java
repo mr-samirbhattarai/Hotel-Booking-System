@@ -13,33 +13,35 @@ import javax.servlet.http.HttpServletResponse;
 import com.hotelbookingsystem.DAO.RoomDAO;
 import com.hotelbookingsystem.model.Rooms;
 
-
 @WebServlet("/RoomsController")
 public class RoomsController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public RoomsController() {
-        super();
-    }
+	public RoomsController() {
+		super();
+	}
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            // Initialize RoomDAO to get room data
-            RoomDAO roomDao = new RoomDAO();
-            ArrayList<Rooms> rooms = roomDao.getAllRooms();
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			RoomDAO roomDao = new RoomDAO();
+			String roomType = request.getParameter("roomType");
+			ArrayList<Rooms> rooms;
 
-            // Store rooms in request attribute to display in view
-            request.setAttribute("rooms", rooms);
+			if (roomType != null && !roomType.trim().isEmpty()) {
+				rooms = roomDao.getRoomsByType(roomType);
+			} else {
+				rooms = roomDao.getAllRooms();
+			}
 
-            // Forward to rooms.jsp to display the list of rooms
-            request.getRequestDispatcher("/customer/rooms.jsp").forward(request, response);
+			request.setAttribute("rooms", rooms);
+			request.getRequestDispatcher("/customer/rooms.jsp").forward(request, response);
 
-        } catch (ClassNotFoundException | SQLException e) {
-            // Log the exception and forward the error message to rooms.jsp
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Could not get the Rooms! Error: " + e.getMessage());
-            request.getRequestDispatcher("/customer/rooms.jsp").forward(request, response);
-        }
-    }
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Could not get the Rooms! Error: " + e.getMessage());
+			request.getRequestDispatcher("/customer/rooms.jsp").forward(request, response);
+		}
+	}
 }

@@ -39,11 +39,10 @@
 						href="${pageContext.request.contextPath}/customer/home.jsp">Home</a></li>
 					<li><a
 						class="${activePage == 'rooms' ? 'active' : ''}"
-						href="${pageContext.request.contextPath}/RoomsController?page=viewRooms">Rooms</a>
-
+						href="${pageContext.request.contextPath}/roomDetails?page=viewRooms">Rooms</a>
 					</li>
-					<li><a href="#">About Us</a></li>
-					<li><a href="contactUs.jsp">Contact</a></li>
+					<li><a class="${activePage == 'aboutUs' ? 'active' : ''}" href="${pageContext.request.contextPath}/customer/aboutUs.jsp">About Us</a></li>
+					<li><a class="${activePage == 'contactUs' ? 'active' : ''}" href="${pageContext.request.contextPath}/customer/contactUs.jsp">Contact</a></li>
 					<li><button class="mobile-login">Login</button></li>
 				</ul>
 				<span
@@ -64,6 +63,7 @@
 							<a href="${pageContext.request.contextPath}/BookingHistory">View Booking History</a>
 						</div>
 					</div>
+			</div>
 		</div>
 	</header>
 	<script>

@@ -46,7 +46,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("errorMessage", "Room ID is missing.");
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -57,7 +57,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("errorMessage", "Invalid room ID format.");
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -70,14 +70,14 @@ public class UpdateRoomController extends HttpServlet {
                 request.setAttribute("errorMessage", "Room not found with ID: " + roomId);
                 request.setAttribute("roomTypes", RoomType.values());
                 request.setAttribute("bedTypes", BedType.values());
-                request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
                 return;
             }
         } catch (Exception e) {
             request.setAttribute("errorMessage", "Failed to retrieve room: " + e.getMessage());
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -87,7 +87,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -99,7 +99,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -114,7 +114,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -126,7 +126,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -141,7 +141,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -156,7 +156,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -171,7 +171,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -186,7 +186,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -195,7 +195,7 @@ public class UpdateRoomController extends HttpServlet {
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             return;
         }
 
@@ -208,7 +208,7 @@ public class UpdateRoomController extends HttpServlet {
                     request.setAttribute("room", existingRoom);
                     request.setAttribute("roomTypes", RoomType.values());
                     request.setAttribute("bedTypes", BedType.values());
-                    request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+                    request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
                     return;
                 }
             } catch (Exception e) {
@@ -216,7 +216,7 @@ public class UpdateRoomController extends HttpServlet {
                 request.setAttribute("room", existingRoom);
                 request.setAttribute("roomTypes", RoomType.values());
                 request.setAttribute("bedTypes", BedType.values());
-                request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
                 return;
             }
         }
@@ -257,32 +257,32 @@ public class UpdateRoomController extends HttpServlet {
             boolean isUpdated = dao.updateRoom(updatedRoom);
             if (isUpdated) {
                 request.getSession().setAttribute("successMessage", "Room updated successfully");
-                response.sendRedirect(request.getContextPath() + "/ManageRoomsController?page=viewRoomsForAdmin");
+                response.sendRedirect(request.getContextPath() + "/roomDetails?page=manageRooms");
             } else {
                 request.setAttribute("errorMessage", "Failed to update room. No changes were applied.");
                 request.setAttribute("room", existingRoom);
                 request.setAttribute("roomTypes", RoomType.values());
                 request.setAttribute("bedTypes", BedType.values());
-                request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
             }
         } catch (SQLException e) {
             request.setAttribute("errorMessage", "Database error updating room: " + e.getMessage());
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
         } catch (ClassNotFoundException e) {
             request.setAttribute("errorMessage", "Database driver not found: " + e.getMessage());
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
         } catch (IOException e) {
             request.setAttribute("errorMessage", "Error redirecting after update: " + e.getMessage());
             request.setAttribute("room", existingRoom);
             request.setAttribute("roomTypes", RoomType.values());
             request.setAttribute("bedTypes", BedType.values());
-            request.getRequestDispatcher("/admin/updateRooms.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateRoom.jsp").forward(request, response);
         }
     }
 }

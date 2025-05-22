@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.hotelbookingsystem.database.DatabaseConnection;
+import com.hotelbookingsystem.model.Bookings;
 import com.hotelbookingsystem.model.Rooms;
 import com.hotelbookingsystem.model.Rooms.BedType;
 import com.hotelbookingsystem.model.Rooms.RoomType;
@@ -20,6 +21,20 @@ public class RoomDAO {
 		this.conn = DatabaseConnection.getConnection();
 	}
 
+	public boolean isRoomValid(int roomId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM rooms WHERE room_id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, roomId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
+	
+	
 	public boolean addNewRoom(Rooms roomModel) {
 		boolean isRowInserted = false;
 		String sql = "INSERT INTO rooms (room_number, room_type, price_per_night, no_of_beds, description, bed_type, room_area, room_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -56,7 +71,7 @@ public class RoomDAO {
 				// Iterate over result set and populate Room objects
 				while (roomSet.next()) {
 					Rooms room = new Rooms();
-					room.setRoomId(roomSet.getLong("room_id"));
+					room.setRoomId(roomSet.getInt("room_id"));
 					room.setRoomType(RoomType.valueOf(roomSet.getString("room_type").toUpperCase()));
 					room.setPricePerNight(roomSet.getDouble("price_per_night"));
 					room.setNoOfBeds(roomSet.getInt("no_of_beds"));
@@ -64,6 +79,7 @@ public class RoomDAO {
 					room.setBedType(BedType.valueOf(roomSet.getString("bed_type").toUpperCase()));
 					room.setRoomArea(roomSet.getDouble("room_area"));
 					room.setAvailable(roomSet.getBoolean("is_available"));
+					System.out.println("Room " + room.getRoomNumber() + " isAvailable: " + room.isAvailable());
 					room.setFloorNumber(roomSet.getInt("floor_number"));
 					room.setMaxOccupancy(roomSet.getInt("max_occupancy"));
 					room.setRoomImage(roomSet.getString("room_image"));
@@ -170,4 +186,110 @@ public class RoomDAO {
 		}
 		return isRowFound;
 	}
+	
+	
+	//filter 
+		public ArrayList<Rooms> getRoomsByType(String roomType) {
+		    ArrayList<Rooms> rooms = new ArrayList<>();
+		    String query = "SELECT * FROM rooms WHERE room_type = ?";
+		    if (conn != null) {
+		        try (PreparedStatement ps = conn.prepareStatement(query)) {
+		            ps.setString(1, roomType.toLowerCase());
+		            ResultSet roomSet = ps.executeQuery();
+		            while (roomSet.next()) {
+		                Rooms room = new Rooms();
+		                room.setRoomId(roomSet.getLong("room_id"));
+		                room.setRoomType(RoomType.valueOf(roomSet.getString("room_type").toUpperCase()));
+		                room.setPricePerNight(roomSet.getDouble("price_per_night"));
+		                room.setNoOfBeds(roomSet.getInt("no_of_beds"));
+		                room.setDescription(roomSet.getString("description"));
+		                room.setBedType(BedType.valueOf(roomSet.getString("bed_type").toUpperCase()));
+		                room.setRoomArea(roomSet.getDouble("room_area"));
+		                room.setAvailable(roomSet.getBoolean("is_available"));
+		                room.setFloorNumber(roomSet.getInt("floor_number"));
+		                room.setMaxOccupancy(roomSet.getInt("max_occupancy"));
+		                room.setRoomImage(roomSet.getString("room_image"));
+		                room.setRoomNumber(roomSet.getString("room_number"));
+		                rooms.add(room);
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		    return rooms;
+		}
+		
+		
+		
+		public int getAvailableRooms() {
+	        int availableRooms = 0;
+	        String query = "SELECT COUNT(*) FROM rooms WHERE is_available = 1";
+	        if (conn != null) {
+	            try {
+	                PreparedStatement ps = conn.prepareStatement(query);
+	                ResultSet rs = ps.executeQuery();
+	                if (rs.next()) {
+	                    availableRooms = rs.getInt(1);
+	                }
+	                rs.close();
+	                ps.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        return availableRooms;
+	    }
+
+	    public int getUnavailableRooms() {
+	        int unavailableRooms = 0;
+	        String query = "SELECT COUNT(*) FROM rooms WHERE is_available = 0";
+	        if (conn != null) {
+	            try {
+	                PreparedStatement ps = conn.prepareStatement(query);
+	                ResultSet rs = ps.executeQuery();
+	                if (rs.next()) {
+	                    unavailableRooms = rs.getInt(1);
+	                }
+	                rs.close();
+	                ps.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        return unavailableRooms;
+	    }
+	    
+	    
+	    public ArrayList<Bookings> getPendingBookingsListDesc() {
+	        ArrayList<Bookings> bookings = new ArrayList<>();
+	        String sql = "SELECT * FROM bookings WHERE status = 'pending' ORDER BY created_at DESC";
+
+	        if (conn != null) {
+	            try {
+	                PreparedStatement ps = conn.prepareStatement(sql);
+	                ResultSet rs = ps.executeQuery();
+
+	                while (rs.next()) {
+	                    Bookings b = new Bookings();
+	                    b.setBookingId(rs.getLong("booking_id"));
+	                    b.setStatus(rs.getString("status"));
+	                    b.setUserId(rs.getLong("user_id"));
+	                    b.setRoomId(rs.getLong("room_id"));
+	                    b.setCheckInDate(rs.getDate("check_in_date"));
+	                    b.setCheckOutDate(rs.getDate("check_out_date"));
+	                    b.setNumberOfGuests(rs.getInt("number_of_guests"));
+	                    b.setCreatedAt(rs.getTimestamp("created_at"));
+	                    
+	                    bookings.add(b);
+	                }
+
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+
+	        return bookings;
+	    }
+
+
 }

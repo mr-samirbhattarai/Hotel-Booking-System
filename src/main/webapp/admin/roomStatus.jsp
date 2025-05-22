@@ -6,23 +6,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manage Rooms | Hotel RockStar</title>
+  <title>Room Status | Hotel RockStar</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manageRooms.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/roomStatus.css" />
+
 </head>
 <body>
-  <c:set var="activePage" value="manageRooms" scope="request" />
+  <c:set var="activePage" value="roomStatus" scope="request" />
   <jsp:include page="/admin/adminSidebar.jsp" />
 
-  <div class="manage-rooms">
+  <div class="room-status">
     <div class="content">
       <div class="header">
         <div>
-          <h2>Manage Rooms</h2>
-          <span class="subtitle">Available Rooms</span>
+          <h2>Hotel Rooms</h2>
+          <span class="subtitle">All hotels available rooms</span>
         </div>
         <div class="add-button">
-          <a href="${pageContext.request.contextPath}/admin/addRooms.jsp" class="add-btn">Add Room</a>
+          <a href="${pageContext.request.contextPath}/admin/addRooms.jsp" class="add-btn">View Booking</a>
         </div>
       </div>
 
@@ -39,12 +40,12 @@
         <thead>
           <tr>
             <th>Room No.</th>
+            <th>Room Image</th>
             <th>Room Type</th>
             <th>Max Occupancy</th>
-            <th>Beds</th>
-            <th>Price/Night</th>
             <th>Floor Number</th>
-            <th>Actions</th>
+            <th>Price/Night</th>
+            <th>Availability</th>
           </tr>
         </thead>
         <tbody>
@@ -53,19 +54,24 @@
               <c:forEach var="room" items="${rooms}">
                 <tr>
                   <td>${room.roomNumber}</td>
-                  <td>${room.roomType}</td>
-                  <td>${room.maxOccupancy}</td>
-                  <td>${room.noOfBeds}</td>
-                  <td>Rs. ${room.pricePerNight}</td>
-                  <td>Floor ${room.floorNumber}</td>
                   <td>
-                    <div class="button-container">
-                      <a href="${pageContext.request.contextPath}/GetRoomById?page=updateRoom&roomId=${room.roomId}" 
-                         class="action-btn update-btn">Update</a>
-                      <a href="${pageContext.request.contextPath}/DeleteRoomController?roomId=${room.roomId}" 
-                         class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this room?');">Delete</a>
-                    </div>
-                  </td>
+                		<img src="${pageContext.request.contextPath}/photos/${room.roomImage}" class="room-image" alt="${room.roomType} image">
+				  </td>
+                  <td style="padding-left: 25px;">${room.roomType}</td>
+				  <td style="padding-left: 60px;">${room.maxOccupancy}</td>
+                  <td style="padding-left: 40px;">Floor ${room.floorNumber}</td>                  
+                  <td style="padding-left: 25px;">Rs. ${room.pricePerNight}</td>
+                  <td>
+				    <% 
+				        com.hotelbookingsystem.model.Rooms room = (com.hotelbookingsystem.model.Rooms) pageContext.getAttribute("room");
+				        boolean available = room.isAvailable();
+				        String statusClass = available ? "status-available" : "status-occupied";
+				        String statusText = available ? "Available" : "Occupied";
+				    %>
+				    <span class="status-btn <%=statusClass%>">
+				        <%=statusText%>
+				    </span>
+				</td>
                 </tr>
               </c:forEach>
             </c:when>

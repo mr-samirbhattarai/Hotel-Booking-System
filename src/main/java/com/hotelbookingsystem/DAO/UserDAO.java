@@ -47,6 +47,7 @@ public class UserDAO {
     }
 
     // Gets all users from the database
+ // Gets all users from the database
     public ArrayList<Users> getAllUsers() {
         ArrayList<Users> users = new ArrayList<>();
         String query = "SELECT * FROM users";
@@ -69,11 +70,32 @@ public class UserDAO {
                     user.setUpdatedAt(userSet.getTimestamp("updated_at"));
                     users.add(user);
                 }
+                userSet.close();
+                ps.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         return users;
+    }
+
+    public int getTotalUsers() {
+        int totalUsers = 0;
+        String query = "SELECT COUNT(*) FROM users";
+        if (conn != null) {
+            try {
+                PreparedStatement ps = conn.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    totalUsers = rs.getInt(1);
+                }
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalUsers;
     }
     
     public ArrayList<Users> getAllCustomers() throws SQLException{

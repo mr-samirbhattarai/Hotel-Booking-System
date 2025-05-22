@@ -21,7 +21,8 @@ import com.hotelbookingsystem.utility.EncryptDecrypt;
 public class RegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Get form parameters
         String firstname = request.getParameter("firstname");
@@ -149,17 +150,23 @@ public class RegisterController extends HttpServlet {
             request.getRequestDispatcher("access/register.jsp").forward(request, response);
         } finally {
             try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                // Assume DatabaseConnection handles connection pooling
-                // If manual closing is needed, uncomment: if (conn != null) conn.close();
+                if (rs != null) {
+					rs.close();
+				}
+                if (ps != null)
+				 {
+					ps.close();
+					// Assume DatabaseConnection handles connection pooling
+					// If manual closing is needed, uncomment: if (conn != null) conn.close();
+				}
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Clear session attributes on GET to start fresh
         HttpSession session = request.getSession();

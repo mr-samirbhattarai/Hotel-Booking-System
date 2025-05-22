@@ -1,76 +1,94 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Dashboard | Hotel RockStar</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />    
-      <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />   
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css" />
+     
 </head>
 <body>
 <c:set var="activePage" value="dashboard" scope="request" />
-   	<jsp:include page="/admin/adminSidebar.jsp" />
-    <section class="dashboard">
-      <div class="dash-content">
-        <div class="title">
-          <span class="material-symbols-rounded">dashboard</span>
-          <span class="text">Dashboard</span>
+    <jsp:include page="/admin/adminSidebar.jsp" />
+   
+    <div class="dashboard">
+        <div class="dashboard-main">
+            <div class="heading-div">
+                <h1>Today's Overview</h1>
+                <div class="subtitle">Hotel Summary</div>
+                <div class="metrics">
+                    <div class="metric-card">
+                        <span class="material-symbols-rounded">groups</span>
+                        <div class="value">${totalUsers}</div>
+                        <div class="label">Total Users</div>
+                        <div class="change">+3% from yesterday</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="material-symbols-rounded">hotel</span>
+                        <div class="value">${availableRooms}</div>
+                        <div class="label">Available Rooms</div>
+                        <div class="change">+2% from yesterday</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="material-symbols-rounded">hotel</span>
+                        <div class="value">${unavailableRooms}</div>
+                        <div class="label">Unavailable Rooms</div>
+                        <div class="change">+5% from yesterday</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="material-symbols-rounded">book</span>
+                        <div class="value">${pendingBookings}</div>
+                        <div class="label">Pending Bookings</div>
+                        <div class="change">+4% from yesterday</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-bookings">
+			    <h2>Recent Pending Bookings</h2>
+			    <table class="custom-table">
+			        <thead>
+			            <tr>
+			                <th>#</th>
+			                <th>Booking ID</th>
+			                <th>User ID</th>
+			                <th>Room ID</th>
+			                <th>Check-In</th>
+			                <th>Check-Out</th>
+			                <th>Guests</th>
+			                <th>Created At</th>
+			                <th>Status</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <c:forEach var="booking" items="${pendingBookingList}" varStatus="status">
+			                <tr>
+			                    <td>${status.index + 1}</td>
+			                    <td>${booking.bookingId}</td>
+			                    <td>${booking.userId}</td>
+			                    <td>${booking.roomId}</td>
+			                    <td>${booking.checkInDate}</td>
+			                    <td>${booking.checkOutDate}</td>
+			                    <td>${booking.numberOfGuests}</td>
+			                    <td>${booking.createdAt}</td>
+			                    <td><span class="status-badge">${booking.status}</span></td>
+			                </tr>
+			            </c:forEach>
+			            <c:if test="${empty pendingBookingList}">
+			                <tr>
+			                    <td colspan="9" class="no-bookings">No recent pending bookings found.</td>
+			                </tr>
+			            </c:if>
+			        </tbody>
+			    </table>
+			</div>
+			            
         </div>
-
-        <div class="container">
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="card-box box1">
-                <span class="material-symbols-rounded">groups</span>
-                <div class="text">Total Users</div>
-                <div class="number">11</div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card-box box2">
-                <span class="material-symbols-rounded">notifications</span>
-                <div class="text">Booking Pending</div>
-                <div class="number">5</div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card-box box3">
-                <span class="material-symbols-rounded">door_open</span>
-                <div class="text">Available Rooms</div>
-                <div class="number">4</div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card-box box4">
-                <span class="material-symbols-rounded">hotel</span>
-                <div class="text">Occupied Rooms</div>
-                <div class="number">6</div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card-box box5">
-                <span class="material-symbols-rounded">rate_review</span>
-                <div class="text">Customer's Review</div>
-                <div class="number">2</div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card-box box6">
-                <span class="material-symbols-rounded">bookmark_added</span>
-                <div class="text">Total Booking</div>
-                <div class="number">2</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
 </body>
 </html>

@@ -22,7 +22,7 @@
           <span class="subtitle">Here, you can enter new rooms details!</span>
         </div>
         <div class="back-button">
-  		<a href="${pageContext.request.contextPath}/ManageRoomsController?page=viewRoomsForAdmin" class="back-btn">Back</a>
+  		<a href="${pageContext.request.contextPath}/roomDetails?page=manageRooms" class="back-btn">Back</a>
         </div>
       </div>
 	  <!-- For success message -->

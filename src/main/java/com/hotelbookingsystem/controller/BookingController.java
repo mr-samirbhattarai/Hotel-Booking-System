@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Random;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +38,8 @@ public class BookingController extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user_id") == null) {
@@ -49,13 +49,14 @@ public class BookingController extends HttpServlet {
 
         Integer userId = (Integer) session.getAttribute("user_id");
         Users user = userDAO.getUserById(userId);
-        List<Rooms> rooms = roomDAO.getAllRooms();
+        ArrayList<Rooms> rooms = roomDAO.getAllRooms();
         request.setAttribute("user", user);
         request.setAttribute("rooms", rooms);
         request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user_id") == null) {
@@ -64,61 +65,105 @@ public class BookingController extends HttpServlet {
         }
 
         Integer userId = (Integer) session.getAttribute("user_id");
-        String phoneNo = request.getParameter("phoneNo");
-        String address = request.getParameter("address");
-        String gender = request.getParameter("gender");
-        String dob = request.getParameter("dob");
-        String checkInDate = request.getParameter("checkInDate");
-        String checkOutDate = request.getParameter("checkOutDate");
+
+        // Fetch user info and validate profile
+        Users user = userDAO.getUserById(userId);
+        if (user.getPhoneNo() == null || user.getPhoneNo().isEmpty() ||
+            user.getGender() == null || user.getGender().isEmpty() ||
+            user.getAddress() == null || user.getAddress().isEmpty() ||
+            user.getDob() == null) {
+        	request.setAttribute("user", user);
+        	request.getRequestDispatcher("/customer/profile.jsp").forward(request, response);
+        	return;
+        }
+
+        // Retrieve form data
+        String checkInDateStr = request.getParameter("checkInDate");
+        String checkOutDateStr = request.getParameter("checkOutDate");
+
+        java.sql.Date checkInDate;
+        java.sql.Date checkOutDate;
+        try {
+            checkInDate = Date.valueOf(checkInDateStr);
+            checkOutDate = Date.valueOf(checkOutDateStr);
+        } catch (IllegalArgumentException e) {
+            request.setAttribute("error", "Invalid date format.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+            return;
+        }
+
+        // Validate date logic
+        Date today = new Date(System.currentTimeMillis());
+        if (checkInDate.before(today)) {
+            request.setAttribute("error", "Check-in date cannot be in the past.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+            return;
+        }
+
+        long difference = checkOutDate.getTime() - checkInDate.getTime();
+        if (difference < 24 * 60 * 60 * 1000) { // less than 1 day
+            request.setAttribute("error", "Checkout date must be at least 1 day after check-in.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+            return;
+        }
+
+        // Validate guest count
         int numberOfGuests;
         try {
             numberOfGuests = Integer.parseInt(request.getParameter("numberOfGuests"));
         } catch (NumberFormatException e) {
-            request.setAttribute("error", "Invalid number of guests");
-            request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
+            request.setAttribute("error", "Invalid number of guests.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
             return;
         }
 
+        // Room validation
+        String roomIdStr = request.getParameter("roomId");
+        if (roomIdStr == null || roomIdStr.isEmpty()) {
+            request.setAttribute("error", "Room ID is missing in the request.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+            return;
+        }
+
+        long roomId;
         try {
-            // Fetch a room ID from the database
-            List<Rooms> rooms = roomDAO.getAllRooms();
-            if (rooms == null || rooms.isEmpty()) {
-                request.setAttribute("error", "No rooms available in the database");
-                request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
-                return;
-            }
-            // Select a random room
-            Random random = new Random();
-            long roomId = rooms.get(random.nextInt(rooms.size())).getRoomId();
-            System.out.println("Selected roomId: " + roomId);
+            roomId = Long.parseLong(roomIdStr);
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid room ID.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+            return;
+        }
 
-            // Update user profile
-            Users user = userDAO.getUserById(userId);
-            if (phoneNo != null && !phoneNo.isEmpty()) user.setPhoneNo(phoneNo);
-            if (address != null && !address.isEmpty()) user.setAddress(address);
-            if (gender != null && !gender.isEmpty()) user.setGender(gender);
-            if (dob != null && !dob.isEmpty()) user.setDob(Date.valueOf(dob));
-            userDAO.updateUserProfile(user);
+        Rooms room = roomDAO.getRoomById(roomId);
+        if (room == null) {
+            request.setAttribute("error", "Selected room does not exist.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+            return;
+        }
+        
+        boolean isAvailable = bookingDAO.isRoomAvailable(roomId, checkInDate, checkOutDate);
+        if (!isAvailable) {
+            request.setAttribute("error", "The selected room is not available for the chosen dates.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
+            return;
+        }
 
-            // Create booking
-            Bookings booking = new Bookings();
-            booking.setStatus("pending");
-            booking.setUserId(userId.longValue());
-            booking.setRoomId(roomId); // Set the roomId from the database
-            booking.setCheckInDate(Date.valueOf(checkInDate));
-            booking.setCheckOutDate(Date.valueOf(checkOutDate));
-            booking.setNumberOfGuests(numberOfGuests);
-            booking.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        // Create booking
+        Bookings booking = new Bookings();
+        booking.setStatus("pending");
+        booking.setUserId(userId.longValue());
+        booking.setRoomId(roomId);
+        booking.setCheckInDate(checkInDate);
+        booking.setCheckOutDate(checkOutDate);
+        booking.setNumberOfGuests(numberOfGuests);
+        booking.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
-            if (bookingDAO.addNewBooking(booking)) {
-                response.sendRedirect("BookingHistory");
-            } else {
-                request.setAttribute("error", "Failed to create booking");
-                request.getRequestDispatcher("customer/booking.jsp").forward(request, response);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error");
+        if (bookingDAO.addNewBooking(booking)) {
+            response.sendRedirect("BookingHistory");
+        } else {
+            request.setAttribute("error", "Failed to create booking.");
+            request.getRequestDispatcher("/customer/booking.jsp").forward(request, response);
         }
     }
+
 }

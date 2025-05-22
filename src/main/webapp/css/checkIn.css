@@ -1,0 +1,198 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.check-in {
+  margin-left: 300px; /* Adjust based on sidebar width */
+  padding: 10px;
+  background-color: #fff;
+}
+
+.content {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.header .subtitle {
+  font-size: 14px;
+  color: #00c4b4;
+}
+
+.add-btn {
+  background-color: #151A2D;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 15px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: transparent;
+  color: #151A2D;
+  border: 2px solid #151A2D;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #b5b7c0;
+  padding: 15px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+td {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #292d32;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+tbody tr {
+  border-bottom: 1px solid #EEEEEE;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.action-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.update-btn {
+  background-color: #e0f7fa;
+  color: #00acc1;
+}
+
+.update-btn:hover {
+  background-color: #00acc1;
+  color: #fff;
+}
+
+.delete-btn {
+  background-color: #ffebee;
+  color: #ef5350;
+}
+
+.delete-btn:hover {
+  background-color: #ef5350;
+  color: #fff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+  .check-in {
+    margin-left: 200px;
+    padding: 15px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .check-in {
+    margin-left: 100px;
+    padding: 10px;
+  }
+
+  th, td {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .action-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .check-in {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .header .add-button {
+    width: 100%;
+  }
+
+  .add-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  th, td {
+    font-size: 12px;
+    padding: 8px;
+    white-space: nowrap;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .action-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

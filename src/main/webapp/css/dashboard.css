@@ -1,94 +1,74 @@
-@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
 .dashboard {
-	position: relative;
-	top: 100px;
-	left: 270px;
-	width: calc(100% - 270px);
-	min-height: calc(100vh - 100px);
-	padding: 20px 30px;
-	box-sizing: border-box;
+    margin-left: 300px;
+  	padding: 10px;
+  	background-color: #fff;
 }
 
-.dash-content {
-	width: 80%;
-	margin: 0 auto;
+
+
+
+.dashboard-main {
+    background: #F0F0F0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px;
 }
 
-.dash-content .title {
-	display: flex;
-	align-items: center;
-	margin-bottom: 40px;
+.heading-div {
+    margin-bottom: 20px;
 }
 
-.dash-content .title .material-symbols-rounded {
-	background-color: #0e4bf1;
-	color: white;
-	padding: 10px;
-	border-radius: 6px;
-	font-size: 30px;
+.heading-div h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+.heading-div .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+.metrics {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.dash-content .title .text {
-	font-size: 24px;
-	font-weight: 500;
-	margin-left: 15px;
-	color: #000;
+.metric-card {
+    background: #151A2D;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.card-box {
-	padding: 20px;
-	border-radius: 12px;
-	color: #000;
-	text-align: center;
-	transition: 0.3s ease;
+.metric-card .material-symbols-rounded {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #4CAF50;
 }
-
-.card-box:hover {
-	transform: scale(1.03);
+.metric-card .value {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px 0;
 }
-
-.card-box .material-symbols-rounded {
-	font-size: 36px;
-	margin-bottom: 10px;
+.metric-card .label {
+    font-size: 14px;
+    opacity: 0.8;
 }
-
-.text {
-	font-size: 18px;
-	font-weight: 500;
-}
-
-.number {
-	font-size: 32px;
-	font-weight: bold;
-}
-
-.box1 {
-	background-color: #4da3ff;
-	border: 2px solid #0e4bf1;
-}
-
-.box2 {
-	background-color: #ffe6ac;
-	border: 2px solid #c89e3d;
-}
-
-.box3 {
-	background-color: #e7d1fc;
-	border: 2px solid #845aac;
-}
-
-.box4 {
-	background-color: #d1e4fc;
-	border: 2px solid #5c7ca3;
-}
-
-.box5 {
-	background-color: #b9375e;
-	border: 2px solid #ff0303;
-}
-
-.box6 {
-	background-color: #76a797;
-	border: 2px solid #efa11b;
+.metric-card .change {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #4CAF50;
 }
