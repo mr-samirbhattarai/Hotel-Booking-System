@@ -35,7 +35,7 @@
 
 				<li class="nav-item"><a
 					class="nav-link ${activePage == 'dashboard' ? 'active' : ''}"
-					href="${pageContext.request.contextPath}/admin/dashboard.jsp">
+					href="${pageContext.request.contextPath}/dashboard">
 						<span class="material-symbols-rounded">dashboard</span> <span
 						class="nav-label">Dashboard</span>
 				</a></li>

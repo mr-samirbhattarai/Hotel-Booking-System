@@ -1,94 +1,179 @@
-@charset "UTF-8";
+@import
+	url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap")
+	;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Inter", sans-serif;
+}
+
+body {
+	background-color: #f5f7fa;
+}
 
 .dashboard {
-	position: relative;
-	top: 100px;
-	left: 270px;
-	width: calc(100% - 270px);
-	min-height: calc(100vh - 100px);
-	padding: 20px 30px;
-	box-sizing: border-box;
+	margin-left: 300px;
+	padding: 30px;
+	background-color: #f5f7fa;
+	min-height: 100vh;
 }
 
-.dash-content {
-	width: 80%;
-	margin: 0 auto;
-}
-
-.dash-content .title {
-	display: flex;
-	align-items: center;
-	margin-bottom: 40px;
-}
-
-.dash-content .title .material-symbols-rounded {
-	background-color: #0e4bf1;
-	color: white;
-	padding: 10px;
-	border-radius: 6px;
-	font-size: 30px;
-}
-
-.dash-content .title .text {
-	font-size: 24px;
-	font-weight: 500;
-	margin-left: 15px;
-	color: #000;
-}
-
-.card-box {
-	padding: 20px;
+.dashboard-main {
+	background: #ffffff;
 	border-radius: 12px;
-	color: #000;
-	text-align: center;
-	transition: 0.3s ease;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+	padding: 30px;
 }
 
-.card-box:hover {
-	transform: scale(1.03);
+.heading-div {
+	margin-bottom: 30px;
 }
 
-.card-box .material-symbols-rounded {
-	font-size: 36px;
-	margin-bottom: 10px;
+.heading-div h1 {
+	font-size: 28px;
+	font-weight: 700;
+	margin-bottom: 8px;
+	color: #1a202c;
 }
 
-.text {
-	font-size: 18px;
+.heading-div .subtitle {
+	font-size: 14px;
 	font-weight: 500;
+	color: #6b7280;
+	margin-bottom: 24px;
 }
 
-.number {
-	font-size: 32px;
-	font-weight: bold;
+.metrics {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 20px;
 }
 
-.box1 {
-	background-color: #4da3ff;
-	border: 2px solid #0e4bf1;
+.metric-card {
+	background: linear-gradient(145deg, #1f2a44, #151a2d);
+	color: #ffffff;
+	border-radius: 12px;
+	padding: 20px;
+	text-align: center;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.box2 {
-	background-color: #ffe6ac;
-	border: 2px solid #c89e3d;
+.metric-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.box3 {
-	background-color: #e7d1fc;
-	border: 2px solid #845aac;
+.metric-card .material-symbols-rounded {
+	font-size: 28px;
+	margin-bottom: 12px;
+	color: #34d399;
 }
 
-.box4 {
-	background-color: #d1e4fc;
-	border: 2px solid #5c7ca3;
+.metric-card .value {
+	font-size: 24px;
+	font-weight: 600;
+	margin: 8px 0;
 }
 
-.box5 {
-	background-color: #b9375e;
-	border: 2px solid #ff0303;
+.metric-card .label {
+	font-size: 14px;
+	font-weight: 500;
+	opacity: 0.9;
 }
 
-.box6 {
-	background-color: #76a797;
-	border: 2px solid #efa11b;
+.metric-card .change {
+	font-size: 12px;
+	font-weight: 500;
+	margin-top: 8px;
+	color: #34d399;
+}
+
+.recent-bookings {
+	margin: 0;
+	background-color: #ffffff;
+	padding: 0;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+	overflow: hidden;
+}
+
+.recent-bookings h2 {
+	margin-bottom: 0;
+	padding: 20px 30px;
+	font-size: 22px;
+	font-weight: 600;
+	color: #1a202c;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+.custom-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+	color: #374151;
+}
+
+.custom-table th, .custom-table td {
+	padding: 14px 20px;
+	text-align: left;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+.custom-table th {
+	background-color: #f9fafb;
+	font-weight: 600;
+	color: #1f2a44;
+	text-transform: uppercase;
+	font-size: 12px;
+	letter-spacing: 0.05em;
+}
+
+.custom-table td {
+	font-weight: 400;
+}
+
+.custom-table tbody tr {
+	transition: background-color 0.2s ease;
+}
+
+.custom-table tbody tr:hover {
+	background-color: #f9fafb;
+}
+
+.custom-table tr:last-child td {
+	border-bottom: none;
+}
+
+.status-badge {
+	display: inline-block;
+	padding: 4px 12px;
+	border-radius: 12px;
+	font-size: 12px;
+	font-weight: 500;
+	text-transform: capitalize;
+}
+
+.status-badge.pending {
+	background-color: #fef3c7;
+	color: #d97706;
+}
+
+.status-badge.confirmed {
+	background-color: #d1fae5;
+	color: #059669;
+}
+
+.status-badge.cancelled {
+	background-color: #fee2e2;
+	color: #dc2626;
+}
+
+.no-bookings {
+	text-align: center;
+	font-style: italic;
+	color: #9ca3af;
+	padding: 20px;
 }

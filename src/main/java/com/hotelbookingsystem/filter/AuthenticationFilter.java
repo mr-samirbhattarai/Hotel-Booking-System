@@ -33,7 +33,7 @@ public class AuthenticationFilter implements Filter {
             String role = (String) session.getAttribute("role");
             String contextPath = req.getContextPath();
             if ("admin".equalsIgnoreCase(role)) {
-                res.sendRedirect(contextPath + "/admin/dashboard.jsp");
+                res.sendRedirect(contextPath + "/dashboard");
             } else if ("customer".equalsIgnoreCase(role)) {
                 res.sendRedirect(contextPath + "/customer/home.jsp");
             } else {

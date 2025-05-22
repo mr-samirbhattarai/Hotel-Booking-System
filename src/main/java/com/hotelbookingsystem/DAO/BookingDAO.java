@@ -196,5 +196,50 @@ public class BookingDAO {
 		}
 		return false;
 	}
+	
+	
+	public int getPendingBookings() {
+        int pendingBookings = 0;
+        String query = "SELECT COUNT(*) FROM bookings WHERE status = 'pending'";
+        if (conn != null) {
+            try {
+                PreparedStatement ps = conn.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    pendingBookings = rs.getInt(1);
+                }
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return pendingBookings;
+    }
+    
+    public ArrayList<Bookings> getPendingBookingsListDesc() {
+        ArrayList<Bookings> bookings = new ArrayList<>();
+        String query = "SELECT * FROM bookings WHERE status = 'pending' ORDER BY created_at DESC LIMIT 5";
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Bookings b = new Bookings();
+                b.setBookingId(rs.getLong("booking_id"));
+                b.setStatus(rs.getString("status"));
+                b.setUserId(rs.getLong("user_id"));
+                b.setRoomId(rs.getLong("room_id"));
+                b.setCheckInDate(rs.getDate("check_in_date"));
+                b.setCheckOutDate(rs.getDate("check_out_date"));
+                b.setNumberOfGuests(rs.getInt("number_of_guests"));
+                b.setCreatedAt(rs.getTimestamp("created_at"));
+                bookings.add(b);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bookings;
+    }
 
 }

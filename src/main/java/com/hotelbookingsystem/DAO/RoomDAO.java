@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.hotelbookingsystem.database.DatabaseConnection;
+import com.hotelbookingsystem.model.Bookings;
 import com.hotelbookingsystem.model.Rooms;
 import com.hotelbookingsystem.model.Rooms.BedType;
 import com.hotelbookingsystem.model.Rooms.RoomType;
@@ -204,6 +205,77 @@ public class RoomDAO {
 			    }
 			    return rooms;
 			}
+			
+			
+			public int getAvailableRooms() {
+		        int availableRooms = 0;
+		        String query = "SELECT COUNT(*) FROM rooms WHERE is_available = 1";
+		        if (conn != null) {
+		            try {
+		                PreparedStatement ps = conn.prepareStatement(query);
+		                ResultSet rs = ps.executeQuery();
+		                if (rs.next()) {
+		                    availableRooms = rs.getInt(1);
+		                }
+		                rs.close();
+		                ps.close();
+		            } catch (SQLException e) {
+		                e.printStackTrace();
+		            }
+		        }
+		        return availableRooms;
+		    }
+
+		    public int getUnavailableRooms() {
+		        int unavailableRooms = 0;
+		        String query = "SELECT COUNT(*) FROM rooms WHERE is_available = 0";
+		        if (conn != null) {
+		            try {
+		                PreparedStatement ps = conn.prepareStatement(query);
+		                ResultSet rs = ps.executeQuery();
+		                if (rs.next()) {
+		                    unavailableRooms = rs.getInt(1);
+		                }
+		                rs.close();
+		                ps.close();
+		            } catch (SQLException e) {
+		                e.printStackTrace();
+		            }
+		        }
+		        return unavailableRooms;
+		    }
+		    
+		    
+		    public ArrayList<Bookings> getPendingBookingsListDesc() {
+		        ArrayList<Bookings> bookings = new ArrayList<>();
+		        String sql = "SELECT * FROM bookings WHERE status = 'pending' ORDER BY created_at DESC";
+
+		        if (conn != null) {
+		            try {
+		                PreparedStatement ps = conn.prepareStatement(sql);
+		                ResultSet rs = ps.executeQuery();
+
+		                while (rs.next()) {
+		                    Bookings b = new Bookings();
+		                    b.setBookingId(rs.getLong("booking_id"));
+		                    b.setStatus(rs.getString("status"));
+		                    b.setUserId(rs.getLong("user_id"));
+		                    b.setRoomId(rs.getLong("room_id"));
+		                    b.setCheckInDate(rs.getDate("check_in_date"));
+		                    b.setCheckOutDate(rs.getDate("check_out_date"));
+		                    b.setNumberOfGuests(rs.getInt("number_of_guests"));
+		                    b.setCreatedAt(rs.getTimestamp("created_at"));
+		                    
+		                    bookings.add(b);
+		                }
+
+		            } catch (SQLException e) {
+		                e.printStackTrace();
+		            }
+		        }
+
+		        return bookings;
+		    }
 	
 	
 }

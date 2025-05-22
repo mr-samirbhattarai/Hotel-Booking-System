@@ -238,4 +238,27 @@ public class UserDAO {
             return rowsAffected > 0;
         }
     }
+    
+    
+    public int getTotalUsers() {
+        int totalUsers = 0;
+        String query = "SELECT COUNT(*) FROM users";
+        if (conn != null) {
+            try {
+                PreparedStatement ps = conn.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    totalUsers = rs.getInt(1);
+                }
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalUsers;
+    }
+    
+    
+    
 }
