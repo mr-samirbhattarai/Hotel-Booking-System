@@ -23,7 +23,7 @@
           <span class="subtitle">All hotels available rooms</span>
         </div>
         <div class="add-button">
-          <a href="${pageContext.request.contextPath}/admin/addRooms.jsp" class="add-btn">View Booking</a>
+          <a href="${pageContext.request.contextPath}/CheckInController" class="add-btn ${activePage == 'checkings' ? 'active' : ''}">View Booking</a>
         </div>
       </div>
 

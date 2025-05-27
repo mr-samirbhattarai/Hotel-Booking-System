@@ -76,7 +76,7 @@
 								alt="Image not available">
 						</div>
 						<div class="room-body">
-							<h5 class="room-type room-head">${room.roomType}TypeRoom</h5>
+							<h5 class="room-type room-head">${room.roomType} Type Room</h5>
 							<p class="room-desc">${room.description}</p>
 							<p class="room-price">Rs. ${room.pricePerNight}</p>
 							<div class="button-wrapper">

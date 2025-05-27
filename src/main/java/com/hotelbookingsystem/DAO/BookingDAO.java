@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import com.hotelbookingsystem.database.DatabaseConnection;
 import com.hotelbookingsystem.model.Bookings;
+import com.hotelbookingsystem.model.Rooms;
+import com.hotelbookingsystem.model.Users;
 
 public class BookingDAO {
 	private Connection conn;
@@ -241,5 +243,163 @@ public class BookingDAO {
 
         return bookings;
     }
+    
+    public ArrayList<Bookings> getAllPendingBookings() throws SQLException {
+        ArrayList<Bookings> list = new ArrayList<>();
 
+        String sql = "SELECT b.booking_id, b.status, b.check_in_date, b.check_out_date, " +
+                     "b.number_of_guests, b.created_at, " +
+                     "u.user_id, u.firstname, u.lastname, u.phoneNo, " +
+                     "r.room_id, r.room_number, r.room_type " +
+                     "FROM bookings b " +
+                     "JOIN users u ON b.user_id = u.user_id " +
+                     "JOIN rooms r ON b.room_id = r.room_id " +
+                     "WHERE b.status = 'pending'";
+
+        if (conn != null) {
+            try {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    Bookings booking = new Bookings();
+
+                    booking.setBookingId(rs.getInt("booking_id"));
+                    booking.setStatus(rs.getString("status"));
+                    booking.setCheckInDate(rs.getDate("check_in_date"));
+                    booking.setCheckOutDate(rs.getDate("check_out_date"));
+                    booking.setNumberOfGuests(rs.getInt("number_of_guests"));
+                    booking.setCreatedAt(rs.getTimestamp("created_at"));
+
+                    // Set userId directly
+                    booking.setUserId(rs.getInt("user_id"));
+
+                    // Create and set Users object
+                    Users user = new Users();
+                    user.setUserId(rs.getInt("user_id"));
+                    user.setFirstName(rs.getString("firstname"));
+                    user.setLastName(rs.getString("lastname"));
+                    user.setPhoneNo(rs.getString("phoneNo"));
+                    booking.setUser(user);
+
+                    // Set roomId directly
+                    booking.setRoomId(rs.getInt("room_id"));
+
+                    // Create and set Rooms object
+                    Rooms room = new Rooms();
+                    room.setRoomId(rs.getInt("room_id"));
+                    room.setRoomNumber(rs.getString("room_number"));
+                    room.setRoomType(Rooms.RoomType.valueOf(rs.getString("room_type").toUpperCase()));
+                    booking.setRoom(room);
+
+                    list.add(booking);
+                }
+
+            } catch (SQLException e) {
+                throw e;
+            }
+        }
+
+        return list;
+    }
+    
+    public void updateCheckInStatus(long bookingId) throws SQLException {
+        String updateBookingSQL = "UPDATE bookings SET status = 'check_in' WHERE booking_id = ?";
+        String updateRoomSQL = "UPDATE rooms SET is_available = 0 WHERE room_id = " +
+                              "(SELECT room_id FROM bookings WHERE booking_id = ?)";
+
+        if (conn != null) {
+            try {
+                conn.setAutoCommit(false); // Start transaction
+                // Update booking status
+                try (PreparedStatement psBooking = conn.prepareStatement(updateBookingSQL)) {
+                    psBooking.setLong(1, bookingId);
+                    psBooking.executeUpdate();
+                }
+                // Update room availability
+                try (PreparedStatement psRoom = conn.prepareStatement(updateRoomSQL)) {
+                    psRoom.setLong(1, bookingId);
+                    psRoom.executeUpdate();
+                }
+                conn.commit(); // Commit transaction
+            } catch (SQLException e) {
+                conn.rollback(); // Rollback on error
+                e.printStackTrace();
+                throw new SQLException("Failed to update check-in status", e);
+            } finally {
+                conn.setAutoCommit(true); // Reset auto-commit
+            }
+        } else {
+            throw new SQLException("Database connection is null");
+        }
+    }
+
+        
+    public ArrayList<Bookings> searchPendingBookingsByCustomerName(String searchName) throws SQLException {
+        ArrayList<Bookings> list = new ArrayList<>();
+
+        String sql = "SELECT b.booking_id, b.status, b.check_in_date, b.check_out_date, " +
+                "b.number_of_guests, b.created_at, " +
+                "u.user_id, u.firstname, u.lastname, u.phoneNo, " +
+                "r.room_id, r.room_number, r.room_type " +
+                "FROM bookings b " +
+                "JOIN users u ON b.user_id = u.user_id " +
+                "JOIN rooms r ON b.room_id = r.room_id " +
+                "WHERE b.status = 'pending' AND " +
+                "(LOWER(u.firstname) LIKE ? OR LOWER(u.lastname) LIKE ?)";
+
+        if (conn != null) {
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                String searchPattern = "%" + searchName.toLowerCase() + "%";
+                ps.setString(1, searchPattern);
+                ps.setString(2, searchPattern);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                	while (rs.next()) {
+                        Bookings booking = new Bookings();
+
+                        booking.setBookingId(rs.getInt("booking_id"));
+                        booking.setStatus(rs.getString("status"));
+                        booking.setCheckInDate(rs.getDate("check_in_date"));
+                        booking.setCheckOutDate(rs.getDate("check_out_date"));
+                        booking.setNumberOfGuests(rs.getInt("number_of_guests"));
+                        booking.setCreatedAt(rs.getTimestamp("created_at"));
+
+                        // Set userId directly
+                        booking.setUserId(rs.getInt("user_id"));
+
+                        // Create and set Users object
+                        Users user = new Users();
+                        user.setUserId(rs.getInt("user_id"));
+                        user.setFirstName(rs.getString("firstname"));
+                        user.setLastName(rs.getString("lastname"));
+                        user.setPhoneNo(rs.getString("phoneNo"));
+                        booking.setUser(user);
+
+                        // Set roomId directly
+                        booking.setRoomId(rs.getInt("room_id"));
+
+                        // Create and set Rooms object
+                        Rooms room = new Rooms();
+                        room.setRoomId(rs.getInt("room_id"));
+                        room.setRoomNumber(rs.getString("room_number"));
+                        room.setRoomType(Rooms.RoomType.valueOf(rs.getString("room_type").toUpperCase()));
+                        booking.setRoom(room);
+
+                        list.add(booking);
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new SQLException("Failed to search pending bookings", e);
+            }
+        } else {
+            throw new SQLException("Database connection is null");
+        }
+
+        return list;
+    }
+
+
+    
 }

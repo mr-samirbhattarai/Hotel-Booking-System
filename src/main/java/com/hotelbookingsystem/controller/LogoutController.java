@@ -25,16 +25,16 @@ public class LogoutController extends HttpServlet {
         }
 
         // Explicitly delete JSESSIONID cookie
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("JSESSIONID".equals(cookie.getName())) {
-                    cookie.setMaxAge(0);       // Expire the cookie immediately
-                    cookie.setPath("/");       // Path must match the original cookie path
-                    response.addCookie(cookie);
-                }
-            }
-        }
+//        Cookie[] cookies = request.getCookies();
+//        if (cookies != null) {
+//            for (Cookie cookie : cookies) {
+//                if ("JSESSIONID".equals(cookie.getName())) {
+//                    cookie.setMaxAge(0);       // Expire the cookie immediately
+//                    cookie.setPath("/");       // Path must match the original cookie path
+//                    response.addCookie(cookie);
+//                }
+//            }
+//        }
 
         // Redirect to login page
         response.sendRedirect("access/login.jsp");

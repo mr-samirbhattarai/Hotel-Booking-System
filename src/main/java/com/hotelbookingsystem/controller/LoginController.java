@@ -31,6 +31,8 @@ public class LoginController extends HttpServlet {
 
         // Get session
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(60 * 60); // 1 hour in seconds
+
 
         // Store email for form repopulation
         session.setAttribute("email", email);
