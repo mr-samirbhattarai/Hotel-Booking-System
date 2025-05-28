@@ -42,8 +42,10 @@
 						href="${pageContext.request.contextPath}/RoomsController?page=viewRooms">Rooms</a>
 
 					</li>
-					<li><a href="${pageContext.request.contextPath}/customer/aboutUs.jsp">About Us</a></li>
-					<li><a href="${pageContext.request.contextPath}/customer/contactUs.jsp">Contact</a></li>
+					<li><a 
+						class="${activePage == 'about' ? 'active' : ''}"
+					href="${pageContext.request.contextPath}/customer/aboutUs.jsp">About Us</a></li>
+					<li><a class="${activePage == 'contactUs' ? 'active' : ''}" href="${pageContext.request.contextPath}/customer/contactUs.jsp">Contact</a></li>
 					<li><button class="mobile-login">Login</button></li>
 				</ul>
 				<span

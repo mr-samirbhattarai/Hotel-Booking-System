@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String DATABASE_NAME = "try_coursework";
+    private static final String DATABASE_NAME = "apt_coursework";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/" + DATABASE_NAME + "?useSSL=false&serverTimezone=UTC";

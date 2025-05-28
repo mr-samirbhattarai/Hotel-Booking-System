@@ -13,6 +13,13 @@ public class Bookings {
     private int numberOfGuests;
     private Timestamp createdAt;
 
+    
+    
+    private Users user;  // Composition
+    private Rooms room;  // Composition
+
+    
+    
     public long getBookingId() { return bookingId; }
     public void setBookingId(long bookingId) { this.bookingId = bookingId; }
     public String getStatus() { return status; }
@@ -29,4 +36,24 @@ public class Bookings {
     public void setNumberOfGuests(int numberOfGuests) { this.numberOfGuests = numberOfGuests; }
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    
+    
+ // Getter and Setter for user
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    // Getter and Setter for room
+    public Rooms getRoom() {
+        return room;
+    }
+
+    public void setRoom(Rooms room) {
+        this.room = room;
+    }
+
 }
