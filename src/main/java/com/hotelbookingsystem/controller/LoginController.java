@@ -118,9 +118,9 @@ public class LoginController extends HttpServlet {
             // Redirect based on user role
             String role = (String) session.getAttribute("role");
             if ("admin".equalsIgnoreCase(role)) {
-                response.sendRedirect("/admin/dashboard.jsp");
+            	response.sendRedirect("/admin/dashboard");
             } else {
-                response.sendRedirect("/customer/home.jsp");
+                request.getRequestDispatcher("customer/home.jsp").forward(request, response);
             }
             return;
         }
