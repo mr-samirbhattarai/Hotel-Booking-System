@@ -40,7 +40,6 @@
 						class="nav-label">Dashboard</span>
 				</a></li>
 
-
 				<li class="nav-item"><a
 					href="${pageContext.request.contextPath}/ManageRoomsController"
 					class="nav-link ${activePage == 'manageRooms' ? 'active' : ''}">
@@ -51,7 +50,7 @@
 				<li class="nav-item"><a
 					href="${pageContext.request.contextPath}/roomDetails?page=roomStatus"
 					class="nav-link ${activePage == 'roomStatus' ? 'active' : ''}">
-						<span class="material-symbols-rounded">settings</span> <span
+						<span class="material-symbols-rounded">hotel</span> <span
 						class="nav-label">Room Status</span>
 				</a></li>
 
@@ -60,6 +59,13 @@
 					class="nav-link ${activePage == 'viewCustomer' ? 'active' : ''}">
 						<span class="material-symbols-rounded">groups</span> <span
 						class="nav-label">Users Details</span>
+				</a></li>
+				
+				<li class="nav-item"><a
+					href="${pageContext.request.contextPath}/CheckInController"
+					class="nav-link ${activePage == 'checkings' ? 'active' : ''}">
+						<span class="material-symbols-rounded">login</span> <span
+						class="nav-label">Check-In</span>
 				</a></li>
 			</ul>
 
